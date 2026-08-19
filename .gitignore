@@ -1,0 +1,14 @@
+node_modules
+test-results
+tmp/
+web/static/
+
+# binaries
+/main
+
+# IDEs
+.idea
+
+.DS_Store
+.cache
+.gocache
