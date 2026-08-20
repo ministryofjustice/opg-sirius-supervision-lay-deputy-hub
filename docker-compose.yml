@@ -1,6 +1,6 @@
 services:
   lay-deputy-hub:
-    image: lay-deputy-hub:local
+    image: 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub
     build:
       context: .
       dockerfile: docker/Dockerfile
