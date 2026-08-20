@@ -1,8 +1,8 @@
 @use "node_modules/@ministryofjustice/frontend/moj/all" as *;
 @use "node_modules/govuk-frontend/dist/govuk" as *;
-$moj-assets-path: "/supervision/management-information/assets/";
+$moj-assets-path: "/supervision/lay-deputy-hub/assets/";
 
-.management-info {
+.lay-deputy-hub {
   .govuk-width-container,
   .moj-header__container,
   .moj-primary-navigation__container {
@@ -44,7 +44,7 @@ $moj-assets-path: "/supervision/management-information/assets/";
   }
 }
 
-.management-info-error {
+.lay-deputy-hub-error {
   .govuk-grid-column-two-thirds {
     padding-left: 45px;
     padding-bottom: 15px;

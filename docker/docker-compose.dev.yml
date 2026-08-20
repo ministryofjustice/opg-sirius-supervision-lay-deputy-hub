@@ -5,13 +5,6 @@ services:
     ports:
       - "1234:1234"
       - "2345:2345"
-    environment:
-      GOCACHE: /app/tmp/go-build
-      HOME: /app/tmp
-      XDG_CONFIG_HOME: /app/tmp/.config
-    tmpfs:
-      - /app/tmp:exec,mode=1777
-      - /tmp:exec,mode=1777
     volumes:
       - ./.air.toml:/app/.air.toml
       - ./go.mod:/app/go.mod
