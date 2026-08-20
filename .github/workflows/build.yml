@@ -103,8 +103,8 @@ jobs:
       - name: Configure OIDC AWS credentials for ECR push
         uses: aws-actions/configure-aws-credentials@d979d5b3a71173a29b74b5b88418bfda9437d885 # v6.1.1
         with:
-          role-to-assume: arn:aws:iam::311462405659:role/sirius-supervision-component-ecr-role
-          role-session-name: opg-sirius-supervision-lay-deputy-hub-github-actions-ecr-push
+          role-to-assume: arn:aws:iam::311462405659:role/sirius-component-ecr-role
+          role-session-name: opg-sirius-lay-deputy-hub-github-actions-ecr-push
           role-duration-seconds: 900
           aws-region: eu-west-1
 
