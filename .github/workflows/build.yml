@@ -78,7 +78,7 @@ jobs:
   push:
     name: "Push Images"
     runs-on: ubuntu-latest
-    needs: [ 'test', 'create-tag', 'build' ]
+    needs: [ 'identify', 'test', 'create-tag', 'build' ]
     env:
       TAG: ${{ needs.create-tag.outputs.tag }}
       TIMESTAMP: ${{ needs.create-tag.outputs.timestamp }}
@@ -129,10 +129,10 @@ jobs:
 
       - name: Push
         run: |
-          docker tag 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:latest 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirus-lay-deputy-hub:${{ needs.create-tag.outputs.tag }}
+          docker tag 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:latest 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:${{ needs.create-tag.outputs.tag }}
           if [ "${{ needs.identify.outputs.branch }}" == "main" ]; then
             # We want all of the tags pushed
-            docker tag 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:latest 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirus-lay-deputy-hub:main-${{ needs.create-tag.outputs.tag }}
+            docker tag 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:latest 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:main-${{ needs.create-tag.outputs.tag }}
             docker tag 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:latest 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub:main-${{ needs.create-tag.outputs.tag }}-${{ needs.create-tag.outputs.timestamp }}
             docker push --all-tags 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub
           else
