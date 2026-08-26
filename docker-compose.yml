@@ -1,0 +1,30 @@
+services:
+  lay-deputy-hub:
+    image: 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: prod
+    ports:
+      - "1234:1234"
+    read_only: false
+    environment:
+      PORT: 1234
+      PREFIX: /lay-deputy-hub
+      HEALTHCHECK: /lay-deputy-hub/health-check
+      SIRIUS_PUBLIC_URL: http://localhost:8080
+      BACKEND_URL: http://lay-deputy-hub-api:7171
+      JWT_SECRET: mysupersecrettestkeythatis128bits
+
+  yarn:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: asset-env
+    working_dir: /app
+    entrypoint: ["yarn"]
+    command: build
+    volumes:
+      - ./web:/app/web
+      - ./package.json:/app/package.json
+      - ./yarn.lock:/app/yarn.lock
