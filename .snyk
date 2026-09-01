@@ -1,3 +1,8 @@
 version: v1.25.1
-ignore: {}
-patch: {}
+ignore:
+    SNYK-GOLANG-GITHUBCOMGRPCECOSYSTEMGRPCGATEWAYV2RUNTIME-19432132:
+    - '*':
+        reason: Sirius Infrastructure Vuln
+        expires: 2026-10-01T16:20:15.051Z
+        created: 2026-09-01T16:20:15.054Z
+patch:
