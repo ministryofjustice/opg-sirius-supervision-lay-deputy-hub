@@ -166,7 +166,7 @@ jobs:
       - name: Configure OIDC AWS credentials for SSM
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
-          role-to-assume: arn:aws:iam::997462338508:role/sirius-component-ssm-role
+          role-to-assume: arn:aws:iam::997462338508:role/sirius-enterprise-component-ssm-role
           role-session-name: opg-sirus-lay-deputy-hub-github-actions-ssm-push
           role-duration-seconds: 900
           aws-region: eu-west-1
