@@ -1,6 +1,6 @@
 @use "node_modules/@ministryofjustice/frontend/moj/all" as *;
 @use "node_modules/govuk-frontend/dist/govuk" as *;
-$moj-assets-path: "/supervision/lay-deputy-hub/assets/";
+$moj-assets-path: "/lay-deputy-hub/assets/";
 
 .lay-deputy-hub {
   .govuk-width-container,
