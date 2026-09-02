@@ -167,14 +167,14 @@ jobs:
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
         with:
           role-to-assume: arn:aws:iam::997462338508:role/sirius-enterprise-component-ssm-role
-          role-session-name: opg-sirus-lay-deputy-hub-github-actions-ssm-push
+          role-session-name: opg-sirius-lay-deputy-hub-github-actions-ssm-push
           role-duration-seconds: 900
           aws-region: eu-west-1
 
       - name: Push Tag to Parameter Store
         run: |
-          aws ssm put-parameter --name "opg-sirus-supervision-lay-deputy-hub-latest-green-build" --type "String" --value "${{ needs.create-tag.outputs.tag }}" --overwrite --region=eu-west-1
+          aws ssm put-parameter --name "opg-sirius-supervision-lay-deputy-hub-latest-green-build" --type "String" --value "${{ needs.create-tag.outputs.tag }}" --overwrite --region=eu-west-1
 #
 #      - name: Trigger Dev Deploy
 #        shell: bash
-#        run: curl -u ${{ secrets.JENKINS_API_USER }}:${{ secrets.JENKINS_API_TOKEN }} "https://${{ secrets.JENKINS_URL }}/job/Sirius/job/Deploy_to_Development/build?token=${{ secrets.JENKINS_API_TOKEN_NAME }}&cause=Triggered+by+opg-sirus-supervision-lay-deputy-hub"
+#        run: curl -u ${{ secrets.JENKINS_API_USER }}:${{ secrets.JENKINS_API_TOKEN }} "https://${{ secrets.JENKINS_URL }}/job/Sirius/job/Deploy_to_Development/build?token=${{ secrets.JENKINS_API_TOKEN_NAME }}&cause=Triggered+by+opg-sirius-supervision-lay-deputy-hub"
