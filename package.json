@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "OPG sirius supervision lay deputy hub: Managed by opg-org-infra &amp; Terraform",
   "license": "MIT",
+  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
     "build": "yarn build:js && yarn build:css && yarn build:images",
     "build:js": "esbuild --bundle web/assets/main.js --minify --outfile=web/static/javascript/all.js --sourcemap --resolve-extensions=.mjs,.js",
