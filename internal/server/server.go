@@ -26,7 +26,7 @@ func New(logger *slog.Logger, templates map[string]*template.Template, envVars E
 	mux.Handle("/stylesheets/", static)
 	mux.HandleFunc("/", home)
 
-	return otelhttp.NewHandler(http.StripPrefix(envVars.Prefix, telemetry.Middleware(logger)(securityheaders.Use(mux))), "opg-sirius-lay-deputy-hub")
+	return otelhttp.NewHandler(http.StripPrefix(envVars.Prefix, telemetry.Middleware(logger)(securityheaders.Use(mux))), "supervision-lay-deputy-hub")
 }
 
 func homeHandler(logger *slog.Logger, tmpl *template.Template) http.HandlerFunc {
