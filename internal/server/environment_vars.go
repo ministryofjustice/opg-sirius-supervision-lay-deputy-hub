@@ -14,7 +14,7 @@ func NewEnvironmentVars() EnvironmentVars {
 		Port:            getEnv("PORT", "1234"),
 		WebDir:          getEnv("WEB_DIR", "web"),
 		SiriusPublicURL: getEnv("SIRIUS_PUBLIC_URL", ""),
-		Prefix:          getEnv("PREFIX", "/lay-deputy-hub"),
+		Prefix:          getEnv("PREFIX", ""),
 	}
 }
 
