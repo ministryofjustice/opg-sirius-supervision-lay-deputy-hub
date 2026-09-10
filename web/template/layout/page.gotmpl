@@ -20,14 +20,19 @@
         <link href="{{ prefix "/stylesheets/all.css" }}" rel="stylesheet">
     </head>
 
-    <body class="govuk-template__body lay-deputy-hub">
+    <body class="govuk-template__body lay-deputy-hub govuk-frontend-supported">
 
-    {{ template "header" . }}
+      <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
-    {{ block "main" . }}{{ end }}
+            {{ template "header" . }}
 
-    {{ template "footer" . }}
-    <script src="{{ prefix "/javascript/all.js" }}"></script>
-    </body>
+    <div class="govuk-width-container">
+            <main id="main-content" class="govuk-main-wrapper app-main-class govuk-!-padding-top-2" role="main">
+                {{ block "main" . }}{{ end }}
+            </main>
+        </div>
+        {{ template "footer" . }}
+        <script src="{{ prefix "/javascript/all.js" }}"></script>
+            </body>
     </html>
 {{ end }}

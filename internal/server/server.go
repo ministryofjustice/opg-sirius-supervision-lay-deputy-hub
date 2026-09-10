@@ -18,7 +18,7 @@ type Template interface {
 
 func New(logger *slog.Logger, templates map[string]*template.Template, envVars EnvironmentVars) http.Handler {
 	mux := http.NewServeMux()
-	home := homeHandler(logger, templates["home.gotmpl"])
+	home := homeHandler(logger, templates["deputy-details.gotmpl"])
 
 	static := http.FileServer(http.Dir(envVars.WebDir + "/static"))
 	mux.Handle("/assets/", static)
