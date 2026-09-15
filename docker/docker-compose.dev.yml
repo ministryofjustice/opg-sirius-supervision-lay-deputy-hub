@@ -14,6 +14,16 @@ services:
       - ./web/static:/app/web/static
       - ./web/template:/app/web/template
       - ./shared:/app/shared
+    environment:
+      SIRIUS_URL: http://json-server:3000
 
   yarn:
     command: watch
+
+  json-server:
+    build:
+      dockerfile: docker/json-server/Dockerfile
+    volumes:
+      - ./json-server/config:/app/config
+    ports:
+      - '3000:3000'

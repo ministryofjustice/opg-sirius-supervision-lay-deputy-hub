@@ -8,7 +8,7 @@
 
 ## Local development
 
-The application ran using the following commands. This hosts it on `localhost:1234/lay-deputy-hub/`
+The application ran using the following commands. This hosts it on `localhost:1234/lay-deputy-hub/1`
 To enable debugging and hot-reloading of Go files:
 
 `make dev-up`

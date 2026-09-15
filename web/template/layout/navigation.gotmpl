@@ -6,25 +6,30 @@
                     <li class="moj-sub-navigation__item">
                         <a
                             class="moj-sub-navigation__link"
-                            aria-current="page"
-                            href="#"
-                            >Deputy details</a
-                        >
+                            {{ if eq .Path (printf "/%d" .DeputyDetails.ID) }}
+                                aria-current="page"
+                            {{ end }}
+                            href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}"
+                        >Deputy details</a>
                     </li>
                     <li class="moj-sub-navigation__item">
                         <a
                             class="moj-sub-navigation__link"
-                            href="#"
-                            >Clients</a
-                        >
+                            {{ if eq .Path (printf "/%d/clients" .DeputyDetails.ID) }}
+                                aria-current="page"
+                            {{ end }}
+                            href="{{ prefix (printf "/%d/clients" .DeputyDetails.ID) }}"
+                        >Clients</a>
                     </li>
 
                     <li class="moj-sub-navigation__item">
                         <a
                             class="moj-sub-navigation__link"
-                            href="#"
-                            >Timeline</a
-                        >
+                            {{ if eq .Path (printf "/%d/timeline" .DeputyDetails.ID) }}
+                                aria-current="page"
+                            {{ end }}
+                            href="{{ prefix (printf "/%d/timeline" .DeputyDetails.ID) }}"
+                        >Timeline</a>
                     </li>
                 </ul>
             </nav>
