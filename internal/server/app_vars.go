@@ -34,7 +34,10 @@ type AppVarsClient interface {
 func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) (*AppVars, error) {
 	ctx := getContext(r)
 	group, groupCtx := errgroup.WithContext(ctx.Context)
-	deputyId, _ := strconv.Atoi(r.PathValue("id"))
+	deputyId, err := strconv.Atoi(r.PathValue("id"))
+	if err != nil {
+		return nil, StatusError(http.StatusBadRequest)
+	}
 
 	vars := AppVars{
 		Path:            r.URL.Path,

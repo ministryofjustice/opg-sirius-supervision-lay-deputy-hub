@@ -32,6 +32,9 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 	mux.Handle("/javascript/", static)
 	mux.Handle("/stylesheets/", static)
 
+	// Health check
+	mux.Handle("/health-check", healthCheck())
+
 	deputyDetails := wrap(renderTemplateForDeputyHub(templates["deputy-details.gotmpl"]))
 	clients := wrap(renderTemplateForClientTab(templates["clients.gotmpl"]))
 	timeline := wrap(renderTemplateForDeputyHubEvents(templates["timeline.gotmpl"]))
