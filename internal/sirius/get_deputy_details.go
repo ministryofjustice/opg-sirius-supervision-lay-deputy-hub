@@ -6,15 +6,6 @@ import (
 	"net/http"
 )
 
-//type ExecutiveCaseManager struct {
-//	EcmID     int    `json:"id"`
-//	EcmName   string `json:"displayName"`
-//	IsDefault bool   `json:"-"`
-//}
-
-//	type ExecutiveCaseManagerOutgoing struct {
-//		EcmID int `json:"ecmId"`
-//	}
 type DeputyType struct {
 	Handle string `json:"handle"`
 	Label  string `json:"label"`
@@ -23,12 +14,6 @@ type DeputyType struct {
 type DeputySubType struct {
 	SubType string `json:"handle"`
 }
-
-//
-//type HandleLabel struct {
-//	Handle string `json:"handle"`
-//	Label  string `json:"label"`
-//}
 
 type DeputyDetails struct {
 	ID              int           `json:"id"`

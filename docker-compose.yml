@@ -10,8 +10,8 @@ services:
     read_only: false
     environment:
       PORT: 1234
-      PREFIX: /lay-deputy-hub
-      HEALTHCHECK: /lay-deputy-hub/health-check
+      PREFIX: /supervision/deputies
+      HEALTHCHECK: /supervision/deputies/health-check
       SIRIUS_PUBLIC_URL: http://localhost:8080
       BACKEND_URL: http://lay-deputy-hub-api:7171
       JWT_SECRET: mysupersecrettestkeythatis128bits
