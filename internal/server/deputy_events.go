@@ -16,7 +16,7 @@ func renderTemplateForDeputyHubEvents(tmpl Template) Handler {
 
 		vars := deputyHubEventVars{}
 		app.PageName = "Timeline"
-		vars.ListPage.AppVars = app
+		vars.AppVars = app
 
 		return tmpl.ExecuteTemplate(w, "page", vars)
 	}
