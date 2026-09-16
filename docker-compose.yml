@@ -10,10 +10,9 @@ services:
     read_only: false
     environment:
       PORT: 1234
-      PREFIX: /supervision/deputies
-      HEALTHCHECK: /supervision/deputies/health-check
+      PREFIX: /supervision/deputies/lay
+      HEALTHCHECK: /supervision/deputies/lay/health-check
       SIRIUS_PUBLIC_URL: http://localhost:8080
-      BACKEND_URL: http://lay-deputy-hub-api:7171
       JWT_SECRET: mysupersecrettestkeythatis128bits
 
   yarn:
@@ -36,3 +35,12 @@ services:
       - ./:/go/src/app
       - ./.cache/golangci-lint/v2.4.0:/root/.cache
     command: golangci-lint run -v --timeout 5m
+
+  test-runner:
+    build:
+      context: docker/test-runner/
+    command: gotestsum --junitfile test-results/unit-tests.xml -- ./... -coverprofile=test-results/test-coverage.txt
+    working_dir: /go/src/app
+    volumes:
+      - ./:/go/src/app
+      - ./.gocache:/go/pkg/mod
