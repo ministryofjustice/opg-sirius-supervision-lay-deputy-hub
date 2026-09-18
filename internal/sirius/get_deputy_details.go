@@ -16,17 +16,13 @@ type DeputySubType struct {
 }
 
 type DeputyDetails struct {
-	ID              int           `json:"id"`
-	Salutation      string        `json:"salutation"`
-	DeputyFirstName string        `json:"firstname"`
-	DeputySurname   string        `json:"surname"`
-	DeputyCasrecId  int           `json:"deputyCasrecId"`
-	DisplayName     string        `json:"displayName"`
-	CanDelete       bool          `json:"canDelete"`
-	DeputyNumber    int           `json:"deputyNumber"`
-	DeputySubType   DeputySubType `json:"deputySubType"`
-	DeputyStatus    string        `json:"deputyStatus"`
-	DeputyType      DeputyType    `json:"deputyType"`
+	ID              int        `json:"id"`
+	Salutation      string     `json:"salutation"`
+	DeputyFirstName string     `json:"firstName"`
+	DeputySurname   string     `json:"surname"`
+	DeputyNumber    int        `json:"deputyNumber"`
+	DeputyStatus    string     `json:"deputyStatus"`
+	DeputyType      DeputyType `json:"deputyType"`
 }
 
 func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, error) {

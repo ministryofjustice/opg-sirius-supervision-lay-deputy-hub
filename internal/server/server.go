@@ -6,7 +6,6 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
-	"strings"
 
 	"github.com/ministryofjustice/opg-go-common/securityheaders"
 	"github.com/ministryofjustice/opg-go-common/telemetry"
@@ -27,38 +26,18 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 
 	wrap := wrapHandler(logger, client, templates["error.gotmpl"], envVars)
 
-	static := http.FileServer(http.Dir(envVars.WebDir + "/static"))
-	mux.Handle("/assets/", static)
-	mux.Handle("/javascript/", static)
-	mux.Handle("/stylesheets/", static)
+	static := staticFileHandler(envVars.WebDir)
+	mux.Handle("/static/assets/", static)
+	mux.Handle("/static/javascript/", static)
+	mux.Handle("/static/stylesheets/", static)
 
-	// Health check
+	mux.Handle("/{id}", wrap(renderTemplateForDeputyHub(templates["deputy-details.gotmpl"])))
+	mux.Handle("/{id}/clients", wrap(renderTemplateForClientTab(templates["clients.gotmpl"])))
+	mux.Handle("/{id}/timeline", wrap(renderTemplateForDeputyHubEvents(templates["timeline.gotmpl"])))
+
 	mux.Handle("/health-check", healthCheck())
 
-	deputyDetails := wrap(renderTemplateForDeputyHub(templates["deputy-details.gotmpl"]))
-	clients := wrap(renderTemplateForClientTab(templates["clients.gotmpl"]))
-	timeline := wrap(renderTemplateForDeputyHubEvents(templates["timeline.gotmpl"]))
-
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		pathParts := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
-		if len(pathParts) == 1 && pathParts[0] != "" {
-			r.SetPathValue("id", pathParts[0])
-			deputyDetails.ServeHTTP(w, r)
-			return
-		}
-
-		if len(pathParts) == 2 && pathParts[0] != "" {
-			r.SetPathValue("id", pathParts[0])
-			switch pathParts[1] {
-			case "clients":
-				clients.ServeHTTP(w, r)
-				return
-			case "timeline":
-				timeline.ServeHTTP(w, r)
-				return
-			}
-		}
-
 		w.WriteHeader(http.StatusNotFound)
 		_ = templates["error.gotmpl"].ExecuteTemplate(w, "page", ErrorVars{
 			Code:            http.StatusNotFound,
@@ -86,4 +65,12 @@ func getContext(r *http.Request) sirius.Context {
 		Cookies:   r.Cookies(),
 		XSRFToken: token,
 	}
+}
+
+func staticFileHandler(webDir string) http.Handler {
+	h := http.FileServer(http.Dir(webDir))
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "must-revalidate")
+		h.ServeHTTP(w, r)
+	})
 }

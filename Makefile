@@ -21,3 +21,9 @@ down:
 
 go-lint:
 	docker compose run --rm go-lint
+
+test-results:
+	mkdir -p -m 0777 test-results .gocache pacts logs
+
+unit-test: test-results
+	docker compose run --rm test-runner
