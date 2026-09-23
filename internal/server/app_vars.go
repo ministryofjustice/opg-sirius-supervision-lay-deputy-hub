@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
-	"golang.org/x/sync/errgroup"
 )
 
 type AppVars struct {
@@ -25,7 +24,6 @@ type AppVarsClient interface {
 
 func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) (*AppVars, error) {
 	ctx := getContext(r)
-	_, groupCtx := errgroup.WithContext(ctx.Context)
 	deputyId, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
 		return nil, StatusError(http.StatusBadRequest)
@@ -37,7 +35,7 @@ func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) 
 		EnvironmentVars: envVars,
 	}
 
-	deputy, err := client.GetDeputyDetails(ctx.With(groupCtx), deputyId)
+	deputy, err := client.GetDeputyDetails(ctx, deputyId)
 	if err != nil {
 		return nil, StatusError(http.StatusBadRequest)
 	}

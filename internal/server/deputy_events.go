@@ -10,9 +10,6 @@ type deputyHubEventVars struct {
 
 func renderTemplateForDeputyHubEvents(tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
-		if r.Method != http.MethodGet {
-			return StatusError(http.StatusMethodNotAllowed)
-		}
 
 		app.PageName = "Timeline"
 
