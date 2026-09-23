@@ -31,11 +31,11 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 	mux.Handle("/static/javascript/", static)
 	mux.Handle("/static/stylesheets/", static)
 
-	mux.Handle("/{id}", wrap(renderTemplateForDeputyHub(templates["deputy-details.gotmpl"])))
-	mux.Handle("/{id}/clients", wrap(renderTemplateForClientTab(templates["clients.gotmpl"])))
-	mux.Handle("/{id}/timeline", wrap(renderTemplateForDeputyHubEvents(templates["timeline.gotmpl"])))
+	mux.Handle("GET /{id}", wrap(renderTemplateForDeputyHub(templates["deputy-details.gotmpl"])))
+	mux.Handle("GET /{id}/clients", wrap(renderTemplateForClientTab(templates["clients.gotmpl"])))
+	mux.Handle("GET /{id}/timeline", wrap(renderTemplateForDeputyHubEvents(templates["timeline.gotmpl"])))
 
-	mux.Handle("/health-check", healthCheck())
+	mux.Handle("GET /health-check", healthCheck())
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)

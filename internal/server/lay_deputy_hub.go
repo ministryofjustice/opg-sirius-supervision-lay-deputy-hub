@@ -16,10 +16,8 @@ func renderTemplateForDeputyHub(tmpl Template) Handler {
 
 		app.PageName = "Deputy details"
 
-		vars := deputyHubVars{
+		return tmpl.ExecuteTemplate(w, "page", deputyHubVars{
 			AppVars: app,
-		}
-
-		return tmpl.ExecuteTemplate(w, "page", vars)
+		})
 	}
 }

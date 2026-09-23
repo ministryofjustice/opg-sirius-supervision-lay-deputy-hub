@@ -1,19 +1,9 @@
 package server
 
-import (
-	"net/http"
-
-	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/urlbuilder"
-)
+import "net/http"
 
 type ListClientsVars struct {
-	ListPage
-}
-
-func (lcv ListClientsVars) CreateUrlBuilder() urlbuilder.UrlBuilder {
-	return urlbuilder.UrlBuilder{
-		OriginalPath: "clients",
-	}
+	AppVars
 }
 
 func renderTemplateForClientTab(tmpl Template) Handler {
@@ -22,12 +12,10 @@ func renderTemplateForClientTab(tmpl Template) Handler {
 			return StatusError(http.StatusMethodNotAllowed)
 		}
 
-		var vars ListClientsVars
-
 		app.PageName = "Clients"
-		vars.AppVars = app
-		vars.UrlBuilder = vars.CreateUrlBuilder()
 
-		return tmpl.ExecuteTemplate(w, "page", vars)
+		return tmpl.ExecuteTemplate(w, "page", ListClientsVars{
+			AppVars: app,
+		})
 	}
 }

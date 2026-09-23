@@ -19,21 +19,13 @@ type AppVars struct {
 	EnvironmentVars
 }
 
-func (a AppVars) DeputyId() int {
-	return a.DeputyDetails.ID
-}
-
-func (a AppVars) DeputyType() string {
-	return a.DeputyDetails.DeputyType.Handle
-}
-
 type AppVarsClient interface {
 	GetDeputyDetails(sirius.Context, int) (sirius.DeputyDetails, error)
 }
 
 func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) (*AppVars, error) {
 	ctx := getContext(r)
-	group, groupCtx := errgroup.WithContext(ctx.Context)
+	_, groupCtx := errgroup.WithContext(ctx.Context)
 	deputyId, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
 		return nil, StatusError(http.StatusBadRequest)
@@ -45,18 +37,11 @@ func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) 
 		EnvironmentVars: envVars,
 	}
 
-	group.Go(func() error {
-		deputy, err := client.GetDeputyDetails(ctx.With(groupCtx), deputyId)
-		if err != nil {
-			return err
-		}
-		vars.DeputyDetails = deputy
-		return nil
-	})
-
-	if err := group.Wait(); err != nil {
-		return nil, err
+	deputy, err := client.GetDeputyDetails(ctx.With(groupCtx), deputyId)
+	if err != nil {
+		return nil, StatusError(http.StatusBadRequest)
 	}
+	vars.DeputyDetails = deputy
 
 	return &vars, nil
 }

@@ -5,7 +5,7 @@ import (
 )
 
 type deputyHubEventVars struct {
-	ListPage
+	AppVars
 }
 
 func renderTemplateForDeputyHubEvents(tmpl Template) Handler {
@@ -14,10 +14,10 @@ func renderTemplateForDeputyHubEvents(tmpl Template) Handler {
 			return StatusError(http.StatusMethodNotAllowed)
 		}
 
-		vars := deputyHubEventVars{}
 		app.PageName = "Timeline"
-		vars.AppVars = app
 
-		return tmpl.ExecuteTemplate(w, "page", vars)
+		return tmpl.ExecuteTemplate(w, "page", deputyHubEventVars{
+			AppVars: app,
+		})
 	}
 }
