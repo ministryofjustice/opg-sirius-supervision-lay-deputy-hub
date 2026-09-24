@@ -17,6 +17,7 @@ import (
 	"github.com/ministryofjustice/opg-go-common/paginate"
 	"github.com/ministryofjustice/opg-go-common/telemetry"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/server"
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
@@ -36,12 +37,16 @@ func run(ctx context.Context, logger *slog.Logger) error {
 	httpClient.Transport = otelhttp.NewTransport(httpClient.Transport)
 
 	envVars := server.NewEnvironmentVars()
+	client, err := sirius.NewClient(httpClient, envVars.SiriusURL)
+	if err != nil {
+		return err
+	}
 
 	templates := createTemplates(envVars)
 
 	s := &http.Server{
 		Addr:              ":" + envVars.Port,
-		Handler:           server.New(logger, templates, envVars),
+		Handler:           server.New(logger, client, templates, envVars),
 		ReadHeaderTimeout: 2 * time.Second,
 	}
 
