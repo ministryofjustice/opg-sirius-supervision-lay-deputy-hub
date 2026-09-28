@@ -11,7 +11,7 @@ compile-assets:
 	docker compose run --rm yarn build
 
 dev-up: clean build-dev
-	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml up lay-deputy-hub yarn json-server
+	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml up lay-deputy-hub watch-assets json-server
 
 up: clean compile-assets build
 	docker compose up -d --wait lay-deputy-hub

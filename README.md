@@ -2,9 +2,15 @@
 
 ### Major dependencies
 
-- [Go](https://golang.org/) (>= 1.17)
+- [Go](https://golang.org/) (>= 1.26.2)
 - [docker compose](https://docs.docker.com/compose/install/) (>= 2.26.0)
 
+#### Installing dependencies locally:
+(This is only necessary if running without docker)
+
+- `npm install`
+- `go mod download`
+---
 
 ## Local development
 
@@ -13,4 +19,4 @@ To enable debugging and hot-reloading of Go files:
 
 `make dev-up`
 
-Hot-reloading is managed independently and should happen seamlessly. 
+Hot-reloading is managed independently and should happen seamlessly. Debugging is available on port :2345
