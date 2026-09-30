@@ -12,7 +12,7 @@ type EnvironmentVars struct {
 
 func NewEnvironmentVars() EnvironmentVars {
 	return EnvironmentVars{
-		Port:            getEnv("PORT", "1234"),
+		Port:            getEnv("PORT", "6666"),
 		WebDir:          getEnv("WEB_DIR", "web"),
 		SiriusURL:       getEnv("SIRIUS_URL", "http://localhost:3000"),
 		SiriusPublicURL: getEnv("SIRIUS_PUBLIC_URL", ""),

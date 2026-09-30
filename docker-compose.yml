@@ -6,10 +6,10 @@ services:
       dockerfile: docker/lay-deputy-hub/Dockerfile
       target: prod
     ports:
-      - "1234:1234"
+      - "6666:6666"
     read_only: false
     environment:
-      PORT: 1234
+      PORT: 6666
       PREFIX: /supervision/deputies/lay
       HEALTHCHECK: /supervision/deputies/lay/health-check
       SIRIUS_PUBLIC_URL: http://localhost:8080

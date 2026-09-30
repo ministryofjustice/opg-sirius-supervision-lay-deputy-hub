@@ -2,13 +2,13 @@ build:
 	docker compose build --no-cache lay-deputy-hub
 
 build-dev:
-	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache --parallel lay-deputy-hub watch-assets json-server
+	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache --parallel lay-deputy-hub json-server
 
 clean:
 	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml down --remove-orphans
 
 compile-assets:
-	docker compose run --rm yarn build
+	docker compose run --rm watch-assets -c "npm ci --ignore-scripts && npm run build"
 
 dev-up: clean build-dev
 	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml up lay-deputy-hub watch-assets json-server
