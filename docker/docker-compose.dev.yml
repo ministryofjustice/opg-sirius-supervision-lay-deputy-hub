@@ -18,8 +18,8 @@ services:
       SIRIUS_URL: http://json-server:3000
       PREFIX: /supervision/deputies/lay
 
-  yarn:
-    command: watch
+  watch-assets:
+    command: npm run watch
 
   json-server:
     build:

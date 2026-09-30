@@ -2,7 +2,7 @@ build:
 	docker compose build --no-cache lay-deputy-hub
 
 build-dev:
-	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache --parallel lay-deputy-hub yarn json-server
+	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache --parallel lay-deputy-hub watch-assets json-server
 
 clean:
 	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml down --remove-orphans

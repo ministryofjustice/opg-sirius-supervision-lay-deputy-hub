@@ -20,3 +20,14 @@ To enable debugging and hot-reloading of Go files:
 `make dev-up`
 
 Hot-reloading is managed independently and should happen seamlessly. Debugging is available on port :2345
+
+-----
+Running without docker with: <br>
+Cd into /management-information <br>
+`npm ci --ignore-scripts && npm run build` <br>
+`go run main.go`
+
+This will host at:
+`localhost:1234/lay/1`.
+
+-----
