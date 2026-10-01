@@ -2,28 +2,28 @@
     <div class="moj-timeline__item" data-cy="task-created-event">
         <div class="moj-timeline__header">
             <h2 class="moj-timeline__title">
-                {{ .Event.TaskType }} task created
+                task created
             </h2>
             <p class="moj-timeline__byline">
-                {{ printf "by %v (%v)" .User.Name .User.PhoneNumber }}
+                Kate 982171982
             </p>
         </div>
         <p class="moj-timeline__date">
-            <time>{{ .Timestamp }}</time>
+            <time>11:31</time>
         </p>
         <div class="moj-timeline__description">
             <ul class="govuk-list govuk-list--bullet">
                 <li>
-                    Assigned to {{ .Event.Assignee }}
+                    Assigned to 
                 </li>
                 <li>
-                    Due date {{ .Event.DueDate }}
+                    Due date 
                 </li>
-                {{ if .Event.Description }}
+                Event.Description 
                     <li>
-                        {{ .Event.Description }}
+                        Event.Description
                     </li>
-                {{ end }}
+                
             </ul>
         </div>
     </div>
