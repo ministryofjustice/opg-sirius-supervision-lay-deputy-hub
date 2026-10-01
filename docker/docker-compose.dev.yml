@@ -14,9 +14,10 @@ services:
       - ./web/static:/app/web/static
       - ./web/template:/app/web/template
     environment:
-      SIRIUS_PUBLIC_URL: http://json-server:3000
-      SIRIUS_URL: http://json-server:3000
+      SIRIUS_PUBLIC_URL: http://localhost:8080
+      SIRIUS_URL: http://localhost:8080
       PREFIX: /supervision/deputies/lay
+
 
   json-server:
     ports: [3000:3000]
