@@ -11,7 +11,7 @@
         "default": false
       },
       "email": "testemail@hotmail.co.uk",
-      "dob": "",
+      "dob": "01/01/1980",
       "salutation": "Mr",
       "firstName": "Test",
       "surname": "Deputy",
@@ -38,11 +38,12 @@
       "updatedDate": "2026-09-15T12:13:38+00:00",
       "personType": "Deputy",
       "specialCorrespondenceRequirements": {
-        "audioTape": false,
-        "largePrint": false,
+        "audioTape": true,
+        "largePrint": true,
         "hearingImpaired": false,
         "spellingOfNameRequiresCare": false
       },
+      "interpreterRequired": "",
       "canDelete": false,
       "deputyStatus": "Active",
       "orders": [
@@ -51,6 +52,7 @@
       "previousNames": "",
       "mobileNumber": "",
       "eveningNumber": "",
+      "daytimeNumber": "",
       "newsletter": false,
       "deputyType": {
         "handle": "Lay",
@@ -58,5 +60,11 @@
       },
       "deputyNumber": 46382901
     }
-  ]
+  ],
+  "clients": {
+    "limit": 25,
+    "metadata": {
+      "totalActiveClients": 3
+    }
+  }
 }

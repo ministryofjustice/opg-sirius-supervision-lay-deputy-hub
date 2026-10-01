@@ -3,10 +3,168 @@
 {{ define "main" }}
     {{ template "lay-deputy-details" . }}
 
-     <header class="govuk-!-padding-top-1">
+     <header class="title-and-buttons-inline">
         <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
             {{ .PageName }}
         </h1>
+
+        <div class="moj-button-menu">
+            <a
+               href="{{ prefix (printf "/%d/recordDeath" .DeputyDetails.ID) }}"
+                role="button"
+                draggable="false"
+                class="govuk-button moj-button-menu__item govuk-button--secondary"
+                data-module="govuk-button">
+                Record death of deputy
+            </a>
+        </div>
     </header>
+    <div id="overview">
+        <div class="data-item-container ">
+          <span class="data-item govuk-heading-xl govuk-!-margin-bottom-0">{{ .ActiveClientCount }}</span>
+          {{ if gt .ActiveClientCount 1 }}
+            <p class="data-item govuk-body">Active clients </p>
+          {{ else }}
+            <p class="data-item govuk-body">Active client </p>
+          {{ end }}
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <h2 class="govuk-heading-m  govuk-!-margin-top-5">
+                    Deputy contact details
+                </h2>
+                <dl id="deputy-details" class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Name</dt>
+                        <dd class="govuk-summary-list__value">
+                        {{ printf "%v %v %v" .DeputyDetails.Salutation .DeputyDetails.DeputyFirstName .DeputyDetails.DeputySurname }}
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Other names</dt>
+                        <dd class="govuk-summary-list__value">
+                         {{ if ne .DeputyDetails.DeputyOtherNames ""}}
+                            {{ .DeputyDetails.DeputyOtherNames }}
+                        {{ end }}
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Date of birth</dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ .DeputyDetails.DeputyDateOfBirth }}
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Mobile telephone number</dt>
+                        <dd class="govuk-summary-list__value">
+                        {{ if ne .DeputyDetails.MobileTelephoneNumber ""}}
+                            {{ .DeputyDetails.MobileTelephoneNumber }}
+                        {{ end }}
+                        </dd>
+                    </div>
+                     <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Daytime telephone number</dt>
+                        <dd class="govuk-summary-list__value">
+                        {{ if ne .DeputyDetails.DaytimeTelephoneNumber ""}}
+                            {{ .DeputyDetails.DaytimeTelephoneNumber }}
+                        {{ end }}
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Evening telephone number</dt>
+                        <dd class="govuk-summary-list__value">
+                        {{ if ne .DeputyDetails.EveningTelephoneNumber ""}}
+                            {{ .DeputyDetails.EveningTelephoneNumber }}
+                        {{ end }}
+                        </dd>
+                    </div>
+                   <div class="govuk-summary-list__row">
+                       <dt class="govuk-summary-list__key">Email address</dt>
+                       <dd class="govuk-summary-list__value hook_deputy_email">
+                               {{ .DeputyDetails.Email }}
+                       </dd>
+                   </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Postal address</dt>
+                        <dd class="govuk-summary-list__value hook_deputy_address">
+                             {{ if ne .DeputyDetails.AddressLine1 ""}}
+                                 {{ .DeputyDetails.AddressLine1 }} <br />
+                             {{ end }}
+                             {{ if ne .DeputyDetails.AddressLine2 ""}}
+                                 {{ .DeputyDetails.AddressLine2 }} <br />
+                             {{ end }}
+                             {{ if ne .DeputyDetails.AddressLine3 ""}}
+                                 {{ .DeputyDetails.AddressLine3 }} <br />
+                             {{ end }}
+                             {{ if ne .DeputyDetails.Town ""}}
+                                 {{ .DeputyDetails.Town }} <br />
+                             {{ end }}
+                             {{ if ne .DeputyDetails.County ""}}
+                                 {{ .DeputyDetails.County }} <br />
+                             {{ end }}
+                             {{ if ne .DeputyDetails.Postcode ""}}
+                                 {{ .DeputyDetails.Postcode }}
+                             {{ end }}
+                        </dd>
+                    </div>
+                     <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">Is airmail required</dt>
+                        <dd class="govuk-summary-list__value">
+                            {{ .DeputyDetails.IsAirmailRequired }}
+                        </dd>
+                    </div>
+                </dl>
+                <a
+                   href="{{ prefix (printf "/%d/manage-team-details" .DeputyDetails.ID) }}"
+                    role="button"
+                    draggable="false"
+                    class="govuk-button govuk-button--secondary"
+                    data-module="govuk-button">
+                    Manage deputy contact details
+                </a>
+            </div>
+
+            <div class="govuk-grid-column-one-half">
+                        <h2 class="govuk-heading-m govuk-!-margin-top-5">
+                            Additional information
+                        </h2>
+
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Special correspondence requirements</dt>
+                                <dd class="govuk-summary-list__value">
+                                 {{ with .DeputyDetails.SpecialCorrespondenceRequirements.ActiveSpecialCorrespondenceRequirements }}
+                                     {{ range $index, $requirement := . }}{{ if $index }}, {{ end }}{{ $requirement }}{{ end }}
+                                 {{ end }}
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Interpreter requirements
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                     {{ .DeputyDetails.InterpreterRequired }}
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Additional information</dt>
+                                <dd class="govuk-summary-list__value">
+
+                                </dd>
+                            </div>
+                        </dl>
+
+                        <a
+                            href="{{ prefix (printf "/%d/manage-additional-information" .DeputyDetails.ID) }}"
+                            role="button"
+                            draggable="false"
+                            class="govuk-button govuk-button--secondary">
+                            Manage additional information
+                        </a>
+                    </div>
+                </div>
+
 
 {{ end }}

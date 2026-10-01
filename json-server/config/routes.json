@@ -1,3 +1,4 @@
 {
-    "/supervision-api/v1/*": "/$1"
+    "/supervision-api/v1/*": "/$1",
+    "/deputies/lay/:personId/clients*": "/clients"
 }
