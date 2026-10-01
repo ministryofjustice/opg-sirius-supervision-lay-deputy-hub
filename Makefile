@@ -10,6 +10,9 @@ clean:
 dev-up: clean build-dev npm
 	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml up lay-deputy-hub npm json-server
 
+dev-up-sirius: clean build-dev npm
+	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub npm
+
 down:
 	docker compose down --remove-orphans
 
