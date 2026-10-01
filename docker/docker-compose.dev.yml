@@ -13,18 +13,13 @@ services:
       - ./internal:/app/internal
       - ./web/static:/app/web/static
       - ./web/template:/app/web/template
-      - ./shared:/app/shared
     environment:
-      SIRIUS_URL: http://json-server:3000
+      SIRIUS_PUBLIC_URL: http://localhost:8080
+      SIRIUS_URL: http://localhost:8080
       PREFIX: /supervision/deputies/lay
 
-  yarn:
-    command: watch
-
   json-server:
-    build:
-      dockerfile: docker/json-server/Dockerfile
-    volumes:
-      - ./json-server/config:/app/config
-    ports:
-      - '3000:3000'
+    ports: [3000:3000]
+
+  npm:
+    command: run watch
