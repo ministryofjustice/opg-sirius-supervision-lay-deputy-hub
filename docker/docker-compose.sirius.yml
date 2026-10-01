@@ -2,6 +2,8 @@ services:
   lay-deputy-hub:
     build:
       target: dev
+    networks:
+      - sirius
     ports:
       - "1234:1234"
       - "2345:2345"
@@ -14,12 +16,11 @@ services:
       - ./web/static:/app/web/static
       - ./web/template:/app/web/template
     environment:
-      SIRIUS_PUBLIC_URL: http://json-server:3000
-      SIRIUS_URL: http://json-server:3000
+      SIRIUS_PUBLIC_URL: http://frontend-proxy
+      SIRIUS_URL: http://frontend-proxy
       PREFIX: /supervision/deputies/lay
 
-  json-server:
-    ports: [3000:3000]
-
-  npm:
-    command: run watch
+networks:
+  sirius:
+    name: opg-sirius_default
+    external: true

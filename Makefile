@@ -16,6 +16,9 @@ dev-up: clean build-dev
 up: clean compile-assets build
 	docker compose up -d --wait lay-deputy-hub
 
+dev-up-sirius: clean build-dev npm
+	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub npm
+
 down:
 	docker compose down --remove-orphans
 
