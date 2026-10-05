@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 type Metadata struct {
@@ -16,13 +17,20 @@ type ClientList struct {
 }
 
 type ClientListParams struct {
-	DeputyId int
+	DeputyId      int
+	OrderStatuses []string
 }
 
 func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientList, error) {
 	var clientList ClientList
 
-	url := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/clients", params.DeputyId)
+	url := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/clients?", params.DeputyId)
+
+	filter := params.CreateFilter()
+
+	if filter != "" {
+		url = fmt.Sprintf("%s&filter=%s", url, filter)
+	}
 
 	req, err := c.newRequest(ctx, http.MethodGet, url, nil)
 
@@ -52,4 +60,12 @@ func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientL
 	clientList.TotalClients = clientList.Metadata.TotalActiveClients
 
 	return clientList, err
+}
+
+func (p ClientListParams) CreateFilter() string {
+	var filter string
+	for _, s := range p.OrderStatuses {
+		filter += "order-status:" + s + ","
+	}
+	return strings.TrimRight(filter, ",")
 }
