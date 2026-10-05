@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
+	"strings"
 )
 
 type TimelineEvent struct {
-	Id        int       `json:"id"`
-	Hash      string    `json:"hash"`
-	Timestamp time.Time `json:"timestamp"`
-	EventType string    `json:"eventType"`
+	Id        int    `json:"id"`
+	Hash      string `json:"hash"`
+	Timestamp string `json:"timestamp"`
+	EventType string `json:"eventType"`
 	User      struct {
 		Id          int    `json:"id"`
 		PhoneNumber string `json:"phoneNumber"`
@@ -51,7 +51,7 @@ type TimelineEvent struct {
 func (c *Client) GetDeputyTimeline(ctx Context, deputyID int) ([]TimelineEvent, error) {
 	var v []TimelineEvent
 
-	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(SupervisionAPIPath+"/v1/timeline/%d", deputyID), nil)
+	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(SupervisionAPIPath+"/v1/timeline/%d/lay-deputy", deputyID), nil)
 	if err != nil {
 		return v, err
 	}
@@ -72,5 +72,27 @@ func (c *Client) GetDeputyTimeline(ctx Context, deputyID int) ([]TimelineEvent, 
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(&v)
-	return v, err
+
+	return editDeputyEvents(v), nil
+}
+
+func editDeputyEvents(events []TimelineEvent) []TimelineEvent {
+	var list []TimelineEvent
+	for _, e := range events {
+		event := TimelineEvent{
+			Timestamp: FormatDateTime(IsoDateTimeZone, e.Timestamp, SiriusDateTime),
+			EventType: reformatEventType(e.EventType),
+			Id:        e.Id,
+			User:      e.User,
+			Event:     e.Event,
+		}
+
+		list = append(list, event)
+	}
+	return list
+}
+
+func reformatEventType(s string) string {
+	eventTypeArray := strings.Split(s, "\\")
+	return eventTypeArray[len(eventTypeArray)-1]
 }
