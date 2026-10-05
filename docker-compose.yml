@@ -1,6 +1,8 @@
 services:
   lay-deputy-hub:
     image: 311462405659.dkr.ecr.eu-west-1.amazonaws.com/sirius/sirius-lay-deputy-hub
+    depends_on:
+      - json-server
     build:
       context: .
       dockerfile: docker/lay-deputy-hub/Dockerfile
@@ -12,16 +14,14 @@ services:
       PORT: 1234
       PREFIX: /supervision/deputies/lay
       HEALTHCHECK: /supervision/deputies/lay/health-check
-      SIRIUS_PUBLIC_URL: http://localhost:8080
       JWT_SECRET: mysupersecrettestkeythatis128bits
+      SIRIUS_URL: http://json-server:3000
 
-  watch-assets:
-    image: node:24-alpine3.23@sha256:244cc2b53f46f9e876304391d17682b0ddae9ac33491f4857e25e35a36ba7995
-    working_dir: /home/node/app
-    entrypoint: ["sh"]
+  json-server:
+    build:
+      dockerfile: docker/json-server/Dockerfile
     volumes:
-      - ./web:/app/web
-      - ./package.json:/app/package.json
+      - ./json-server/config:/app/config
 
   go-lint:
     image: golangci/golangci-lint:v2.12.2@sha256:5cceeef04e53efe1470638d4b4b4f5ceefd574955ab3941b2d9a68a8c9ad5240
@@ -39,3 +39,10 @@ services:
     volumes:
       - ./:/go/src/app
       - ./.gocache:/go/pkg/mod
+
+  npm:
+    build:
+      dockerfile: docker/npm/Dockerfile
+    command: [ "ci", "--ignore-scripts" ]
+    volumes:
+      - ./:/app
