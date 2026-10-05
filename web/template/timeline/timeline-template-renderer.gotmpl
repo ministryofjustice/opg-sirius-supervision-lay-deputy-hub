@@ -1,3 +1,14 @@
 {{ define "timeline-template-renderer" }}
-        {{ template "task-created" . }}
+   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonDetailsChanged" }}
+        {{ template "person-details-changed" . }}
+   {{ end }}
+   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonContactDetailsChanged" }}
+       {{ template "person-contact-details-changed" . }}
+   {{ end }}
+   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\AddressChanged" }}
+       {{ template "address-changed" . }}
+   {{ end }}
+   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Order\\DeputyLinkedToOrder" }}
+       {{ template "deputy-linked-to-order" . }}
+   {{ end }}
 {{ end }}
