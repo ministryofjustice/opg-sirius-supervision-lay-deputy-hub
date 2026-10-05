@@ -1,0 +1,20 @@
+{{ define "person-status-changed" }}
+    <div class="moj-timeline__item" data-cy="person-status-changed">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+               Person status updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                <li>Status set to <b>{{.Event.Status}}</b> {{ if .Event.PreviousStatus }} from <b>{{.Event.PreviousStatus}}</b>{{end}} </li>
+            </ul>
+        </div>
+    </div>
+{{ end }}

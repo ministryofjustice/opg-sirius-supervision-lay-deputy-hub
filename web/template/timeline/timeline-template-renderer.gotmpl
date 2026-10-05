@@ -1,14 +1,26 @@
 {{ define "timeline-template-renderer" }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonDetailsChanged" }}
-        {{ template "person-details-changed" . }}
-   {{ end }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonContactDetailsChanged" }}
+    {{ if eq .EventType "AddressChanged" }}
+        {{ template "address-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "ClientFeePayerAdded" }}
+        {{ template "client-fee-payer-added" . }}
+    {{ end }}
+    {{ if eq .EventType "ClientFeePayerRemoved" }}
+        {{ template "client-fee-payer-removed" . }}
+    {{ end }}
+    {{ if eq .EventType "DeputyLinkedToOrder" }}
+        {{ template "deputy-linked-to-order" . }}
+    {{ end }}
+    {{ if eq .EventType "DeputyOrderDetailsChanged" }}
+        {{ template "deputy-order-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonContactDetailsChanged" }}
        {{ template "person-contact-details-changed" . }}
-   {{ end }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\AddressChanged" }}
-       {{ template "address-changed" . }}
-   {{ end }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Order\\DeputyLinkedToOrder" }}
-       {{ template "deputy-linked-to-order" . }}
-   {{ end }}
+    {{ end }}
+    {{ if eq .EventType "PersonDetailsChanged" }}
+        {{ template "person-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonStatusChanged" }}
+       {{ template "person-status-changed" . }}
+    {{ end }}
 {{ end }}
