@@ -1,0 +1,39 @@
+{{ define "person-details-changed" }}
+    <div class="moj-timeline__item" data-cy="person-details-changed-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Details updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                {{ range .Event.Changes }}
+                    {{if eq .FieldName "salutation"}}
+                        <li><b>Salutation</b> set to {{ .NewValue }}</li>
+                    {{end}}
+                    {{if eq .FieldName "firstname"}}
+                        <li><b>First name</b> set to {{ .NewValue }}</li>
+                    {{end}}
+                    {{if eq .FieldName "surname"}}
+                        <li><b>Surname</b> set to {{ .NewValue }}</li>
+                    {{end}}
+                    {{if eq .FieldName "otherNames"}}
+                        <li><b>Other names</b> set to {{ .NewValue }}</li>
+                    {{end}}
+                    {{if eq .FieldName "deputyType"}}
+                        <li><b>Deputy type</b> set to {{ .NewValue }}</li>
+                    {{end}}
+                    {{if eq .FieldName "deputySubType"}}
+                        <li><b>Deputy Subtype</b> set to {{ .NewValue }}</li>
+                    {{end}}
+                {{end}}
+            </ul>
+        </div>
+    </div>
+{{ end }}
