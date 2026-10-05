@@ -14,6 +14,7 @@
                 role="button"
                 draggable="false"
                 class="govuk-button moj-button-menu__item govuk-button--secondary"
+                id="record-death"
                 data-module="govuk-button">
                 Record death of deputy
             </a>
@@ -112,7 +113,12 @@
                      <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">Is airmail required</dt>
                         <dd class="govuk-summary-list__value">
-                            {{ .DeputyDetails.IsAirmailRequired }}
+                            {{ if eq .DeputyDetails.IsAirmailRequired true }}
+                                True
+                            {{ else }}
+                                False
+                            {{ end }}
+                        </dd>
                         </dd>
                     </div>
                 </dl>

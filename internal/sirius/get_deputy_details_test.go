@@ -49,3 +49,30 @@ func TestGetDeputyDetailsReturnsDeputy(t *testing.T) {
 		},
 	}, deputyDetails)
 }
+
+func TestGetDeputyDetailsReturnsActiveSpecialCorrespondenceRequirements(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodGet, r.Method)
+		assert.Equal(t, "/supervision-api/v1/deputies/1", r.URL.Path)
+
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{
+			"id": 1,
+			"specialCorrespondenceRequirements": {
+				"audioTape": true,
+				"largePrint": false,
+				"hearingImpaired": true,
+				"spellingOfNameRequiresCare": false
+			}
+		}`))
+	}))
+	t.Cleanup(server.Close)
+
+	client, err := NewClient(server.Client(), server.URL)
+	require.NoError(t, err)
+
+	deputyDetails, err := client.GetDeputyDetails(getContext(nil), 1)
+
+	require.NoError(t, err)
+	assert.Equal(t, []string{"Audio", "Hearing impaired"}, deputyDetails.SpecialCorrespondenceRequirements.ActiveSpecialCorrespondenceRequirements())
+}

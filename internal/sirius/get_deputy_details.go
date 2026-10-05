@@ -53,7 +53,7 @@ type DeputyDetails struct {
 	DeputyDateOfBirth                 string                                `json:"dob"`
 	Email                             string                                `json:"email"`
 	MobileTelephoneNumber             string                                `json:"mobileNumber"`
-	DaytimeTelephoneNumber            string                                `json:"daytimeNumber"`
+	DaytimeTelephoneNumber            string                                `json:"phoneNumber"`
 	EveningTelephoneNumber            string                                `json:"eveningNumber"`
 	AddressLine1                      string                                `json:"addressLine1"`
 	AddressLine2                      string                                `json:"addressLine2"`

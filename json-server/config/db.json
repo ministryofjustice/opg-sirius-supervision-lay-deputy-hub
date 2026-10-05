@@ -6,16 +6,16 @@
       "normalizedUid": 700000002530,
       "homePhoneNumber": {
         "id": 96,
-        "phoneNumber": "",
+        "phoneNumber": "0115 876 5574",
         "type": "Home",
         "default": false
       },
       "email": "testemail@hotmail.co.uk",
       "dob": "01/01/1980",
       "salutation": "Mr",
-      "firstName": "Test",
+      "firstName": "Mike",
       "surname": "Deputy",
-      "otherNames": "",
+      "otherNames": "Michael",
       "addressLine1": "Seax House",
       "addressLine2": "19 Market Rd",
       "addressLine3": "",
@@ -50,9 +50,8 @@
         []
       ],
       "previousNames": "",
-      "mobileNumber": "",
-      "eveningNumber": "",
-      "daytimeNumber": "",
+      "mobileNumber": "0771 2345678",
+      "eveningNumber": "0115 2767825",
       "newsletter": false,
       "deputyType": {
         "handle": "Lay",
