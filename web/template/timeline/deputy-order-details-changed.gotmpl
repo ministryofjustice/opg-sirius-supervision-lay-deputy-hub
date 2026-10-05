@@ -1,8 +1,8 @@
-{{ define "deputy-linked-to-order" }}
-    <div class="moj-timeline__item" data-cy="deputy-linked-to-order-event">
+{{ define "deputy-order-details-changed" }}
+    <div class="moj-timeline__item" data-cy="deputy-order-details-changed-event">
         <div class="moj-timeline__header">
             <h2 class="moj-timeline__title">
-               Link
+               Order details updated
             </h2>
             <p class="moj-timeline__byline">
                 {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
@@ -13,9 +13,8 @@
         </p>
         <div class="moj-timeline__description">
             <ul class="govuk-list govuk-list--bullet">
-                {{ if .Event.OrderType }}
-                    <li><b>Linked</b> to case {{.Event.OrderType}} {{.Event.OrderCourtRef}} - {{ .Event.OrderUid}}</li>
-                {{ end }}
+                <li><b>Order details updated</b> to case {{.Event.OrderType}} {{.Event.OrderCourtRef}} - {{ .Event.OrderUid}} </li>
+                <li><b>Type of deputy</b> set to <b>Lay</b></li>
             </ul>
         </div>
     </div>
