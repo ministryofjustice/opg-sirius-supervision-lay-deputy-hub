@@ -1,14 +1,20 @@
 {{ define "timeline-template-renderer" }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonDetailsChanged" }}
-        {{ template "person-details-changed" . }}
-   {{ end }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonContactDetailsChanged" }}
+    {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\AddressChanged" }}
+        {{ template "address-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "Opg\\Core\\Model\\Event\\Order\\DeputyLinkedToOrder" }}
+        {{ template "deputy-linked-to-order" . }}
+    {{ end }}
+    {{ if eq .EventType "Opg\\Core\\Model\\Event\\Order\\DeputyOrderDetailsChanged" }}
+        {{ template "deputy-order-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonContactDetailsChanged" }}
        {{ template "person-contact-details-changed" . }}
-   {{ end }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\AddressChanged" }}
-       {{ template "address-changed" . }}
-   {{ end }}
-   {{ if eq .EventType "Opg\\Core\\Model\\Event\\Order\\DeputyLinkedToOrder" }}
-       {{ template "deputy-linked-to-order" . }}
-   {{ end }}
+    {{ end }}
+    {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonDetailsChanged" }}
+        {{ template "person-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "Opg\\Core\\Model\\Event\\Person\\PersonStatusChanged" }}
+       {{ template "person-status-changed" . }}
+    {{ end }}
 {{ end }}
