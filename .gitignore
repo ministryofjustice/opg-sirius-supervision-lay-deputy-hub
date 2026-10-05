@@ -12,3 +12,9 @@ web/static/
 .DS_Store
 .cache
 .gocache
+
+# Cypress cli run artifact folders
+cypress/logs
+cypress/screenshots
+cypress/videos
+cypress/downloads

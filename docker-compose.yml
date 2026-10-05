@@ -46,3 +46,14 @@ services:
     command: [ "ci", "--ignore-scripts" ]
     volumes:
       - ./:/app
+
+  cypress:
+    build:
+      dockerfile: docker/cypress/Dockerfile
+    command: [ "--headless", "-b", "electron" ]
+    volumes:
+      - ./cypress/screenshots:/root/cypress/screenshots:rw,delegated
+      - ./cypress/logs:/root/cypress/logs:rw,delegated
+    depends_on:
+      lay-deputy-hub:
+        condition: service_healthy
