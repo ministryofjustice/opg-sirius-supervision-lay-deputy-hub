@@ -38,5 +38,6 @@ setup-directories: test-results
 
 cypress: setup-directories clean
 	docker compose run --build cypress
-#	docker compose up -d --wait lay-deputy-hub json-server
-#	docker compose run --rm cypress run --env grepUntagged=true
+
+cypress-single: setup-directories clean
+	docker compose run --rm cypress run --spec e2e/$(SPEC)

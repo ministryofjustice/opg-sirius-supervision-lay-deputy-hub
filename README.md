@@ -24,7 +24,7 @@ Hot-reloading is managed independently and should happen seamlessly. Debugging i
 ---
 
 ## Run *one* Cypress test headless (i.e. not in UI)
-`make cypress-single SPEC=upload.cy.js`
+`make cypress-single SPEC=deputy-details.cy.js`
 
 ## Run *all* the Cypress tests headless
 `make build-all` (optional) <br>
