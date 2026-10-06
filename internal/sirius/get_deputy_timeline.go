@@ -19,16 +19,23 @@ type TimelineEvent struct {
 		Email       string `json:"email"`
 	} `json:"user"`
 	Event struct {
-		PersonType     string      `json:"personType"`
-		PersonId       string      `json:"personId"`
-		PersonUid      string      `json:"personUid"`
-		PersonName     string      `json:"personName"`
-		PersonCourtRef interface{} `json:"personCourtRef"`
-		Changes        []struct {
-			FieldName string  `json:"fieldName"`
-			OldValue  *string `json:"oldValue"`
-			NewValue  string  `json:"newValue"`
-			Type      string  `json:"type"`
+		NotifiedBy                   string `json:"notifiedBy"`
+		ProofOfDeathReceived         bool   `json:"proofOfDeathReceived"`
+		DateOfDeath                  string `json:"dateOfDeath"`
+		DateDeathCertificateReceived string `json:"dateDeathCertificateReceived"`
+		DateNotified                 string `json:"dateNotified"`
+		NotificationMethod           string `json:"notificationMethod"`
+		Notes                        string `json:"notes"`
+		PersonType                   string `json:"personType"`
+		PersonId                     string `json:"personId"`
+		PersonUid                    string `json:"personUid"`
+		PersonName                   string `json:"personName"`
+		PersonCourtRef               string `json:"personCourtRef"`
+		Changes                      []struct {
+			FieldName string `json:"fieldName"`
+			OldValue  string `json:"oldValue"`
+			NewValue  string `json:"newValue"`
+			Type      string `json:"type"`
 		} `json:"changes,omitempty"`
 		OrderType            string `json:"orderType,omitempty"`
 		OrderUid             string `json:"orderUid,omitempty"`
@@ -43,8 +50,8 @@ type TimelineEvent struct {
 			PersonName     string `json:"personName"`
 			PersonCourtRef string `json:"personCourtRef"`
 		} `json:"additionalPersons,omitempty"`
-		PreviousStatus *string `json:"previousStatus,omitempty"`
-		Status         string  `json:"status,omitempty"`
+		PreviousStatus string `json:"previousStatus,omitempty"`
+		Status         string `json:"status,omitempty"`
 	} `json:"event"`
 }
 
