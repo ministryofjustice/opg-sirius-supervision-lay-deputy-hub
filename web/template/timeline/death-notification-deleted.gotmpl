@@ -1,0 +1,24 @@
+{{ define "death-notification-deleted" }}
+    <div class="moj-timeline__item" data-cy="death-notification-deleted">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                death-notification-deleted
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                <ul class="govuk-list govuk-list--bullet">
+                    {{ range .Event.Changes }}
+                        {{.}}
+                    {{end}}
+                </ul>
+            </ul>
+        </div>
+    </div>
+{{ end }}

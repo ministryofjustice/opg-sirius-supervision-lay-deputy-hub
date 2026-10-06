@@ -57,14 +57,14 @@
                         {{end}}
                     {{end}}
                     {{if eq .FieldName "deputyType"}}
-                        {{ if .OldValue }}
+                        {{ if ne (len .OldValue) 0 }}
                             <li><b>Deputy type</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
                         {{else}}
                             <li><b>Deputy type</b> set to <b>{{ .NewValue }}</b></li>
                         {{end}}
                     {{end}}
                     {{if eq .FieldName "deputySubType"}}
-                        {{ if .OldValue }}
+                        {{ if ne (len .OldValue) 0 }}
                             <li><b>Deputy Subtype</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
                         {{else}}
                             <li><b>Deputy Subtype</b> set to <b>{{ .NewValue }}</b></li>
