@@ -1,0 +1,36 @@
+{{ define "client-fee-payer-added" }}
+    <div class="moj-timeline__item" data-cy="deputy-order-details-changed-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+               Order details updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <p><b>Order details updated</b> on case {{.Event.OrderType}} {{.Event.OrderCourtRef}} - {{ .Event.OrderUid}} </p>
+            <ul class="govuk-list govuk-list--bullet">
+                {{ range .Event.Changes }}
+                    {{if eq .FieldName "statusOnCase"}}
+                        {{ if .OldValue}}
+                            <li><b>Status on case</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                        {{ else }}
+                            <li><b>Status on case</b> set to <b>{{ .NewValue }}</b></li>
+                        {{ end }}
+                    {{end}}
+                    {{if eq .FieldName "deputyType"}}
+                        {{ if .OldValue}}
+                            <li><b>Type of deputy</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                        {{ else }}
+                            <li><b>Type of deputy</b> set to <b>{{ .NewValue }}</b></li>
+                        {{ end }}
+                    {{end}}
+                {{end}}
+            </ul>
+        </div>
+    </div>
+{{ end }}

@@ -1,0 +1,77 @@
+{{ define "person-details-changed" }}
+    <div class="moj-timeline__item" data-cy="person-details-changed-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Details updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                {{ range .Event.Changes }}
+                    {{if eq .FieldName "salutation"}}
+                        {{ if .OldValue }}
+                            <li><b>Title</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Title</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end }}
+                    {{end}}
+                    {{if eq .FieldName "firstname"}}
+                        {{ if .OldValue }}
+                            <li><b>First name</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>First name</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                    {{if eq .FieldName "middleNames"}}
+                        {{ if .OldValue }}
+                            <li><b>Middle names</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Middle names</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                    {{if eq .FieldName "surname"}}
+                        {{ if .OldValue }}
+                            <li><b>Surname</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Surname</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                    {{if eq .FieldName "otherNames"}}
+                        {{ if .OldValue }}
+                            <li><b>Other names</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Other names</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                    {{if eq .FieldName "dob"}}
+                        {{ if .OldValue }}
+                            <li><b>Date of birth</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Date of birth</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                    {{if eq .FieldName "deputyType"}}
+                        {{ if ne (len .OldValue) 0 }}
+                            <li><b>Deputy type</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Deputy type</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                    {{if eq .FieldName "deputySubType"}}
+                        {{ if ne (len .OldValue) 0 }}
+                            <li><b>Deputy Subtype</b> changed from <b>{{.OldValue}}</b> to <b>{{ .NewValue }}</b></li>
+                        {{else}}
+                            <li><b>Deputy Subtype</b> set to <b>{{ .NewValue }}</b></li>
+                        {{end}}
+                    {{end}}
+                {{end}}
+            </ul>
+        </div>
+    </div>
+{{ end }}

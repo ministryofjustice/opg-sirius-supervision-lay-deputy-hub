@@ -1,0 +1,31 @@
+{{ define "person-death-notified" }}
+    <div class="moj-timeline__item" data-cy="person-death-notified-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Death
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <p> The death of the deputy has been
+                <b>{{ if .Event.DateDeathCertificateReceived }}confirmed{{ else }}notified{{ end }}</b>
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li> Date of death {{ .Event.DateOfDeath }}</li>
+                    {{ if .Event.DateDeathCertificateReceived }}
+                        <li> Certificate received {{ .Event.DateDeathCertificateReceived }}</li>
+                    {{ end }}
+                    <li> Notified by <b>{{ .Event.NotifiedBy }}</b> on
+                        <b>{{ .Event.DateNotified }}</b> by <b>{{ .Event.NotificationMethod }}</b></li>
+                    <li> {{ .Event.Notes }}</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+{{ end }}

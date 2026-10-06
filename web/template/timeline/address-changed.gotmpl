@@ -1,0 +1,79 @@
+{{ define "address-changed" }}
+    <div class="moj-timeline__item" data-cy="address-changed-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Address updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                <ul class="govuk-list govuk-list--bullet">
+                    {{ range .Event.Changes }}
+                        {{if eq .FieldName "addressLine1"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Address line 1</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>Address line 1</b> set to <b>{{ .NewValue }}</b></li>
+                            {{ end }}
+                        {{end}}
+                        {{if eq .FieldName "addressLine2"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Address line 2</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>Address line 2</b> set to <b>{{ .NewValue }}</b></li>
+                            {{end}}
+                        {{end}}
+                        {{if eq .FieldName "addressLine3"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Address line 3</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>Address line 3</b> set to <b>{{ .NewValue }}</b></li>
+                            {{end}}
+                        {{end}}
+                        {{if eq .FieldName "town"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Town</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>Town</b> set to <b>{{ .NewValue }}</b></li>
+                            {{end}}
+                        {{end}}
+                        {{if eq .FieldName "county"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>County</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>County</b> set to <b>{{ .NewValue }}</b></li>
+                            {{end}}
+                        {{end}}
+                        {{if eq .FieldName "country"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Country</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>Country</b> set to <b>{{ .NewValue }}</b></li>
+                            {{end}}
+                        {{end}}
+                        {{if eq .FieldName "postcode"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Postcode</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
+                            {{ else }}
+                                <li><b>Postcode</b> set to <b>{{ .NewValue }}</b></li>
+                            {{end}}
+                        {{end}}
+                        {{if eq .FieldName "isAirmailRequired"}}
+                            {{ if ne (len .OldValue) 0 }}
+                                <li><b>Is airmail required</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
+                            {{ else }}
+                                <li><b>Is airmail required</b> set to <b>{{ eq .NewValue "1" }}</b></li>
+                            {{end}}
+                        {{end}}
+                    {{end}}
+                </ul>
+            </ul>
+        </div>
+    </div>
+{{ end }}
