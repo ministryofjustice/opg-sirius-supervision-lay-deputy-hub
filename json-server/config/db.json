@@ -61,7 +61,6 @@
     }
   ],
   "clients": {
-    "limit": 25,
     "metadata": {
       "totalActiveClients": 3
     }

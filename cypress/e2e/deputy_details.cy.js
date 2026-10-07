@@ -52,8 +52,8 @@ describe("Deputy details tab", () => {
                 .and("contain.text", "Essex")
                 .and("contain.text", "CM1 1GG");
 
-            cy.get("#deputy-details > :nth-child(9) > .govuk-summary-list__key").should("contain", "Is airmail required");
-            cy.get("#deputy-details > :nth-child(9) > .govuk-summary-list__value").should("contain", "False");
+            cy.get("#deputy-details > :nth-child(9) > .govuk-summary-list__key").should("contain", "Is airmail required?");
+            cy.get("#deputy-details > :nth-child(9) > .govuk-summary-list__value").should("contain", "No");
         });
     });
 
