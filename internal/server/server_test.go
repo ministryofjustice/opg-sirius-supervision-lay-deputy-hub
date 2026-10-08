@@ -15,6 +15,15 @@ import (
 
 type mockClient struct{}
 
+func (m mockClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams) (sirius.ClientList, error) {
+	return sirius.ClientList{
+		TotalClients: 3,
+		Metadata: sirius.Metadata{
+			TotalActiveClients: 3,
+		},
+	}, nil
+}
+
 func (m mockClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.DeputyDetails, error) {
 	return sirius.DeputyDetails{
 		ID:              deputyID,

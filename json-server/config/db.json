@@ -6,16 +6,16 @@
       "normalizedUid": 700000002530,
       "homePhoneNumber": {
         "id": 96,
-        "phoneNumber": "",
+        "phoneNumber": "0115 876 5574",
         "type": "Home",
         "default": false
       },
       "email": "testemail@hotmail.co.uk",
-      "dob": "",
+      "dob": "01/01/1980",
       "salutation": "Mr",
-      "firstName": "Test",
+      "firstName": "Mike",
       "surname": "Deputy",
-      "otherNames": "",
+      "otherNames": "Michael",
       "addressLine1": "Seax House",
       "addressLine2": "19 Market Rd",
       "addressLine3": "",
@@ -38,19 +38,20 @@
       "updatedDate": "2026-09-15T12:13:38+00:00",
       "personType": "Deputy",
       "specialCorrespondenceRequirements": {
-        "audioTape": false,
-        "largePrint": false,
+        "audioTape": true,
+        "largePrint": true,
         "hearingImpaired": false,
         "spellingOfNameRequiresCare": false
       },
+      "interpreterRequired": "",
       "canDelete": false,
       "deputyStatus": "Active",
       "orders": [
         []
       ],
       "previousNames": "",
-      "mobileNumber": "",
-      "eveningNumber": "",
+      "mobileNumber": "0771 2345678",
+      "eveningNumber": "0115 2767825",
       "newsletter": false,
       "deputyType": {
         "handle": "Lay",
@@ -58,5 +59,10 @@
       },
       "deputyNumber": 46382901
     }
-  ]
+  ],
+  "clients": {
+    "metadata": {
+      "totalActiveClients": 3
+    }
+  }
 }

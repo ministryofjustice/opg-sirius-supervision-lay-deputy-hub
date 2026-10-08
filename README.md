@@ -20,3 +20,17 @@ To enable debugging and hot-reloading of Go files:
 `make dev-up`
 
 Hot-reloading is managed independently and should happen seamlessly. Debugging is available on port :2345
+
+---
+
+## Run *one* Cypress test headless (i.e. not in UI)
+`make cypress-single SPEC=deputy-details.cy.js`
+
+## Run *all* the Cypress tests headless
+`make build-all` (optional)
+`make cypress`
+
+## Run the Cypress tests in UI
+`make dev-up` in one terminal (wait for the app to build)
+`cd cypress`
+`npx cypress open baseUrl=http://localhost:1234` in another terminal

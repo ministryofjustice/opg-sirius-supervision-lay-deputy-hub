@@ -2,19 +2,19 @@ build:
 	docker compose build --no-cache lay-deputy-hub
 
 build-dev:
-	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache --parallel lay-deputy-hub yarn json-server
+	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache --parallel lay-deputy-hub json-server
+
+build-all:
+	docker compose build --parallel lay-deputy-hub cypress test-runner json-server
 
 clean:
 	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml down --remove-orphans
 
-compile-assets:
-	docker compose run --rm yarn build
+dev-up: clean build-dev npm
+	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml up lay-deputy-hub npm json-server
 
-dev-up: clean build-dev
-	docker compose -f docker-compose.yml -f docker/docker-compose.dev.yml up lay-deputy-hub watch-assets json-server
-
-up: clean compile-assets build
-	docker compose up -d --wait lay-deputy-hub
+dev-up-sirius: clean build-dev npm
+	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub npm
 
 down:
 	docker compose down --remove-orphans
@@ -22,8 +22,22 @@ down:
 go-lint:
 	docker compose run --rm go-lint
 
+npm:
+	docker compose run --rm npm
+
 test-results:
-	mkdir -p -m 0777 test-results .gocache pacts logs
+	mkdir -p -m 0777 test-results .gocache pacts logs cypress/screenshots
 
 unit-test: test-results
 	docker compose run --rm test-runner
+
+up: clean build
+	docker compose up -d --wait lay-deputy-hub
+
+setup-directories: test-results
+
+cypress: setup-directories clean
+	docker compose run --build cypress
+
+cypress-single: setup-directories clean
+	docker compose run --rm cypress run --spec e2e/$(SPEC)
