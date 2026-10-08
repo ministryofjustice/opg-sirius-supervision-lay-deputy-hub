@@ -57,11 +57,3 @@ func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientL
 
 	return clientList, err
 }
-
-//func (p ClientListParams) CreateFilter() string {
-//	var filter string
-//	for _, s := range p.OrderStatuses {
-//		filter += "order-status:" + s + ","
-//	}
-//	return strings.TrimRight(filter, ",")
-//}
