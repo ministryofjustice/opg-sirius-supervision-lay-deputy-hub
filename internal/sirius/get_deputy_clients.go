@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
+	"net/url"
 )
 
 type Metadata struct {
@@ -17,22 +17,18 @@ type ClientList struct {
 }
 
 type ClientListParams struct {
-	DeputyId      int
-	OrderStatuses []string
+	DeputyId int
 }
 
 func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientList, error) {
 	var clientList ClientList
 
-	url := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/clients?", params.DeputyId)
+	query := url.Values{}
+	filter := "order-status:ACTIVE"
+	query.Set("filter", filter)
+	requestURL := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/clients?%s", params.DeputyId, query.Encode())
 
-	filter := params.CreateFilter()
-
-	if filter != "" {
-		url = fmt.Sprintf("%s&filter=%s", url, filter)
-	}
-
-	req, err := c.newRequest(ctx, http.MethodGet, url, nil)
+	req, err := c.newRequest(ctx, http.MethodGet, requestURL, nil)
 
 	if err != nil {
 		return clientList, err
@@ -62,10 +58,10 @@ func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientL
 	return clientList, err
 }
 
-func (p ClientListParams) CreateFilter() string {
-	var filter string
-	for _, s := range p.OrderStatuses {
-		filter += "order-status:" + s + ","
-	}
-	return strings.TrimRight(filter, ",")
-}
+//func (p ClientListParams) CreateFilter() string {
+//	var filter string
+//	for _, s := range p.OrderStatuses {
+//		filter += "order-status:" + s + ","
+//	}
+//	return strings.TrimRight(filter, ",")
+//}

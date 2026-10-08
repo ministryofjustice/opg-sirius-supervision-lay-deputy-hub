@@ -106,7 +106,7 @@ func TestDeputyClientsReturned(t *testing.T) {
 		TotalClients: 1,
 	}
 
-	deputyClientDetails, err := client.GetDeputyClients(getContext(nil), ClientListParams{1, []string{"ACTIVE"}})
+	deputyClientDetails, err := client.GetDeputyClients(getContext(nil), ClientListParams{1})
 
 	assert.Equal(t, 1, deputyClientDetails.Metadata.TotalActiveClients)
 	assert.Equal(t, expectedResponse, deputyClientDetails)
