@@ -36,6 +36,14 @@ func (m mockClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.Dep
 	}, nil
 }
 
+func (m mockClient) GetDeputyTimeline(_ sirius.Context, deputyID int) ([]sirius.TimelineEvent, error) {
+	return []sirius.TimelineEvent{
+		{
+			EventType: "test",
+		},
+	}, nil
+}
+
 func TestPagesLoadSuccessfully(t *testing.T) {
 	templates := map[string]*template.Template{
 		"error.gotmpl":          testTemplate(t, "error.gotmpl"),
