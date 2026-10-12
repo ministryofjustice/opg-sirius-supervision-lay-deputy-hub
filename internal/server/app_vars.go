@@ -18,6 +18,14 @@ type AppVars struct {
 	EnvironmentVars
 }
 
+func (a AppVars) DeputyId() int {
+	return a.DeputyDetails.ID
+}
+
+func (a AppVars) DeputyType() string {
+	return a.DeputyDetails.DeputyType.Handle
+}
+
 type AppVarsClient interface {
 	GetDeputyDetails(sirius.Context, int) (sirius.DeputyDetails, error)
 }

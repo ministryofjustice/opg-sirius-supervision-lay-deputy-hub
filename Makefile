@@ -26,10 +26,19 @@ npm:
 	docker compose run --rm npm
 
 test-results:
-	mkdir -p -m 0777 test-results .gocache pacts logs
+	mkdir -p -m 0777 test-results .gocache pacts logs cypress/screenshots
 
 unit-test: test-results
 	docker compose run --rm test-runner
 
 up: clean build
 	docker compose up -d --wait lay-deputy-hub
+
+setup-directories: test-results
+
+cypress: setup-directories clean
+	docker compose run --build cypress
+
+cypress-single: setup-directories clean
+	docker compose run --rm cypress run --spec e2e/$(SPEC)
+
