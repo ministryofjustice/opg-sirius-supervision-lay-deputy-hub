@@ -31,6 +31,18 @@ func FormatDateTime(currentFormat string, dateString string, displayFormat strin
 	return dateTime
 }
 
+func FormatDateTimeAsDate(currentFormat string, dateString string, displayFormat string) string {
+	if dateString == "" {
+		return dateString
+	}
+	stringToDateTime, err := time.Parse(currentFormat, dateString)
+	if err != nil {
+		return dateString
+	}
+	dateTime := stringToDateTime.In(londonLocation).Format(displayFormat)
+	return dateTime
+}
+
 // PermissiveFormatIsoDateTime allows transition from `IsoDateTime` to `IsoDateTimeZone` without display errors for users.
 // Once the transition is completed, this should be deleted and `FormatDateTime(IsoDateTimeZone, ...` used.
 func PermissiveFormatIsoDateTime(dateString string, displayFormat string) string {

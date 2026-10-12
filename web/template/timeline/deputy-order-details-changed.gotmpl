@@ -12,7 +12,22 @@
             <time>{{ .Timestamp }}</time>
         </p>
         <div class="moj-timeline__description">
-            <p><b>Order details updated</b> on case {{.Event.OrderType}} {{.Event.OrderCourtRef}} - {{ .Event.OrderUid}} </p>
+            <p><b>Order details updated</b> on case {{.Event.OrderType}} {{.Event.OrderCourtRef}} -
+                {{ if .Event.AdditionalPersons}}
+                    {{ range .Event.AdditionalPersons }}
+                        {{ if eq .PersonType "Client" }}
+                            <a href="{{ sirius (printf "/supervision/#/clients/%s?order=%s" .PersonId $.Event.OrderId) }}"
+                               class="govuk-link"
+                               id="hook-deputy-linked-to-order-timeline-event-client-id"
+                            >
+                                {{ $.Event.OrderUid}}
+                            </a>
+                        {{ end }}
+                    {{ end }}
+                {{ else }}
+                    {{ .Event.OrderUid}}
+                {{ end }}
+            </p>
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
                     {{if eq .FieldName "statusOnCase"}}
