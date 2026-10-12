@@ -7,52 +7,58 @@ import (
 	"strings"
 )
 
+type User struct {
+	Id          int    `json:"id"`
+	PhoneNumber string `json:"phoneNumber"`
+	DisplayName string `json:"displayName"`
+	Email       string `json:"email"`
+}
+
+type Changeset struct {
+	FieldName string `json:"fieldName"`
+	OldValue  string `json:"oldValue"`
+	NewValue  string `json:"newValue"`
+	Type      string `json:"type"`
+}
+
+type AdditionalPerson struct {
+	PersonType     string `json:"personType,omitempty"`
+	PersonId       string `json:"personId,omitempty"`
+	PersonUid      string `json:"personUid,omitempty"`
+	PersonName     string `json:"personName,omitempty"`
+	PersonCourtRef string `json:"personCourtRef,omitempty"`
+}
+
+type Event struct {
+	NotifiedBy                   string             `json:"notifiedBy,omitempty"`
+	ProofOfDeathReceived         bool               `json:"proofOfDeathReceived,omitempty"`
+	DateOfDeath                  string             `json:"dateOfDeath,omitempty"`
+	DateDeathCertificateReceived string             `json:"dateDeathCertificateReceived,omitempty"`
+	DateNotified                 string             `json:"dateNotified,omitempty"`
+	NotificationMethod           string             `json:"notificationMethod,omitempty"`
+	Notes                        string             `json:"notes,omitempty"`
+	PersonType                   string             `json:"personType,omitempty"`
+	PersonId                     string             `json:"personId,omitempty"`
+	PersonUid                    string             `json:"personUid,omitempty"`
+	PersonName                   string             `json:"personName,omitempty"`
+	PersonCourtRef               string             `json:"personCourtRef,omitempty"`
+	Changes                      []Changeset        `json:"changes,omitempty"`
+	OrderType                    string             `json:"orderType,omitempty"`
+	OrderUid                     string             `json:"orderUid,omitempty"`
+	OrderId                      string             `json:"orderId,omitempty"`
+	OrderCourtRef                string             `json:"orderCourtRef,omitempty"`
+	CourtReferenceNumber         string             `json:"courtReferenceNumber,omitempty"`
+	CourtReference               string             `json:"courtReference,omitempty"`
+	AdditionalPersons            []AdditionalPerson `json:"additionalPersons,omitempty"`
+	PreviousStatus               string             `json:"previousStatus,omitempty"`
+	Status                       string             `json:"status,omitempty"`
+}
 type TimelineEvent struct {
 	Id        int    `json:"id"`
-	Hash      string `json:"hash"`
 	Timestamp string `json:"timestamp"`
 	EventType string `json:"eventType"`
-	User      struct {
-		Id          int    `json:"id"`
-		PhoneNumber string `json:"phoneNumber"`
-		DisplayName string `json:"displayName"`
-		Email       string `json:"email"`
-	} `json:"user"`
-	Event struct {
-		NotifiedBy                   string `json:"notifiedBy"`
-		ProofOfDeathReceived         bool   `json:"proofOfDeathReceived"`
-		DateOfDeath                  string `json:"dateOfDeath"`
-		DateDeathCertificateReceived string `json:"dateDeathCertificateReceived"`
-		DateNotified                 string `json:"dateNotified"`
-		NotificationMethod           string `json:"notificationMethod"`
-		Notes                        string `json:"notes"`
-		PersonType                   string `json:"personType"`
-		PersonId                     string `json:"personId"`
-		PersonUid                    string `json:"personUid"`
-		PersonName                   string `json:"personName"`
-		PersonCourtRef               string `json:"personCourtRef"`
-		Changes                      []struct {
-			FieldName string `json:"fieldName"`
-			OldValue  string `json:"oldValue"`
-			NewValue  string `json:"newValue"`
-			Type      string `json:"type"`
-		} `json:"changes,omitempty"`
-		OrderType            string `json:"orderType,omitempty"`
-		OrderUid             string `json:"orderUid,omitempty"`
-		OrderId              string `json:"orderId,omitempty"`
-		OrderCourtRef        string `json:"orderCourtRef,omitempty"`
-		CourtReferenceNumber string `json:"courtReferenceNumber,omitempty"`
-		CourtReference       string `json:"courtReference,omitempty"`
-		AdditionalPersons    []struct {
-			PersonType     string `json:"personType"`
-			PersonId       string `json:"personId"`
-			PersonUid      string `json:"personUid"`
-			PersonName     string `json:"personName"`
-			PersonCourtRef string `json:"personCourtRef"`
-		} `json:"additionalPersons,omitempty"`
-		PreviousStatus string `json:"previousStatus,omitempty"`
-		Status         string `json:"status,omitempty"`
-	} `json:"event"`
+	User      User   `json:"user"`
+	Event     Event  `json:"event"`
 }
 
 func (c *Client) GetDeputyTimeline(ctx Context, deputyID int) ([]TimelineEvent, error) {
