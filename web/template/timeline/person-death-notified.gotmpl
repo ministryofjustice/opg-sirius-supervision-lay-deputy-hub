@@ -16,15 +16,13 @@
                 <b>{{ if .Event.DateDeathCertificateReceived }}confirmed{{ else }}notified{{ end }}</b>
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <ul class="govuk-list govuk-list--bullet">
-                    <li> Date of death {{ .Event.DateOfDeath }}</li>
-                    {{ if .Event.DateDeathCertificateReceived }}
-                        <li> Certificate received {{ .Event.DateDeathCertificateReceived }}</li>
-                    {{ end }}
-                    <li> Notified by <b>{{ .Event.NotifiedBy }}</b> on
-                        <b>{{ .Event.DateNotified }}</b> by <b>{{ .Event.NotificationMethod }}</b></li>
-                    <li> {{ .Event.Notes }}</li>
-                </ul>
+                <li> Date of death {{ .Event.DateOfDeath }}</li>
+                {{ if .Event.DateDeathCertificateReceived }}
+                    <li> Certificate received {{ .Event.DateDeathCertificateReceived }}</li>
+                {{ end }}
+                <li> Notified by <b>{{ .Event.NotifiedBy }}</b> on
+                    <b>{{ .Event.DateNotified }}</b> by <b>{{ .Event.NotificationMethod }}</b></li>
+                <li> {{ .Event.Notes }}</li>
             </ul>
         </div>
     </div>
