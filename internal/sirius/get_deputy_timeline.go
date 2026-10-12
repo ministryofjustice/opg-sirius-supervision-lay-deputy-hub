@@ -163,7 +163,7 @@ func reformatEvent(myEvent Event, eventType string) Event {
 		}
 		eventToReturn.Changes = updatedChanges
 	}
-	
+
 	if strings.Contains(eventType, "PersonDeathNotified") || strings.Contains(eventType, "DeathNotificationDeleted") {
 		eventToReturn.NotifiedBy = strings.Title(strings.ToLower(myEvent.NotifiedBy))
 	}
