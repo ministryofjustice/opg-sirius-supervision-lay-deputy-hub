@@ -152,13 +152,22 @@ func reformatEvent(myEvent Event, eventType string) Event {
 	if strings.Contains(eventType, "DeputyOrderDetailsChanged") || strings.Contains(eventType, "PersonDetailsChanged") {
 		var updatedChanges []Changeset
 		for _, e := range myEvent.Changes {
-			changes := Changeset{
-				FieldName: e.FieldName,
-				OldValue:  strings.Title(strings.ToLower(e.OldValue)),
-				NewValue:  strings.Title(strings.ToLower(e.NewValue)),
-				Type:      e.FieldName,
+			changes := Changeset{}
+			if e.FieldName == "statusChangeDate" {
+				changes = Changeset{
+					FieldName: e.FieldName,
+					OldValue:  FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
+					NewValue:  FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
+					Type:      e.FieldName,
+				}
+			} else {
+				changes = Changeset{
+					FieldName: e.FieldName,
+					OldValue:  strings.Title(strings.ToLower(e.OldValue)),
+					NewValue:  strings.Title(strings.ToLower(e.NewValue)),
+					Type:      e.FieldName,
+				}
 			}
-
 			updatedChanges = append(updatedChanges, changes)
 		}
 		eventToReturn.Changes = updatedChanges
@@ -166,6 +175,10 @@ func reformatEvent(myEvent Event, eventType string) Event {
 
 	if strings.Contains(eventType, "PersonDeathNotified") || strings.Contains(eventType, "DeathNotificationDeleted") {
 		eventToReturn.NotifiedBy = strings.Title(strings.ToLower(myEvent.NotifiedBy))
+	}
+
+	if myEvent.OrderType != "" {
+		eventToReturn.OrderType = strings.ToUpper(myEvent.OrderType)
 	}
 
 	return eventToReturn

@@ -24,10 +24,9 @@
                     </a>
                 {{end}}
             {{end}}
-            <br>
             {{ range .Event.MultiPersons }}
                 {{if eq .PersonType "Deputy"}}
-                    <b>{{ .PersonName }} set </b>to be the feepayer for client on <time>{{ $.TimestampAsDate }}</time>
+                    <p><b>{{ .PersonName }} set </b>to be the feepayer for client on <time>{{ $.TimestampAsDate }}</time></p>
                 {{end}}
             {{end}}
         </div>

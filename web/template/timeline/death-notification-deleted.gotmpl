@@ -13,9 +13,9 @@
         </p>
         <div class="moj-timeline__description">
             <ul class="govuk-list govuk-list--bullet">
-                <li> Date of death {{ .Event.DateOfDeath }}</li>
+                <li> Date of death <b>{{ .Event.DateOfDeath }}</b></li>
                 {{ if .Event.DateDeathCertificateReceived }}
-                    <li> Certificate received {{ .Event.DateDeathCertificateReceived }}</li>
+                    <li> Certificate received <b>{{ .Event.DateDeathCertificateReceived }}</b></li>
                 {{ end }}
                 <li>
                     Notified by

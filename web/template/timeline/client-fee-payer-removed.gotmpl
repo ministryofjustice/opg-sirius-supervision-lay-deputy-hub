@@ -24,10 +24,9 @@
                     </a>
                 {{end}}
             {{end}}
-            <br>
             {{ range .Event.MultiPersons }}
                 {{if eq .PersonType "Deputy"}}
-                    <b>{{ .PersonName }} removed </b>as the feepayer for client on {{ $.TimestampAsDate }}
+                    <p><b>{{ .PersonName }} removed </b>as the feepayer for client on {{ $.TimestampAsDate }}</p>
                 {{end}}
             {{end}}
         </div>

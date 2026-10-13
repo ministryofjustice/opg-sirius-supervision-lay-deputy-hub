@@ -22,13 +22,14 @@
                                        class="govuk-link"
                                        id="hook-deputy-linked-to-order-timeline-event-client-id"
                                     >
-                                    {{ $.Event.OrderUid}}
+                                    {{$.Event.OrderUid}}
                                     </a>
                                 {{ end }}
                             {{ end }}
                         {{ else }}
                             {{ .Event.OrderUid}}
                         {{ end }}
+                        on <time>{{ .TimestampAsDate }}</time>
                     </li>
                 {{ end }}
             </ul>
