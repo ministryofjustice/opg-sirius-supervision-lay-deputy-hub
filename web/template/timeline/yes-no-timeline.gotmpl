@@ -1,6 +1,8 @@
 {{ define "yes-no-timeline"}}
     {{ if eq .FieldName "mainCorrespondent"}}
         {{ $myVariable := "Correspondent" }}
+    {{ else if eq .FieldName "isAirmailRequired"}}
+        {{ $myVariable := "Is airmail required" }}
 
 
         {{ if ne (len .OldValue) 0 }}

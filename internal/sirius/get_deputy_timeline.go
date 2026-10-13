@@ -15,10 +15,11 @@ type User struct {
 }
 
 type Changeset struct {
-	FieldName string `json:"fieldName"`
-	OldValue  string `json:"oldValue"`
-	NewValue  string `json:"newValue"`
-	Type      string `json:"type"`
+	FieldName   string `json:"fieldName"`
+	OldValue    string `json:"oldValue"`
+	NewValue    string `json:"newValue"`
+	Type        string `json:"type"`
+	StringValue string
 }
 
 type AdditionalPersons struct {
@@ -149,23 +150,25 @@ func reformatEvent(myEvent Event, eventType string) Event {
 		}
 	}
 
-	if strings.Contains(eventType, "DeputyOrderDetailsChanged") || strings.Contains(eventType, "PersonDetailsChanged") {
+	if strings.Contains(eventType, "DeputyOrderDetailsChanged") || strings.Contains(eventType, "PersonDetailsChanged") || strings.Contains(eventType, "AddressChanged") {
 		var updatedChanges []Changeset
 		for _, e := range myEvent.Changes {
 			changes := Changeset{}
 			if e.FieldName == "statusChangeDate" {
 				changes = Changeset{
-					FieldName: e.FieldName,
-					OldValue:  FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
-					NewValue:  FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
-					Type:      e.FieldName,
+					FieldName:   e.FieldName,
+					OldValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
+					NewValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
+					Type:        e.FieldName,
+					StringValue: GetStringValue(e.FieldName),
 				}
 			} else {
 				changes = Changeset{
-					FieldName: e.FieldName,
-					OldValue:  strings.Title(strings.ToLower(e.OldValue)),
-					NewValue:  strings.Title(strings.ToLower(e.NewValue)),
-					Type:      e.FieldName,
+					FieldName:   e.FieldName,
+					OldValue:    strings.Title(strings.ToLower(e.OldValue)),
+					NewValue:    strings.Title(strings.ToLower(e.NewValue)),
+					Type:        e.FieldName,
+					StringValue: GetStringValue(e.FieldName),
 				}
 			}
 			updatedChanges = append(updatedChanges, changes)
@@ -183,4 +186,34 @@ func reformatEvent(myEvent Event, eventType string) Event {
 	}
 
 	return eventToReturn
+}
+
+func GetStringValue(myFieldName string) string {
+	switch myFieldName {
+	case "addressLine1":
+		return "Address line 1"
+	case "addressLine2":
+		return "Address line 2"
+	case "addressLine3":
+		return "Address line 3"
+	case "county":
+		return "County"
+	case "country":
+		return "Country"
+	case "deputyType":
+		return "Type of deputy"
+	case "postcode":
+		return "Postcode"
+	case "relationshipToClient":
+		return "Relationship to client"
+	case "statusChangeDate":
+		return "Status change date"
+	case "statusOnCase":
+		return "Status on case"
+	case "town":
+		return "Town"
+
+	default:
+		return "Placeholder - Missing string value"
+	}
 }
