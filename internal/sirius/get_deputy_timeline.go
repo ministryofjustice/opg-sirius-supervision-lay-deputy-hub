@@ -169,6 +169,7 @@ func reformatEvent(myEvent Event, eventType string) Event {
 				}
 			}
 			updatedChanges = append(updatedChanges, changes)
+
 		}
 		eventToReturn.Changes = updatedChanges
 	}

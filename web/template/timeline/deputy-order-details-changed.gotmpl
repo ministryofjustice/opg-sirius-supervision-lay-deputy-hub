@@ -54,7 +54,7 @@
                     {{end}}
                     {{if eq .FieldName "mainCorrespondent"}}
                         {{ if ne (len .OldValue) 0 }}
-                            <li><b>Correspondent</b> changed from <b>{{ if eq .OldValue "1" }}Yes</b> to <b>{{ eq .NewValue "1" }}</b></li>
+                            <li><b>Correspondent</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
                         {{ else }}
                             <li><b>Correspondent</b> set to <b>{{ eq .NewValue "1" }}</b></li>
                         {{ end }}
