@@ -150,32 +150,38 @@ func reformatEvent(myEvent Event, eventType string) Event {
 		}
 	}
 
-	if strings.Contains(eventType, "DeputyOrderDetailsChanged") || strings.Contains(eventType, "PersonDetailsChanged") || strings.Contains(eventType, "AddressChanged") {
-		var updatedChanges []Changeset
-		for _, e := range myEvent.Changes {
-			changes := Changeset{}
-			if e.FieldName == "statusChangeDate" {
-				changes = Changeset{
-					FieldName:   e.FieldName,
-					OldValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
-					NewValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
-					Type:        e.FieldName,
-					StringValue: GetStringValue(e.FieldName),
-				}
-			} else {
-				changes = Changeset{
-					FieldName:   e.FieldName,
-					OldValue:    strings.Title(strings.ToLower(e.OldValue)),
-					NewValue:    strings.Title(strings.ToLower(e.NewValue)),
-					Type:        e.FieldName,
-					StringValue: GetStringValue(e.FieldName),
-				}
+	var updatedChanges []Changeset
+	for _, e := range myEvent.Changes {
+		changes := Changeset{}
+		if e.FieldName == "statusChangeDate" {
+			changes = Changeset{
+				FieldName:   e.FieldName,
+				OldValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
+				NewValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
+				Type:        e.FieldName,
+				StringValue: GetStringValue(e.FieldName),
 			}
-			updatedChanges = append(updatedChanges, changes)
-
+		} else if skipChangesetEdit(e.FieldName) == 1 {
+			changes = Changeset{
+				FieldName:   e.FieldName,
+				OldValue:    e.OldValue,
+				NewValue:    e.NewValue,
+				Type:        e.FieldName,
+				StringValue: GetStringValue(e.FieldName),
+			}
+		} else {
+			changes = Changeset{
+				FieldName:   e.FieldName,
+				OldValue:    strings.Title(strings.ToLower(e.OldValue)),
+				NewValue:    strings.Title(strings.ToLower(e.NewValue)),
+				Type:        e.FieldName,
+				StringValue: GetStringValue(e.FieldName),
+			}
 		}
-		eventToReturn.Changes = updatedChanges
+		updatedChanges = append(updatedChanges, changes)
+
 	}
+	eventToReturn.Changes = updatedChanges
 
 	if strings.Contains(eventType, "PersonDeathNotified") || strings.Contains(eventType, "DeathNotificationDeleted") {
 		eventToReturn.NotifiedBy = strings.Title(strings.ToLower(myEvent.NotifiedBy))
@@ -196,24 +202,79 @@ func GetStringValue(myFieldName string) string {
 		return "Address line 2"
 	case "addressLine3":
 		return "Address line 3"
+	case "audioTape":
+		return "Audio"
+	case "correspondenceByEmail":
+		return "Email"
+	case "correspondenceByPhone":
+		return "Phone"
+	case "correspondenceByPost":
+		return "Post"
+	case "correspondenceByWelsh":
+		return "Welsh"
 	case "county":
 		return "County"
 	case "country":
 		return "Country"
 	case "deputyType":
 		return "Type of deputy"
+	case "deputySubType":
+		return "Deputy Subtype"
+	case "dob":
+		return "Date of birth"
+	case "email":
+		return "Email address"
+	case "firstname":
+		return "First name"
+	case "hearingImpaired":
+		return "Hearing impaired"
+	case "homePhoneNumber":
+		return "Evening phone number"
+	case "interpreterRequired":
+		return "Interpreter required"
+	case "isAirmailRequired":
+		return "Is airmail required"
+	case "largePrint":
+		return "Large print"
+	case "mainCorrespondent":
+		return "Correspondent"
+	case "middleNames":
+		return "Middle names"
+	case "mobileNumber":
+		return "Mobile telephone number"
+	case "occupation":
+		return "Occupation"
+	case "otherNames":
+		return "Other names"
 	case "postcode":
 		return "Postcode"
 	case "relationshipToClient":
 		return "Relationship to client"
+	case "spellingOfNameRequiresCare":
+		return "Spelling of name requires care"
+	case "salutation":
+		return "Title"
 	case "statusChangeDate":
 		return "Status change date"
 	case "statusOnCase":
 		return "Status on case"
+	case "surname":
+		return "Surname"
 	case "town":
 		return "Town"
+	case "workPhoneNumber":
+		return "Daytime telephone number"
 
 	default:
 		return "Placeholder - Missing string value"
 	}
+}
+
+func skipChangesetEdit(myString string) boolean {
+	for v, _ := range []string{"postcode", "email"} {
+		if strings.ToLower(myString) == strings.ToLower(v) {
+			return 1
+		}
+	}
+	return 0
 }

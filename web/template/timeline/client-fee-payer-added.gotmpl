@@ -23,11 +23,15 @@
                         {{ .PersonUid }}
                     </a>
                 {{end}}
-            {{end}}
-            {{ range .Event.MultiPersons }}
-                {{if eq .PersonType "Deputy"}}
-                    <p><b>{{ .PersonName }} set </b>to be the feepayer for client on <time>{{ $.TimestampAsDate }}</time></p>
-                {{end}}
+                <p><b>Set </b>to be the feepayer for client {{.PersonName}}
+                    <a href="{{ sirius (printf "/supervision/#/clients/%s" .PersonId) }}"
+                       class="govuk-link"
+                       id="hook-fee-payer-added-timeline-event-link-2-client-id"
+                    >
+                        {{ .PersonUid }}
+                    </a>
+                    on {{ $.TimestampAsDate }}
+                </p>
             {{end}}
         </div>
     </div>

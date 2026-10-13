@@ -1,34 +1,27 @@
 {{ define "yes-no-timeline"}}
-    {{ if eq .FieldName "mainCorrespondent"}}
-        {{ $myVariable := "Correspondent" }}
-    {{ else if eq .FieldName "isAirmailRequired"}}
-        {{ $myVariable := "Is airmail required" }}
-
-
-        {{ if ne (len .OldValue) 0 }}
-            <li>
-                <b>{{ $myVariable }}</b> changed from <b>
-                {{ if eq .OldValue "1" }}
-                    Yes
-                {{else}}
-                    No
-                {{end}}
-                </b> to <b>
-                    {{ if eq .NewValue "1" }}
-                        Yes
-                    {{else}}
-                        No
-                    {{end}}
-                </b>
-            </li>
-        {{ else }}
-            <li><b>{{ $myVariable }}</b> set to <b>
+    {{ if ne (len .OldValue) 0 }}
+        <li>
+            <b>{{ .StringValue }}</b> changed from <b>
+            {{ if eq .OldValue "1" }}
+                Yes
+            {{else}}
+                No
+            {{end}}
+            </b> to <b>
                 {{ if eq .NewValue "1" }}
                     Yes
                 {{else}}
                     No
                 {{end}}
-                </b></li>
-        {{ end }}
-    {{end}}
+            </b>
+        </li>
+    {{ else }}
+        <li><b>{{ .StringValue }}</b> set to <b>
+            {{ if eq .NewValue "1" }}
+                Yes
+            {{else}}
+                No
+            {{end}}
+            </b></li>
+    {{ end }}
 {{end}}

@@ -15,74 +15,34 @@
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
                     {{if eq .FieldName "occupation"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Occupation</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
-                        {{ else }}
-                            <li><b>Occupation</b> set to <b>{{ .NewValue }}</b></li>
-                        {{ end }}
+                        {{ template "changeset-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "audioTape"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Audio</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Audio</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByEmail"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Email</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Email</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByPhone"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Phone</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Phone</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByPost"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Post</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Post</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByWelsh"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Welsh</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Welsh</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "interpreterRequired"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Interpreter required</b> changed from <b>{{ .OldValue }}</b> to <b>{{ .NewValue }}</b></li>
-                        {{ else }}
-                            <li><b>Interpreter required</b> set to <b>{{ .NewValue }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "hearingImpaired"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Hearing impaired</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Hearing impaired</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "largePrint"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Large print</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Large print</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                     {{if eq .FieldName "spellingOfNameRequiresCare"}}
-                        {{ if ne (len .OldValue) 0 }}
-                            <li><b>Spelling of name requires care</b> changed from <b>{{ eq .OldValue "1" }}</b> to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ else }}
-                            <li><b>Spelling of name requires care</b> set to <b>{{ eq .NewValue "1" }}</b></li>
-                        {{ end }}
+                        {{ template "yes-no-timeline" . }}
                     {{end}}
                 {{end}}
             </ul>
