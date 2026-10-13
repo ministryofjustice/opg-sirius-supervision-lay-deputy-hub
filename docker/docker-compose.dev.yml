@@ -18,7 +18,6 @@ services:
       SIRIUS_URL: http://json-server:3000
       PREFIX: /supervision/deputies/lay
 
-
   json-server:
     ports: [3000:3000]
 
