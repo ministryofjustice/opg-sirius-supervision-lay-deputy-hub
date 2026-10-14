@@ -1,7 +1,7 @@
 {{ define "yes-no-changeset"}}
     {{ if ne (len .OldValue) 0 }}
         <li>
-            <b>{{ .StringValue }}</b> changed from <b>
+            <b>{{ .TimelineValueName }}</b> changed from <b>
             {{ if eq .OldValue "1" }}
                 Yes
             {{else}}
@@ -16,7 +16,7 @@
             </b>
         </li>
     {{ else }}
-        <li><b>{{ .StringValue }}</b> set to <b>
+        <li><b>{{ .TimelineValueName }}</b> set to <b>
             {{ if eq .NewValue "1" }}
                 Yes
             {{else}}

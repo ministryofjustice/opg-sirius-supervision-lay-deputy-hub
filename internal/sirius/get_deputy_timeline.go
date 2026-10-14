@@ -15,11 +15,11 @@ type User struct {
 }
 
 type Changeset struct {
-	FieldName   string `json:"fieldName"`
-	OldValue    string `json:"oldValue"`
-	NewValue    string `json:"newValue"`
-	Type        string `json:"type"`
-	StringValue string
+	FieldName         string `json:"fieldName"`
+	OldValue          string `json:"oldValue"`
+	NewValue          string `json:"newValue"`
+	Type              string `json:"type"`
+	TimelineValueName string
 }
 
 type AdditionalPerson struct {
@@ -31,45 +31,43 @@ type AdditionalPerson struct {
 }
 
 type Event struct {
-	AdditionalPersons               []AdditionalPerson `json:"additionalPersons,omitempty"`
-	Changes                         []Changeset        `json:"changes,omitempty"`
-	CourtReferenceNumber            string             `json:"courtReferenceNumber,omitempty"`
-	CourtReference                  string             `json:"courtReference,omitempty"`
-	DateOfDeath                     string             `json:"dateOfDeath,omitempty"`
-	DateDeathCertificateReceived    string             `json:"dateDeathCertificateReceived,omitempty"`
-	DateNotified                    string             `json:"dateNotified,omitempty"`
-	DocumentId                      string             `json:"documentId,omitempty"`
-	DocumentFilename                string             `json:"filename,omitempty"`
-	DocumentDescription             string             `json:"description,omitempty"`
-	DocumentDirection               string             `json:"direction,omitempty"`
-	DocumentPublishedDate           string             `json:"publishedDate,omitempty"`
-	DocumentType                    string             `json:"type,omitempty"`
-	DocumentSource                  string             `json:"source,omitempty"`
-	DocumentSystemType              string             `json:"systemType,omitempty"`
-	DocumentMimeType                string             `json:"mimeType,omitempty"`
-	DocumentPageCount               string             `json:"pageCount,omitempty"`
-	DocumentPublishedById           string             `json:"publishedById,omitempty"`
-	DocumentClientId                string             `json:"clientId,omitempty"`
-	DocumentClientName              string             `json:"clientName,omitempty"`
-	DocumentIsAnnualInvoiceDocument bool               `json:"isAnnualInvoiceDocument,omitempty"`
-	Notes                           string             `json:"notes,omitempty"`
-	NotificationMethod              string             `json:"notificationMethod,omitempty"`
-	NotifiedBy                      string             `json:"notifiedBy,omitempty"`
-	NotifiedByOther                 string             `json:"notifiedByOther,omitempty"`
-	ParentEventType                 string             `json:"parentEventType"`
-	PreviousStatus                  string             `json:"previousStatus,omitempty"`
-	PersonType                      string             `json:"personType,omitempty"`
-	PersonId                        string             `json:"personId,omitempty"`
-	PersonUid                       string             `json:"personUid,omitempty"`
-	PersonName                      string             `json:"personName,omitempty"`
-	PersonCourtRef                  string             `json:"personCourtRef,omitempty"`
-	ProofOfDeathReceived            bool               `json:"proofOfDeathReceived,omitempty"`
-	MultiPersons                    []AdditionalPerson `json:"multiPersons,omitempty"`
-	OrderType                       string             `json:"orderType,omitempty"`
-	OrderUid                        string             `json:"orderUid,omitempty"`
-	OrderId                         string             `json:"orderId,omitempty"`
-	OrderCourtRef                   string             `json:"orderCourtRef,omitempty"`
-	Status                          string             `json:"status,omitempty"`
+	AdditionalPersons            []AdditionalPerson `json:"additionalPersons,omitempty"`
+	Changes                      []Changeset        `json:"changes,omitempty"`
+	CourtReference               string             `json:"courtReference,omitempty"`
+	DateOfDeath                  string             `json:"dateOfDeath,omitempty"`
+	DateDeathCertificateReceived string             `json:"dateDeathCertificateReceived,omitempty"`
+	DateNotified                 string             `json:"dateNotified,omitempty"`
+	DocumentId                   string             `json:"documentId,omitempty"`
+	DocumentFilename             string             `json:"filename,omitempty"`
+	DocumentDescription          string             `json:"description,omitempty"`
+	DocumentDirection            string             `json:"direction,omitempty"`
+	DocumentPublishedDate        string             `json:"publishedDate,omitempty"`
+	DocumentType                 string             `json:"type,omitempty"`
+	DocumentSource               string             `json:"source,omitempty"`
+	DocumentSystemType           string             `json:"systemType,omitempty"`
+	DocumentMimeType             string             `json:"mimeType,omitempty"`
+	DocumentPageCount            string             `json:"pageCount,omitempty"`
+	DocumentPublishedById        string             `json:"publishedById,omitempty"`
+	DocumentClientId             string             `json:"clientId,omitempty"`
+	DocumentClientName           string             `json:"clientName,omitempty"`
+	Notes                        string             `json:"notes,omitempty"`
+	NotificationMethod           string             `json:"notificationMethod,omitempty"`
+	NotifiedBy                   string             `json:"notifiedBy,omitempty"`
+	NotifiedByOther              string             `json:"notifiedByOther,omitempty"`
+	ParentEventType              string             `json:"parentEventType"`
+	PreviousStatus               string             `json:"previousStatus,omitempty"`
+	PersonType                   string             `json:"personType,omitempty"`
+	PersonId                     string             `json:"personId,omitempty"`
+	PersonUid                    string             `json:"personUid,omitempty"`
+	PersonName                   string             `json:"personName,omitempty"`
+	PersonCourtRef               string             `json:"personCourtRef,omitempty"`
+	ProofOfDeathReceived         bool               `json:"proofOfDeathReceived"`
+	MultiPersons                 []AdditionalPerson `json:"multiPersons,omitempty"`
+	OrderType                    string             `json:"orderType,omitempty"`
+	OrderUid                     string             `json:"orderUid,omitempty"`
+	OrderId                      string             `json:"orderId,omitempty"`
+	OrderCourtRef                string             `json:"orderCourtRef,omitempty"`
+	Status                       string             `json:"status,omitempty"`
 }
 type TimelineEvent struct {
 	Id              int    `json:"id"`
@@ -155,11 +153,11 @@ func reformatEvent(myEvent Event, eventType string) Event {
 		changes := Changeset{}
 		if e.FieldName == "statusChangeDate" {
 			changes = Changeset{
-				FieldName:   e.FieldName,
-				OldValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
-				NewValue:    FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
-				Type:        e.FieldName,
-				StringValue: GetTimelineValueForField(e.FieldName),
+				FieldName:         e.FieldName,
+				OldValue:          FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
+				NewValue:          FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
+				Type:              e.Type,
+				TimelineValueName: GetTimelineValueForField(e.FieldName),
 			}
 		} else {
 			if reformatCapitalValues(e) == true {
@@ -167,11 +165,11 @@ func reformatEvent(myEvent Event, eventType string) Event {
 				e.NewValue = strings.Title(strings.ToLower(e.NewValue))
 			}
 			changes = Changeset{
-				FieldName:   e.FieldName,
-				OldValue:    e.OldValue,
-				NewValue:    e.NewValue,
-				Type:        e.Type,
-				StringValue: GetTimelineValueForField(e.FieldName),
+				FieldName:         e.FieldName,
+				OldValue:          e.OldValue,
+				NewValue:          e.NewValue,
+				Type:              e.Type,
+				TimelineValueName: GetTimelineValueForField(e.FieldName),
 			}
 		}
 		updatedChanges = append(updatedChanges, changes)
