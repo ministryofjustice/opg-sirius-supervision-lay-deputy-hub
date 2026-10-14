@@ -15,16 +15,16 @@
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
                     {{if eq .FieldName "workPhoneNumber"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "mobileNumber"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "homePhoneNumber"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "email"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                 {{end}}
             </ul>

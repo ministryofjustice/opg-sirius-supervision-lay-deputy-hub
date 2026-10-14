@@ -15,34 +15,34 @@
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
                     {{if eq .FieldName "occupation"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "audioTape"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByEmail"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByPhone"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByPost"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "correspondenceByWelsh"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "interpreterRequired"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "hearingImpaired"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "largePrint"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "spellingOfNameRequiresCare"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                 {{end}}
             </ul>

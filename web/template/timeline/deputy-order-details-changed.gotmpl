@@ -32,19 +32,19 @@
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
                     {{if eq .FieldName "relationshipToClient"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "statusOnCase"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "statusChangeDate"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "mainCorrespondent"}}
-                        {{ template "yes-no-timeline" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "deputyType"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                 {{end}}
             </ul>

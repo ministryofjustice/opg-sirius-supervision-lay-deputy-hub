@@ -15,28 +15,28 @@
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
                     {{if eq .FieldName "salutation"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "firstname"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "middleNames"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "surname"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "otherNames"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "dob"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "deputyType"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "deputySubType"}}
-                        {{ template "changeset-timeline" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                 {{end}}
             </ul>
