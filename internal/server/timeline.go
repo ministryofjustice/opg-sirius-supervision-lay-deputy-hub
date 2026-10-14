@@ -6,12 +6,12 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 )
 
-type deputyTimelineVars struct {
+type timelineVars struct {
 	AppVars
 	Timeline []sirius.TimelineEvent
 }
 
-func renderTemplateForDeputyTimeline(client LayDeputyHubClient, tmpl Template) Handler {
+func renderTemplateForTimeline(client LayDeputyHubClient, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 
 		ctx := getContext(r)
@@ -23,7 +23,7 @@ func renderTemplateForDeputyTimeline(client LayDeputyHubClient, tmpl Template) H
 
 		app.PageName = "Timeline"
 
-		return tmpl.ExecuteTemplate(w, "page", deputyTimelineVars{
+		return tmpl.ExecuteTemplate(w, "page", timelineVars{
 			AppVars:  app,
 			Timeline: timeline,
 		})
