@@ -160,7 +160,7 @@ func reformatEvent(myEvent Event, eventType string) Event {
 				TimelineValueName: GetTimelineValueForField(e.FieldName),
 			}
 		} else {
-			if reformatCapitalValues(e) == true {
+			if reformatCapitalValues(e.FieldName) == true {
 				e.OldValue = strings.Title(strings.ToLower(e.OldValue))
 				e.NewValue = strings.Title(strings.ToLower(e.NewValue))
 			}
@@ -206,10 +206,6 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Post"
 	case "correspondenceByWelsh":
 		return "Welsh"
-	case "county":
-		return "County"
-	case "country":
-		return "Country"
 	case "deputyType":
 		return "Type of deputy"
 	case "deputySubType":
@@ -240,8 +236,6 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Occupation"
 	case "otherNames":
 		return "Other names"
-	case "postcode":
-		return "Postcode"
 	case "relationshipToClient":
 		return "Relationship to client"
 	case "spellingOfNameRequiresCare":
@@ -252,24 +246,20 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Status change date"
 	case "statusOnCase":
 		return "Status on case"
-	case "surname":
-		return "Surname"
-	case "town":
-		return "Town"
 	case "workPhoneNumber":
 		return "Daytime telephone number"
 
 	default:
-		return "Placeholder - Missing string value"
+		return strings.Title(myFieldName)
 	}
 }
 
-func reformatCapitalValues(myChanges Changeset) bool {
-	if (myChanges.FieldName == "statusChangeDate") ||
-		(myChanges.FieldName == "statusOnCase") ||
-		(myChanges.FieldName == "deputyType") ||
-		(myChanges.FieldName == "deputySubType") ||
-		(myChanges.FieldName == "relationshipToClient") {
+func reformatCapitalValues(myFieldName string) bool {
+	if (myFieldName == "statusChangeDate") ||
+		(myFieldName == "statusOnCase") ||
+		(myFieldName == "deputyType") ||
+		(myFieldName == "deputySubType") ||
+		(myFieldName == "relationshipToClient") {
 		return true
 	}
 

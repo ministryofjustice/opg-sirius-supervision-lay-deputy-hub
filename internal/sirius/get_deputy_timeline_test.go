@@ -725,26 +725,100 @@ func TestReformatEvent(t *testing.T) {
 	}
 }
 
-//func TestReformatEventType(t *testing.T) {
-//	tests := []struct {
-//		name               string
-//		assurances         []model.Assurance
-//		want               bool
-//		wantedErrorMessage string
-//	}{
-//		{
-//			"No assurances",
-//			[]model.Assurance{},
-//			false,
-//			"",
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			got := reformatEventType(tt.assurances)
-//			if got != tt.want {
-//				t.Errorf("isAddVisitDisabled() = %v, want %v", got, tt.want)
-//			}
-//		})
-//	}
-//}
+func TestGetTimelineValueForField(t *testing.T) {
+	tests := []struct {
+		name string
+		want string
+	}{
+		{"unknownEntity", "UnknownEntity"},
+		{"addressLine1", "Address line 1"},
+		{"addressLine2", "Address line 2"},
+		{"addressLine3", "Address line 3"},
+		{"audioTape", "Audio"},
+		{"correspondenceByEmail", "Email"},
+		{"correspondenceByPhone", "Phone"},
+		{"correspondenceByPost", "Post"},
+		{"correspondenceByWelsh", "Welsh"},
+		{"county", "County"},
+		{"country", "Country"},
+		{"deputyType", "Type of deputy"},
+		{"deputySubType", "Deputy Subtype"},
+		{"dob", "Date of birth"},
+		{"email", "Email address"},
+		{"firstname", "First name"},
+		{"hearingImpaired", "Hearing impaired"},
+		{"homePhoneNumber", "Evening phone number"},
+		{"interpreterRequired", "Interpreter required"},
+		{"isAirmailRequired", "Is airmail required"},
+		{"largePrint", "Large print"},
+		{"mainCorrespondent", "Correspondent"},
+		{"middleNames", "Middle names"},
+		{"mobileNumber", "Mobile telephone number"},
+		{"occupation", "Occupation"},
+		{"otherNames", "Other names"},
+		{"postcode", "Postcode"},
+		{"relationshipToClient", "Relationship to client"},
+		{"spellingOfNameRequiresCare", "Spelling of name requires care"},
+		{"salutation", "Title"},
+		{"statusChangeDate", "Status change date"},
+		{"statusOnCase", "Status on case"},
+		{"surname", "Surname"},
+		{"town", "Town"},
+		{"workPhoneNumber", "Daytime telephone number"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := GetTimelineValueForField(tt.name)
+			if got != tt.want {
+				t.Errorf("getTimelineValueForField() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReformatCapitalvalues(t *testing.T) {
+	tests := []struct {
+		fieldName string
+		want      bool
+	}{
+		{"statusChangeDate", true},
+		{"statusOnCase", true},
+		{"deputyType", true},
+		{"deputySubType", true},
+		{"relationshipToClient", true},
+		{"middleNames", false},
+		{"email", false},
+		{"town", false},
+		{"audioTape", false},
+		{"dob", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.fieldName, func(t *testing.T) {
+			got := reformatCapitalValues(tt.fieldName)
+			if got != tt.want {
+				t.Errorf("reformatCapitalValues() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReformatEventType(t *testing.T) {
+	tests := []struct {
+		eventType string
+		want      string
+	}{
+		{"Opg\\\\Core\\\\Model\\\\Event\\\\Person\\\\PersonDetailsChanged", "PersonDetailsChanged"},
+		{"Opg\\Core\\Model\\Event\\Person\\PersonContactDetailsChanged", "PersonContactDetailsChanged"},
+		{"Opg\\Core\\Model\\Event\\Person\\AddressChanged", "AddressChanged"},
+		{"Opg\\Core\\Model\\Event\\Order\\DeputyLinkedToOrder", "DeputyLinkedToOrder"},
+		{"Opg\\Core\\Model\\Event\\Person\\PersonStatusChanged", "PersonStatusChanged"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.eventType, func(t *testing.T) {
+			got := reformatEventType(tt.eventType)
+			if got != tt.want {
+				t.Errorf("reformat event type() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
