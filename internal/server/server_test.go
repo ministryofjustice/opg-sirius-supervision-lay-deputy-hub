@@ -21,7 +21,7 @@ type mockTemplates struct {
 	count    int
 	lastName string
 	lastVars interface{}
-	error    error
+	//error    error
 }
 
 func (m *mockTemplates) ExecuteTemplate(i io.Writer, name string, vars interface{}) error {
