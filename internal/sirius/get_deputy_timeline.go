@@ -23,11 +23,10 @@ type Changeset struct {
 }
 
 type AdditionalPerson struct {
-	PersonType     string `json:"personType,omitempty"`
-	PersonId       string `json:"personId,omitempty"`
-	PersonUid      string `json:"personUid,omitempty"`
-	PersonName     string `json:"personName,omitempty"`
-	PersonCourtRef string `json:"personCourtRef,omitempty"`
+	PersonType string `json:"personType,omitempty"`
+	PersonId   string `json:"personId,omitempty"`
+	PersonUid  string `json:"personUid,omitempty"`
+	PersonName string `json:"personName,omitempty"`
 }
 
 type Event struct {
@@ -38,18 +37,8 @@ type Event struct {
 	DateDeathCertificateReceived string             `json:"dateDeathCertificateReceived,omitempty"`
 	DateNotified                 string             `json:"dateNotified,omitempty"`
 	DocumentId                   string             `json:"documentId,omitempty"`
-	DocumentFilename             string             `json:"filename,omitempty"`
-	DocumentDescription          string             `json:"description,omitempty"`
-	DocumentDirection            string             `json:"direction,omitempty"`
-	DocumentPublishedDate        string             `json:"publishedDate,omitempty"`
-	DocumentType                 string             `json:"type,omitempty"`
-	DocumentSource               string             `json:"source,omitempty"`
-	DocumentSystemType           string             `json:"systemType,omitempty"`
-	DocumentMimeType             string             `json:"mimeType,omitempty"`
-	DocumentPageCount            string             `json:"pageCount,omitempty"`
-	DocumentPublishedById        string             `json:"publishedById,omitempty"`
 	DocumentClientId             string             `json:"clientId,omitempty"`
-	DocumentClientName           string             `json:"clientName,omitempty"`
+	DocumentSystemType           string             `json:"systemType,omitempty"`
 	Notes                        string             `json:"notes,omitempty"`
 	NotificationMethod           string             `json:"notificationMethod,omitempty"`
 	NotifiedBy                   string             `json:"notifiedBy,omitempty"`
@@ -60,8 +49,6 @@ type Event struct {
 	PersonId                     string             `json:"personId,omitempty"`
 	PersonUid                    string             `json:"personUid,omitempty"`
 	PersonName                   string             `json:"personName,omitempty"`
-	PersonCourtRef               string             `json:"personCourtRef,omitempty"`
-	ProofOfDeathReceived         bool               `json:"proofOfDeathReceived"`
 	MultiPersons                 []AdditionalPerson `json:"multiPersons,omitempty"`
 	OrderType                    string             `json:"orderType,omitempty"`
 	OrderUid                     string             `json:"orderUid,omitempty"`
