@@ -150,30 +150,8 @@ func reformatEvent(myEvent Event, eventType string) Event {
 
 	var updatedChanges []Changeset
 	for _, e := range myEvent.Changes {
-		changes := Changeset{}
-		if e.FieldName == "statusChangeDate" {
-			changes = Changeset{
-				FieldName:         e.FieldName,
-				OldValue:          FormatDateTimeAsDate(IsoDateTimeZone, e.OldValue, SiriusDate),
-				NewValue:          FormatDateTimeAsDate(IsoDateTimeZone, e.NewValue, SiriusDate),
-				Type:              e.Type,
-				TimelineValueName: GetTimelineValueForField(e.FieldName),
-			}
-		} else {
-			if reformatCapitalValues(e) == true {
-				e.OldValue = strings.Title(strings.ToLower(e.OldValue))
-				e.NewValue = strings.Title(strings.ToLower(e.NewValue))
-			}
-			changes = Changeset{
-				FieldName:         e.FieldName,
-				OldValue:          e.OldValue,
-				NewValue:          e.NewValue,
-				Type:              e.Type,
-				TimelineValueName: GetTimelineValueForField(e.FieldName),
-			}
-		}
-		updatedChanges = append(updatedChanges, changes)
-
+		updatedChangeset := updateChangeset(e)
+		updatedChanges = append(updatedChanges, updatedChangeset)
 	}
 	eventToReturn.Changes = updatedChanges
 
@@ -186,6 +164,32 @@ func reformatEvent(myEvent Event, eventType string) Event {
 	}
 
 	return eventToReturn
+}
+
+func updateChangeset(c Changeset) Changeset {
+	changes := Changeset{}
+	if c.FieldName == "statusChangeDate" {
+		changes = Changeset{
+			FieldName:         c.FieldName,
+			OldValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.OldValue, SiriusDate),
+			NewValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.NewValue, SiriusDate),
+			Type:              c.Type,
+			TimelineValueName: GetTimelineValueForField(c.FieldName),
+		}
+	} else {
+		if reformatCapitalValues(c.FieldName) == true {
+			c.OldValue = strings.Title(strings.ToLower(c.OldValue))
+			c.NewValue = strings.Title(strings.ToLower(c.NewValue))
+		}
+		changes = Changeset{
+			FieldName:         c.FieldName,
+			OldValue:          c.OldValue,
+			NewValue:          c.NewValue,
+			Type:              c.Type,
+			TimelineValueName: GetTimelineValueForField(c.FieldName),
+		}
+	}
+	return changes
 }
 
 func GetTimelineValueForField(myFieldName string) string {
@@ -206,10 +210,6 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Post"
 	case "correspondenceByWelsh":
 		return "Welsh"
-	case "county":
-		return "County"
-	case "country":
-		return "Country"
 	case "deputyType":
 		return "Type of deputy"
 	case "deputySubType":
@@ -240,8 +240,6 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Occupation"
 	case "otherNames":
 		return "Other names"
-	case "postcode":
-		return "Postcode"
 	case "relationshipToClient":
 		return "Relationship to client"
 	case "spellingOfNameRequiresCare":
@@ -252,24 +250,20 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Status change date"
 	case "statusOnCase":
 		return "Status on case"
-	case "surname":
-		return "Surname"
-	case "town":
-		return "Town"
 	case "workPhoneNumber":
 		return "Daytime telephone number"
 
 	default:
-		return "Placeholder - Missing string value"
+		return strings.Title(myFieldName)
 	}
 }
 
-func reformatCapitalValues(myChanges Changeset) bool {
-	if (myChanges.FieldName == "statusChangeDate") ||
-		(myChanges.FieldName == "statusOnCase") ||
-		(myChanges.FieldName == "deputyType") ||
-		(myChanges.FieldName == "deputySubType") ||
-		(myChanges.FieldName == "relationshipToClient") {
+func reformatCapitalValues(myFieldName string) bool {
+	if (myFieldName == "statusChangeDate") ||
+		(myFieldName == "statusOnCase") ||
+		(myFieldName == "deputyType") ||
+		(myFieldName == "deputySubType") ||
+		(myFieldName == "relationshipToClient") {
 		return true
 	}
 

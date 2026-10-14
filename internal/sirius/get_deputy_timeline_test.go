@@ -31,13 +31,13 @@ func TestGetDeputyTimeline(t *testing.T) {
             "personType": "Deputy",
             "personId": "49",
             "personUid": "7000-0000-1367",
-            "personName": "Mrs test6aba9217958a1 Banks",
+            "personName": "Mrs Betty Banks",
             "personCourtRef": null,
             "changes": [
                 {
                     "fieldName": "firstname",
                     "oldValue": null,
-                    "newValue": "test6aba9217958a1",
+                    "newValue": "Betty",
                     "type": "string"
                 },
                 {
@@ -82,7 +82,7 @@ func TestGetDeputyTimeline(t *testing.T) {
             "personType": "Deputy",
             "personId": "49",
             "personUid": "7000-0000-1367",
-            "personName": "Mrs test6aba9217958a1 Banks",
+            "personName": "Mrs Betty Banks",
             "personCourtRef": null,
             "additionalPersons": [
                 {
@@ -93,6 +93,37 @@ func TestGetDeputyTimeline(t *testing.T) {
                     "personCourtRef": "28498842"
                 }
             ]
+        }
+    },
+    {
+        "id": 367,
+        "hash": "A7",
+        "timestamp": "2026-10-12T12:35:35+00:00",
+        "eventType": "Opg\\Core\\Model\\Event\\Client\\ClientFeePayerRemoved",
+        "user": {
+            "id": 101,
+            "phoneNumber": "12345678",
+            "displayName": "PROTeam1 User1",
+            "email": "pro1@opgtest.com"
+        },
+        "event": {
+            "multiPersons": [
+                {
+                    "personType": "Deputy",
+                    "personId": "49",
+                    "personUid": "7000-0000-1367",
+                    "personName": "Mrs Betty Banks",
+                    "personCourtRef": null
+                },
+                {
+                    "personType": "Client",
+                    "personId": "47",
+                    "personUid": "7000-0000-1243",
+                    "personName": "Mr Luke Crete",
+                    "personCourtRef": "28498842"
+                }
+            ],
+            "parentEventType": "MultiPersonEvent"
         }
     }]`))
 	}))
@@ -120,12 +151,12 @@ func TestGetDeputyTimeline(t *testing.T) {
 				PersonType: "Deputy",
 				PersonId:   "49",
 				PersonUid:  "7000-0000-1367",
-				PersonName: "Mrs test6aba9217958a1 Banks",
+				PersonName: "Mrs Betty Banks",
 				Changes: []Changeset{
 					{
 						FieldName:         "firstname",
 						OldValue:          "",
-						NewValue:          "test6aba9217958a1",
+						NewValue:          "Betty",
 						Type:              "string",
 						TimelineValueName: "First name",
 					},
@@ -173,7 +204,7 @@ func TestGetDeputyTimeline(t *testing.T) {
 				PersonType:     "Deputy",
 				PersonId:       "49",
 				PersonUid:      "7000-0000-1367",
-				PersonName:     "Mrs test6aba9217958a1 Banks",
+				PersonName:     "Mrs Betty Banks",
 				AdditionalPersons: []AdditionalPerson{
 					{
 						PersonType:     "Client",
@@ -183,6 +214,37 @@ func TestGetDeputyTimeline(t *testing.T) {
 						PersonCourtRef: "28498842",
 					},
 				},
+			},
+		},
+		{
+			Id:              367,
+			Timestamp:       "12/10/2026 13:35:35",
+			TimestampAsDate: "12/10/2026",
+			EventType:       "ClientFeePayerRemoved",
+			User: User{
+				Id:          101,
+				PhoneNumber: "12345678",
+				DisplayName: "PROTeam1 User1",
+				Email:       "pro1@opgtest.com",
+			},
+			Event: Event{
+				MultiPersons: []AdditionalPerson{
+					{
+						PersonType:     "Deputy",
+						PersonId:       "49",
+						PersonUid:      "7000-0000-1367",
+						PersonName:     "Mrs Betty Banks",
+						PersonCourtRef: "",
+					},
+					{
+						PersonType:     "Client",
+						PersonId:       "47",
+						PersonUid:      "7000-0000-1243",
+						PersonName:     "Mr Luke Crete",
+						PersonCourtRef: "28498842",
+					},
+				},
+				ParentEventType: "MultiPersonEvent",
 			},
 		},
 	}, deputyDetails)
@@ -205,12 +267,12 @@ func TestEditDeputyEvents(t *testing.T) {
 				PersonType: "Deputy",
 				PersonId:   "49",
 				PersonUid:  "7000-0000-1367",
-				PersonName: "Mrs test6aba9217958a1 Banks",
+				PersonName: "Mrs Betty Banks",
 				Changes: []Changeset{
 					{
 						FieldName:         "firstname",
 						OldValue:          "",
-						NewValue:          "test6aba9217958a1",
+						NewValue:          "Betty",
 						Type:              "string",
 						TimelineValueName: "First name",
 					},
@@ -239,6 +301,42 @@ func TestEditDeputyEvents(t *testing.T) {
 			},
 		},
 		{
+			Id:              20,
+			Timestamp:       "27/09/2026 17:13:12",
+			TimestampAsDate: "27/09/2026 17:13:12",
+			EventType:       "ClientFeePayerRemoved",
+			User: User{
+				Id:          61,
+				PhoneNumber: "12345678",
+				DisplayName: "case manager",
+				Email:       "case.manager@opgtest.com",
+			},
+			Event: Event{
+				PersonCourtRef: "",
+				PersonId:       "49",
+				PersonUid:      "7000-0000-1367",
+				PersonType:     "Deputy",
+				PersonName:     "Mrs Betty Banks",
+				MultiPersons: []AdditionalPerson{
+					{
+						PersonType:     "Client",
+						PersonId:       "47",
+						PersonUid:      "7000-0000-1243",
+						PersonName:     "Mr Luke Crete",
+						PersonCourtRef: "28498842",
+					},
+					{
+						PersonCourtRef: "",
+						PersonType:     "Deputy",
+						PersonId:       "49",
+						PersonUid:      "7000-0000-1367",
+						PersonName:     "Mrs Betty Banks",
+					},
+				},
+				ParentEventType: "MultiPersonEvent",
+			},
+		},
+		{
 			Id:              23,
 			Timestamp:       "28/09/2026 17:13:12",
 			TimestampAsDate: "28/09/2026",
@@ -258,7 +356,7 @@ func TestEditDeputyEvents(t *testing.T) {
 				PersonType:     "Deputy",
 				PersonId:       "49",
 				PersonUid:      "7000-0000-1367",
-				PersonName:     "Mrs test6aba9217958a1 Banks",
+				PersonName:     "Mrs Betty Banks",
 				AdditionalPersons: []AdditionalPerson{
 					{
 						PersonType:     "Client",
@@ -287,12 +385,12 @@ func TestEditDeputyEvents(t *testing.T) {
 				PersonType: "Deputy",
 				PersonId:   "49",
 				PersonUid:  "7000-0000-1367",
-				PersonName: "Mrs test6aba9217958a1 Banks",
+				PersonName: "Mrs Betty Banks",
 				Changes: []Changeset{
 					{
 						FieldName: "firstname",
 						OldValue:  "",
-						NewValue:  "test6aba9217958a1",
+						NewValue:  "Betty",
 						Type:      "string",
 					},
 					{
@@ -317,6 +415,41 @@ func TestEditDeputyEvents(t *testing.T) {
 			},
 		},
 		{
+			Id:        20,
+			Timestamp: "27/09/2026 17:13:12",
+			EventType: "Opg\\Core\\Model\\Event\\Client\\ClientFeePayerRemoved",
+			User: User{
+				Id:          61,
+				PhoneNumber: "12345678",
+				DisplayName: "case manager",
+				Email:       "case.manager@opgtest.com",
+			},
+			Event: Event{
+				PersonCourtRef: "",
+				PersonId:       "49",
+				PersonUid:      "7000-0000-1367",
+				PersonType:     "Deputy",
+				PersonName:     "Mrs Betty Banks",
+				MultiPersons: []AdditionalPerson{
+					{
+						PersonType:     "Client",
+						PersonId:       "47",
+						PersonUid:      "7000-0000-1243",
+						PersonName:     "Mr Luke Crete",
+						PersonCourtRef: "28498842",
+					},
+					{
+						PersonCourtRef: "",
+						PersonType:     "Deputy",
+						PersonId:       "49",
+						PersonUid:      "7000-0000-1367",
+						PersonName:     "Mrs Betty Banks",
+					},
+				},
+				ParentEventType: "MultiPersonEvent",
+			},
+		},
+		{
 			Id:        23,
 			Timestamp: "2026-09-28T16:13:12+00:00",
 			EventType: "Opg\\\\Core\\\\Model\\\\Event\\\\Order\\\\DeputyLinkedToOrder",
@@ -335,7 +468,7 @@ func TestEditDeputyEvents(t *testing.T) {
 				PersonType:     "Deputy",
 				PersonId:       "49",
 				PersonUid:      "7000-0000-1367",
-				PersonName:     "Mrs test6aba9217958a1 Banks",
+				PersonName:     "Mrs Betty Banks",
 				AdditionalPersons: []AdditionalPerson{
 					{
 						PersonType:     "Client",
@@ -725,26 +858,163 @@ func TestReformatEvent(t *testing.T) {
 	}
 }
 
-//func TestReformatEventType(t *testing.T) {
-//	tests := []struct {
-//		name               string
-//		assurances         []model.Assurance
-//		want               bool
-//		wantedErrorMessage string
-//	}{
-//		{
-//			"No assurances",
-//			[]model.Assurance{},
-//			false,
-//			"",
-//		},
-//	}
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			got := reformatEventType(tt.assurances)
-//			if got != tt.want {
-//				t.Errorf("isAddVisitDisabled() = %v, want %v", got, tt.want)
-//			}
-//		})
-//	}
-//}
+func TestUpdateChangeset(t *testing.T) {
+	tests := []struct {
+		name              string
+		myChangeset       Changeset
+		expectedChangeset Changeset
+	}{
+		{
+			name: "Address changed event",
+			myChangeset: Changeset{
+				FieldName: "addressLine1",
+				OldValue:  "",
+				NewValue:  "Flat 7 Bollerworth",
+				Type:      "string",
+			},
+			expectedChangeset: Changeset{
+				FieldName:         "addressLine1",
+				OldValue:          "",
+				NewValue:          "Flat 7 Bollerworth",
+				Type:              "string",
+				TimelineValueName: "Address line 1",
+			},
+		},
+		{
+			name: "Status changed date",
+			myChangeset: Changeset{
+				FieldName: "statusChangeDate",
+				OldValue:  "",
+				NewValue:  "2026-10-12T00:00:00+00:00",
+				Type:      "string",
+			},
+			expectedChangeset: Changeset{
+				FieldName:         "statusChangeDate",
+				OldValue:          "",
+				NewValue:          "12/10/2026",
+				Type:              "string",
+				TimelineValueName: "Status change date",
+			},
+		},
+		{
+			name: "Status on case",
+			myChangeset: Changeset{
+				FieldName: "statusOnCase",
+				OldValue:  "DECEASED",
+				NewValue:  "ERROR",
+				Type:      "string",
+			},
+			expectedChangeset: Changeset{
+				FieldName:         "statusOnCase",
+				OldValue:          "Deceased",
+				NewValue:          "Error",
+				Type:              "string",
+				TimelineValueName: "Status on case",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := updateChangeset(tt.myChangeset)
+			assert.Equal(t, tt.expectedChangeset, got)
+		})
+	}
+}
+
+func TestGetTimelineValueForField(t *testing.T) {
+	tests := []struct {
+		name string
+		want string
+	}{
+		{"unknownEntity", "UnknownEntity"},
+		{"addressLine1", "Address line 1"},
+		{"addressLine2", "Address line 2"},
+		{"addressLine3", "Address line 3"},
+		{"audioTape", "Audio"},
+		{"correspondenceByEmail", "Email"},
+		{"correspondenceByPhone", "Phone"},
+		{"correspondenceByPost", "Post"},
+		{"correspondenceByWelsh", "Welsh"},
+		{"county", "County"},
+		{"country", "Country"},
+		{"deputyType", "Type of deputy"},
+		{"deputySubType", "Deputy Subtype"},
+		{"dob", "Date of birth"},
+		{"email", "Email address"},
+		{"firstname", "First name"},
+		{"hearingImpaired", "Hearing impaired"},
+		{"homePhoneNumber", "Evening phone number"},
+		{"interpreterRequired", "Interpreter required"},
+		{"isAirmailRequired", "Is airmail required"},
+		{"largePrint", "Large print"},
+		{"mainCorrespondent", "Correspondent"},
+		{"middleNames", "Middle names"},
+		{"mobileNumber", "Mobile telephone number"},
+		{"occupation", "Occupation"},
+		{"otherNames", "Other names"},
+		{"postcode", "Postcode"},
+		{"relationshipToClient", "Relationship to client"},
+		{"spellingOfNameRequiresCare", "Spelling of name requires care"},
+		{"salutation", "Title"},
+		{"statusChangeDate", "Status change date"},
+		{"statusOnCase", "Status on case"},
+		{"surname", "Surname"},
+		{"town", "Town"},
+		{"workPhoneNumber", "Daytime telephone number"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := GetTimelineValueForField(tt.name)
+			if got != tt.want {
+				t.Errorf("getTimelineValueForField() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReformatCapitalvalues(t *testing.T) {
+	tests := []struct {
+		fieldName string
+		want      bool
+	}{
+		{"statusChangeDate", true},
+		{"statusOnCase", true},
+		{"deputyType", true},
+		{"deputySubType", true},
+		{"relationshipToClient", true},
+		{"middleNames", false},
+		{"email", false},
+		{"town", false},
+		{"audioTape", false},
+		{"dob", false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.fieldName, func(t *testing.T) {
+			got := reformatCapitalValues(tt.fieldName)
+			if got != tt.want {
+				t.Errorf("reformatCapitalValues() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReformatEventType(t *testing.T) {
+	tests := []struct {
+		eventType string
+		want      string
+	}{
+		{"Opg\\\\Core\\\\Model\\\\Event\\\\Person\\\\PersonDetailsChanged", "PersonDetailsChanged"},
+		{"Opg\\Core\\Model\\Event\\Person\\PersonContactDetailsChanged", "PersonContactDetailsChanged"},
+		{"Opg\\Core\\Model\\Event\\Person\\AddressChanged", "AddressChanged"},
+		{"Opg\\Core\\Model\\Event\\Order\\DeputyLinkedToOrder", "DeputyLinkedToOrder"},
+		{"Opg\\Core\\Model\\Event\\Person\\PersonStatusChanged", "PersonStatusChanged"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.eventType, func(t *testing.T) {
+			got := reformatEventType(tt.eventType)
+			if got != tt.want {
+				t.Errorf("reformat event type() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
