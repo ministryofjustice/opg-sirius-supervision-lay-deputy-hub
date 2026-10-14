@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type User struct {
@@ -88,8 +91,9 @@ func (c *Client) GetDeputyTimeline(ctx Context, deputyID int) ([]TimelineEvent, 
 		return v, newStatusError(resp)
 	}
 
-	err = json.NewDecoder(resp.Body).Decode(&v)
-
+	if err = json.NewDecoder(resp.Body).Decode(&v); err != nil {
+		return v, err
+	}
 	return editDeputyEvents(v), nil
 }
 
@@ -116,6 +120,8 @@ func reformatEventType(s string) string {
 }
 
 func reformatEvent(myEvent Event, eventType string) Event {
+	caser := cases.Title(language.English)
+
 	eventToReturn := myEvent
 
 	if strings.Contains(eventType, "DeathNotificationDeleted") || strings.Contains(eventType, "PersonDeathNotified") {
@@ -143,7 +149,7 @@ func reformatEvent(myEvent Event, eventType string) Event {
 	eventToReturn.Changes = updatedChanges
 
 	if strings.Contains(eventType, "PersonDeathNotified") || strings.Contains(eventType, "DeathNotificationDeleted") {
-		eventToReturn.NotifiedBy = strings.Title(strings.ToLower(myEvent.NotifiedBy))
+		eventToReturn.NotifiedBy = caser.String(myEvent.NotifiedBy)
 	}
 
 	if myEvent.OrderType != "" {
@@ -154,32 +160,35 @@ func reformatEvent(myEvent Event, eventType string) Event {
 }
 
 func updateChangeset(c Changeset) Changeset {
-	changes := Changeset{}
+	caser := cases.Title(language.English)
+
 	if c.FieldName == "statusChangeDate" {
-		changes = Changeset{
+		return Changeset{
 			FieldName:         c.FieldName,
 			OldValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.OldValue, SiriusDate),
 			NewValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.NewValue, SiriusDate),
 			Type:              c.Type,
 			TimelineValueName: GetTimelineValueForField(c.FieldName),
 		}
-	} else {
-		if reformatCapitalValues(c.FieldName) == true {
-			c.OldValue = strings.Title(strings.ToLower(c.OldValue))
-			c.NewValue = strings.Title(strings.ToLower(c.NewValue))
-		}
-		changes = Changeset{
-			FieldName:         c.FieldName,
-			OldValue:          c.OldValue,
-			NewValue:          c.NewValue,
-			Type:              c.Type,
-			TimelineValueName: GetTimelineValueForField(c.FieldName),
-		}
 	}
-	return changes
+
+	if reformatCapitalValues(c.FieldName) {
+		c.OldValue = caser.String(c.OldValue)
+		c.NewValue = caser.String(c.NewValue)
+	}
+	return Changeset{
+		FieldName:         c.FieldName,
+		OldValue:          c.OldValue,
+		NewValue:          c.NewValue,
+		Type:              c.Type,
+		TimelineValueName: GetTimelineValueForField(c.FieldName),
+	}
+
 }
 
 func GetTimelineValueForField(myFieldName string) string {
+	caser := cases.Title(language.English)
+
 	switch myFieldName {
 	case "addressLine1":
 		return "Address line 1"
@@ -241,7 +250,7 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Daytime telephone number"
 
 	default:
-		return strings.Title(myFieldName)
+		return caser.String(myFieldName)
 	}
 }
 
