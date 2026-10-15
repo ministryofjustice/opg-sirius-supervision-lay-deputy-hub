@@ -16,6 +16,9 @@ dev-up: clean build-dev npm
 dev-up-sirius: clean build-dev npm
 	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub npm
 
+up-sirius: 
+	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub npm
+
 down:
 	docker compose down --remove-orphans
 
@@ -26,7 +29,7 @@ npm:
 	docker compose run --rm npm
 
 test-results:
-	mkdir -p -m 0777 test-results .gocache pacts logs cypress/screenshots
+	mkdir -p -m 0777 test-results .gocache logs cypress/screenshots
 
 unit-test: test-results
 	docker compose run --rm test-runner
