@@ -172,7 +172,7 @@ func updateChangeset(c Changeset) Changeset {
 		}
 	}
 
-	if reformatCapitalValues(c.FieldName) {
+	if reformatAllCapitalValues(c.FieldName) {
 		c.OldValue = caser.String(c.OldValue)
 		c.NewValue = caser.String(c.NewValue)
 	}
@@ -254,7 +254,7 @@ func GetTimelineValueForField(myFieldName string) string {
 	}
 }
 
-func reformatCapitalValues(myFieldName string) bool {
+func reformatAllCapitalValues(myFieldName string) bool {
 	if (myFieldName == "statusChangeDate") ||
 		(myFieldName == "statusOnCase") ||
 		(myFieldName == "deputyType") ||

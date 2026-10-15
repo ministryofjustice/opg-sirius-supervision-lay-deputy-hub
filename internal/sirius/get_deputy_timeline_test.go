@@ -941,7 +941,7 @@ func TestGetTimelineValueForField(t *testing.T) {
 	}
 }
 
-func TestReformatCapitalvalues(t *testing.T) {
+func TestReformatAllCapitalvalues(t *testing.T) {
 	tests := []struct {
 		fieldName string
 		want      bool
@@ -959,7 +959,7 @@ func TestReformatCapitalvalues(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.fieldName, func(t *testing.T) {
-			got := reformatCapitalValues(tt.fieldName)
+			got := reformatAllCapitalValues(tt.fieldName)
 			if got != tt.want {
 				t.Errorf("reformatCapitalValues() = %v, want %v", got, tt.want)
 			}

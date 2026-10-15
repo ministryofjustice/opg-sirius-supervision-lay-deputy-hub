@@ -29,7 +29,7 @@ npm:
 	docker compose run --rm npm
 
 test-results:
-	mkdir -p -m 0777 test-results .gocache pacts logs cypress/screenshots
+	mkdir -p -m 0777 test-results .gocache logs cypress/screenshots
 
 unit-test: test-results
 	docker compose run --rm test-runner

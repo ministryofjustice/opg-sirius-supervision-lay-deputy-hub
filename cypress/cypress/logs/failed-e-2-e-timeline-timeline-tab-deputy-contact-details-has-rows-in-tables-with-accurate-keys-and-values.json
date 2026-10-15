@@ -1,0 +1,17 @@
+{
+  "specName": "e2e/timeline.cy.js",
+  "title": "has rows in tables with accurate keys and values",
+  "suiteName": "Deputy contact details",
+  "testName": "Timeline tab Deputy contact details has rows in tables with accurate keys and values",
+  "testError": "Timed out retrying after 4000ms: Expected to find element: `#deputy-details > :nth-child(1) > .govuk-summary-list__key`, but never found it.",
+  "testCommands": [
+    "setCookie Other, other",
+    "setCookie XSRF-TOKEN, abcde",
+    "visit /supervision/deputies/lay/1",
+    "get :nth-child(3) > .moj-sub-navigation__link",
+    "click ",
+    "page load --waiting for new page to load--",
+    "new url http://localhost:1234/supervision/deputies/lay/1/timeline",
+    "get #deputy-details > :nth-child(1) > .govuk-summary-list__key"
+  ]
+}
