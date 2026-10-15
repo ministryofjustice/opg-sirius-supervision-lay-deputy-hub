@@ -1,6 +1,6 @@
 module github.com/ministryofjustice/opg-sirius-lay-deputy-hub
 
-go 1.26.2
+go 1.26.6
 
 require (
 	github.com/ministryofjustice/opg-go-common v1.165.29
