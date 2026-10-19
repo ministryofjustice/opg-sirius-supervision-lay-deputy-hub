@@ -26,38 +26,38 @@ type Changeset struct {
 }
 
 type AdditionalPerson struct {
-	PersonType string `json:"personType,omitempty"`
-	PersonId   string `json:"personId,omitempty"`
-	PersonUid  string `json:"personUid,omitempty"`
-	PersonName string `json:"personName,omitempty"`
+	PersonType string `json:"personType"`
+	PersonId   string `json:"personId"`
+	PersonUid  string `json:"personUid"`
+	PersonName string `json:"personName"`
 }
 
 type Event struct {
-	AdditionalPersons            []AdditionalPerson `json:"additionalPersons,omitempty"`
-	Changes                      []Changeset        `json:"changes,omitempty"`
-	CourtReference               string             `json:"courtReference,omitempty"`
-	DateOfDeath                  string             `json:"dateOfDeath,omitempty"`
-	DateDeathCertificateReceived string             `json:"dateDeathCertificateReceived,omitempty"`
-	DateNotified                 string             `json:"dateNotified,omitempty"`
-	DocumentId                   string             `json:"documentId,omitempty"`
-	DocumentClientId             string             `json:"clientId,omitempty"`
-	DocumentSystemType           string             `json:"systemType,omitempty"`
-	Notes                        string             `json:"notes,omitempty"`
-	NotificationMethod           string             `json:"notificationMethod,omitempty"`
-	NotifiedBy                   string             `json:"notifiedBy,omitempty"`
-	NotifiedByOther              string             `json:"notifiedByOther,omitempty"`
+	AdditionalPersons            []AdditionalPerson `json:"additionalPersons"`
+	Changes                      []Changeset        `json:"changes"`
+	CourtReference               string             `json:"courtReference"`
+	DateOfDeath                  string             `json:"dateOfDeath"`
+	DateDeathCertificateReceived string             `json:"dateDeathCertificateReceived"`
+	DateNotified                 string             `json:"dateNotified"`
+	DocumentId                   string             `json:"documentId"`
+	DocumentClientId             string             `json:"clientId"`
+	DocumentSystemType           string             `json:"systemType"`
+	Notes                        string             `json:"notes"`
+	NotificationMethod           string             `json:"notificationMethod"`
+	NotifiedBy                   string             `json:"notifiedBy"`
+	NotifiedByOther              string             `json:"notifiedByOther"`
 	ParentEventType              string             `json:"parentEventType"`
-	PreviousStatus               string             `json:"previousStatus,omitempty"`
-	PersonType                   string             `json:"personType,omitempty"`
-	PersonId                     string             `json:"personId,omitempty"`
-	PersonUid                    string             `json:"personUid,omitempty"`
-	PersonName                   string             `json:"personName,omitempty"`
-	MultiPersons                 []AdditionalPerson `json:"multiPersons,omitempty"`
-	OrderType                    string             `json:"orderType,omitempty"`
-	OrderUid                     string             `json:"orderUid,omitempty"`
-	OrderId                      string             `json:"orderId,omitempty"`
-	OrderCourtRef                string             `json:"orderCourtRef,omitempty"`
-	Status                       string             `json:"status,omitempty"`
+	PreviousStatus               string             `json:"previousStatus"`
+	PersonType                   string             `json:"personType"`
+	PersonId                     string             `json:"personId"`
+	PersonUid                    string             `json:"personUid"`
+	PersonName                   string             `json:"personName"`
+	MultiPersons                 []AdditionalPerson `json:"multiPersons"`
+	OrderType                    string             `json:"orderType"`
+	OrderUid                     string             `json:"orderUid"`
+	OrderId                      string             `json:"orderId"`
+	OrderCourtRef                string             `json:"orderCourtRef"`
+	Status                       string             `json:"status"`
 }
 type TimelineEvent struct {
 	Id              int    `json:"id"`
