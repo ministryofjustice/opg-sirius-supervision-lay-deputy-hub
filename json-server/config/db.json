@@ -33,7 +33,7 @@
       "correspondenceByPost": false,
       "correspondenceByPhone": false,
       "correspondenceByEmail": false,
-      "correspondenceByWelsh": false,
+      "correspondenceByWelsh": true,
       "createdDate": "14/09/2026",
       "updatedDate": "2026-09-15T12:13:38+00:00",
       "personType": "Deputy",
