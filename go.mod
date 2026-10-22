@@ -1,11 +1,12 @@
 module github.com/ministryofjustice/opg-sirius-lay-deputy-hub
 
-go 1.26.6
+go 1.27.0
 
 require (
 	github.com/ministryofjustice/opg-go-common v1.165.29
 	github.com/stretchr/testify v1.12.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.70.0
+	golang.org/x/text v0.41.0
 )
 
 require (
@@ -31,7 +32,6 @@ require (
 	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/net v0.58.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260819154853-08b0e4226688 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260819154853-08b0e4226688 // indirect
 	google.golang.org/grpc v1.83.2 // indirect
