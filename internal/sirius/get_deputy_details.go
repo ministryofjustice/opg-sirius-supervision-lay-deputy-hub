@@ -22,25 +22,6 @@ type SpecialCorrespondenceRequirementsType struct {
 	SpellingOfNameRequiresCare bool `json:"spellingOfNameRequiresCare"`
 }
 
-func (s SpecialCorrespondenceRequirementsType) ActiveSpecialCorrespondenceRequirements() []string {
-	requirementsToList := []string{}
-
-	if s.AudioTape {
-		requirementsToList = append(requirementsToList, "Audio")
-	}
-	if s.LargePrint {
-		requirementsToList = append(requirementsToList, "Large Print")
-	}
-	if s.HearingImpaired {
-		requirementsToList = append(requirementsToList, "Hearing impaired")
-	}
-	if s.SpellingOfNameRequiresCare {
-		requirementsToList = append(requirementsToList, "Spelling of name requires care")
-	}
-
-	return requirementsToList
-}
-
 type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
 	Salutation                        string                                `json:"salutation"`
@@ -64,6 +45,29 @@ type DeputyDetails struct {
 	IsAirmailRequired                 bool                                  `json:"isAirmailRequired"`
 	SpecialCorrespondenceRequirements SpecialCorrespondenceRequirementsType `json:"specialCorrespondenceRequirements"`
 	InterpreterRequired               string                                `json:"interpreterRequired"`
+	CorrespondenceByWelsh             bool                                  `json:"correspondenceByWelsh"`
+}
+
+func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
+	requirementsToList := []string{}
+
+	if d.SpecialCorrespondenceRequirements.AudioTape {
+		requirementsToList = append(requirementsToList, "Audio")
+	}
+	if d.SpecialCorrespondenceRequirements.LargePrint {
+		requirementsToList = append(requirementsToList, "Large Print")
+	}
+	if d.SpecialCorrespondenceRequirements.HearingImpaired {
+		requirementsToList = append(requirementsToList, "Hearing impaired")
+	}
+	if d.SpecialCorrespondenceRequirements.SpellingOfNameRequiresCare {
+		requirementsToList = append(requirementsToList, "Spelling of name requires care")
+	}
+	if d.CorrespondenceByWelsh {
+		requirementsToList = append(requirementsToList, "Welsh")
+	}
+
+	return requirementsToList
 }
 
 func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, error) {
