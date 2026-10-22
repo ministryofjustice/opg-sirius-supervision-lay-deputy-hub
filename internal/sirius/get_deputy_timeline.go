@@ -162,7 +162,7 @@ func reformatEvent(myEvent Event, eventType string) Event {
 func updateChangeset(c Changeset) Changeset {
 	caser := cases.Title(language.English)
 
-	if c.FieldName == "statusChangeDate" {
+	if c.FieldName == "statusChangeDate" || c.FieldName == "dob" {
 		return Changeset{
 			FieldName:         c.FieldName,
 			OldValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.OldValue, SiriusDate),

@@ -33,7 +33,7 @@
                         {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "interpreterRequired"}}
-                        {{ template "yes-no-changeset" . }}
+                        {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "hearingImpaired"}}
                         {{ template "yes-no-changeset" . }}
