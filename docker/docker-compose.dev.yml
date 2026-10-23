@@ -21,5 +21,5 @@ services:
   json-server:
     ports: [3000:3000]
 
-  npm:
-    command: run watch
+  watch-assets:
+    command: -lc "apk add --no-cache git && npm ci --ignore-scripts && npm run watch"
