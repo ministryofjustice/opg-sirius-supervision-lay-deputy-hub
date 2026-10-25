@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/utility"
 )
 
 type DeputyType struct {
@@ -45,6 +47,7 @@ type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
 	Salutation                        string                                `json:"salutation"`
 	DeputyFirstName                   string                                `json:"firstName"`
+	DeputyMiddleName                  string                                `json:"middleName"`
 	DeputySurname                     string                                `json:"surname"`
 	DeputyOtherNames                  string                                `json:"otherNames"`
 	DeputyNumber                      int                                   `json:"deputyNumber"`
@@ -60,6 +63,7 @@ type DeputyDetails struct {
 	AddressLine3                      string                                `json:"addressLine3"`
 	Town                              string                                `json:"town"`
 	County                            string                                `json:"county"`
+	Country                           string                                `json:"country"`
 	Postcode                          string                                `json:"postcode"`
 	IsAirmailRequired                 bool                                  `json:"isAirmailRequired"`
 	SpecialCorrespondenceRequirements SpecialCorrespondenceRequirementsType `json:"specialCorrespondenceRequirements"`
@@ -91,5 +95,11 @@ func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, err
 
 	err = json.NewDecoder(resp.Body).Decode(&v)
 
-	return v, err
+	return formatDeputyDetails(v), err
+}
+
+func formatDeputyDetails(v DeputyDetails) DeputyDetails {
+	v.DeputyDateOfBirth = utility.FormatDateTime(utility.SiriusDate, v.DeputyDateOfBirth, utility.IsoDate)
+
+	return v
 }
