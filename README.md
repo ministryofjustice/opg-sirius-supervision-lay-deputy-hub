@@ -33,4 +33,5 @@ Hot-reloading is managed independently and should happen seamlessly. Debugging i
 ## Run the Cypress tests in UI
 `make dev-up` in one terminal (wait for the app to build)
 `cd cypress`
+(if its your first time building you'll need to run `npm install` to download the specific cypress package-json files)
 `npx cypress open baseUrl=http://localhost:1234` in another terminal

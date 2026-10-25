@@ -1,0 +1,34 @@
+{{ define "death-notification-deleted" }}
+    <div class="moj-timeline__item" data-cy="death-notification-deleted-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Death record reset
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <p>The death record of the deputy has been reset</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li> Date of death <b>{{ .Event.DateOfDeath }}</b></li>
+                {{ if .Event.DateDeathCertificateReceived }}
+                    <li> Certificate received <b>{{ .Event.DateDeathCertificateReceived }}</b></li>
+                {{ end }}
+                <li>
+                    Notified by
+                    {{ if .Event.NotifiedByOther }}
+                        <b>{{ .Event.NotifiedByOther }}</b>
+                    {{ else }}
+                        <b>{{ .Event.NotifiedBy }}</b>
+                    {{ end }}
+                    on <b>{{ .Event.DateNotified }}</b> by <b>{{ .Event.NotificationMethod }}</b>
+                </li>
+                <li> {{ .Event.Notes }}</li>
+            </ul>
+        </div>
+    </div>
+{{ end }}
