@@ -1,0 +1,16 @@
+{
+  "specName": "e2e/timeline.cy.js",
+  "title": "displays changesets with set when old value is null",
+  "suiteName": "Timeline event",
+  "testName": "Timeline tab Timeline event displays changesets with set when old value is null",
+  "testError": "Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"deputy-order-details-changed-event\"] > .moj-timeline__description > .govuk-list`, but never found it.",
+  "testCommands": [
+    "setCookie Other, other",
+    "setCookie XSRF-TOKEN, abcde",
+    "visit /supervision/deputies/lay/1",
+    "get :nth-child(3) > .moj-sub-navigation__link",
+    "click ",
+    "new url http://localhost:1234/supervision/deputies/lay/1/timeline",
+    "get [data-cy=\"deputy-order-details-changed-event\"] > .moj-timeline__description > .govuk-list"
+  ]
+}

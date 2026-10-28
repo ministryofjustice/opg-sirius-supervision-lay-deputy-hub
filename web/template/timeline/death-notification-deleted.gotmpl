@@ -15,7 +15,7 @@
             <p>The death record of the deputy has been reset</p>
             <ul class="govuk-list govuk-list--bullet">
                 <li> Date of death <b>{{ .Event.DateOfDeath }}</b></li>
-                {{ if .Event.DateDeathCertificateReceived }}
+                {{ if eq 0 .Event.DateDeathCertificateReceived.IsNull }}
                     <li> Certificate received <b>{{ .Event.DateDeathCertificateReceived }}</b></li>
                 {{ end }}
                 <li>
@@ -25,7 +25,7 @@
                     {{ else }}
                         <b>{{ .Event.NotifiedBy }}</b>
                     {{ end }}
-                    on <b>{{ .Event.DateNotified }}</b> by <b>{{ .Event.NotificationMethod }}</b>
+                    on <b>{{ if eq 0 .Event.DateNotified.IsNull }}{{ .Event.DateNotified }}{{ end }}</b> by <b>{{ .Event.NotificationMethod }}</b>
                 </li>
                 <li> {{ .Event.Notes }}</li>
             </ul>

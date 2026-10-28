@@ -1,12 +1,14 @@
 package server
 
 import (
-	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNavigateToTimeline(t *testing.T) {
@@ -17,7 +19,7 @@ func TestNavigateToTimeline(t *testing.T) {
 			{
 				Id:              20,
 				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: "28/09/2026",
+				TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
 				EventType:       "PersonDetailsChanged",
 				User: sirius.User{
 					Id:          61,
@@ -65,7 +67,7 @@ func TestNavigateToTimeline(t *testing.T) {
 			{
 				Id:              23,
 				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: "28/09/2026",
+				TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
 				EventType:       "DeputyLinkedToOrder",
 				User: sirius.User{
 					Id:          61,
@@ -96,7 +98,7 @@ func TestNavigateToTimeline(t *testing.T) {
 			{
 				Id:              367,
 				Timestamp:       "12/10/2026 13:35:35",
-				TimestampAsDate: "12/10/2026",
+				TimestampAsDate: shared.NewDate("12/10/2026 13:35:35").String(),
 				EventType:       "ClientFeePayerRemoved",
 				User: sirius.User{
 					Id:          101,

@@ -1,7 +1,6 @@
-package sirius
+package shared
 
 import (
-	"regexp"
 	"time"
 )
 
@@ -41,21 +40,4 @@ func FormatDateTimeAsDate(currentFormat string, dateString string, displayFormat
 	}
 	dateTime := stringToDateTime.In(londonLocation).Format(displayFormat)
 	return dateTime
-}
-
-// PermissiveFormatIsoDateTime allows transition from `IsoDateTime` to `IsoDateTimeZone` without display errors for users.
-// Once the transition is completed, this should be deleted and `FormatDateTime(IsoDateTimeZone, ...` used.
-func PermissiveFormatIsoDateTime(dateString string, displayFormat string) string {
-	if dateString == "" {
-		return dateString
-	}
-
-	re := regexp.MustCompile(`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}$`)
-	if re.MatchString(dateString) {
-		stringToDateTime, _ := time.Parse(IsoDateTimeZone, dateString)
-		return stringToDateTime.Local().Format(displayFormat)
-	}
-
-	stringToDateTime, _ := time.Parse(IsoDateTime, dateString)
-	return stringToDateTime.Local().Format(displayFormat)
 }

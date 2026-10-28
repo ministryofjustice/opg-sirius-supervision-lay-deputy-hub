@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -139,7 +140,7 @@ func TestGetDeputyTimeline(t *testing.T) {
 		{
 			Id:              20,
 			Timestamp:       "28/09/2026 17:13:12",
-			TimestampAsDate: "28/09/2026",
+			TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
 			EventType:       "PersonDetailsChanged",
 			User: User{
 				Id:          61,
@@ -187,7 +188,7 @@ func TestGetDeputyTimeline(t *testing.T) {
 		{
 			Id:              23,
 			Timestamp:       "28/09/2026 17:13:12",
-			TimestampAsDate: "28/09/2026",
+			TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
 			EventType:       "DeputyLinkedToOrder",
 			User: User{
 				Id:          61,
@@ -218,7 +219,7 @@ func TestGetDeputyTimeline(t *testing.T) {
 		{
 			Id:              367,
 			Timestamp:       "12/10/2026 13:35:35",
-			TimestampAsDate: "12/10/2026",
+			TimestampAsDate: shared.NewDate("12/10/2026 13:35:35").String(),
 			EventType:       "ClientFeePayerRemoved",
 			User: User{
 				Id:          101,
@@ -300,7 +301,7 @@ func TestEditDeputyEvents(t *testing.T) {
 		{
 			Id:              20,
 			Timestamp:       "27/09/2026 17:13:12",
-			TimestampAsDate: "27/09/2026 17:13:12",
+			TimestampAsDate: "27/09/2026",
 			EventType:       "ClientFeePayerRemoved",
 			User: User{
 				Id:          61,
@@ -484,9 +485,9 @@ func TestReformatEvent(t *testing.T) {
 		{
 			"Death notification deleted event",
 			Event{
-				DateDeathCertificateReceived: "2026-10-28T16:13:12+00:00",
-				DateNotified:                 "2026-09-28T16:13:12+00:00",
-				DateOfDeath:                  "2026-09-29T16:13:12+00:00",
+				DateDeathCertificateReceived: shared.NewDate("2026-10-28T16:13:12+00:00"),
+				DateNotified:                 shared.NewDate("2026-09-28T16:13:12+00:00"),
+				DateOfDeath:                  shared.NewDate("2026-09-29T16:13:12+00:00"),
 				Notes:                        "Notes about death notification being deleted",
 				NotificationMethod:           "Email",
 				NotifiedBy:                   "EXECUTOR",
@@ -499,9 +500,9 @@ func TestReformatEvent(t *testing.T) {
 			},
 			"Opg\\Core\\Model\\Event\\Person\\DeathNotificationDeleted",
 			Event{
-				DateDeathCertificateReceived: "28/10/2026",
-				DateNotified:                 "28/09/2026",
-				DateOfDeath:                  "29/09/2026",
+				DateDeathCertificateReceived: shared.NewDate("2026-10-28T16:13:12+00:00"),
+				DateNotified:                 shared.NewDate("2026-09-28T16:13:12+00:00"),
+				DateOfDeath:                  shared.NewDate("2026-09-29T16:13:12+00:00"),
 				Notes:                        "Notes about death notification being deleted",
 				NotificationMethod:           "Email",
 				NotifiedBy:                   "Executor",
@@ -516,9 +517,9 @@ func TestReformatEvent(t *testing.T) {
 		{
 			"Person death notified event",
 			Event{
-				DateDeathCertificateReceived: "2026-02-20 00:00:00",
-				DateNotified:                 "2026-01-20 00:00:00",
-				DateOfDeath:                  "2026-01-19 00:00:00",
+				DateDeathCertificateReceived: shared.NewDate("2026-02-20 00:00:00"),
+				DateNotified:                 shared.NewDate("2026-01-20 00:00:00"),
+				DateOfDeath:                  shared.NewDate("2026-01-19 00:00:00"),
 				Notes:                        "Notes about death notification",
 				NotificationMethod:           "Phone",
 				NotifiedBy:                   "OTHER",
@@ -532,9 +533,9 @@ func TestReformatEvent(t *testing.T) {
 			},
 			"Opg\\Core\\Model\\Event\\Person\\PersonDeathNotified",
 			Event{
-				DateDeathCertificateReceived: "20/02/2026",
-				DateNotified:                 "20/01/2026",
-				DateOfDeath:                  "19/01/2026",
+				DateDeathCertificateReceived: shared.NewDate("2026-02-20 00:00:00"),
+				DateNotified:                 shared.NewDate("2026-01-20 00:00:00"),
+				DateOfDeath:                  shared.NewDate("2026-01-19 00:00:00"),
 				Notes:                        "Notes about death notification",
 				NotificationMethod:           "Phone",
 				NotifiedBy:                   "Other",
