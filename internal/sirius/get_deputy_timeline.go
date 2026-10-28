@@ -149,8 +149,8 @@ func updateChangeset(c Changeset) Changeset {
 	if c.FieldName == "statusChangeDate" || c.FieldName == "dob" {
 		return Changeset{
 			FieldName:         c.FieldName,
-			OldValue:          shared.FormatDateTimeAsDate(shared.IsoDateTimeZone, c.OldValue, shared.SiriusDate),
-			NewValue:          shared.FormatDateTimeAsDate(shared.IsoDateTimeZone, c.NewValue, shared.SiriusDate),
+			OldValue:          shared.FormatDateTime(shared.IsoDateTimeZone, c.OldValue, shared.SiriusDate),
+			NewValue:          shared.FormatDateTime(shared.IsoDateTimeZone, c.NewValue, shared.SiriusDate),
 			Type:              c.Type,
 			TimelineValueName: GetTimelineValueForField(c.FieldName),
 		}
