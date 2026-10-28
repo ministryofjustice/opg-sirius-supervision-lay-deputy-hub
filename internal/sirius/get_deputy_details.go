@@ -28,7 +28,7 @@ type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
 	Salutation                        string                                `json:"salutation"`
 	DeputyFirstName                   string                                `json:"firstName"`
-	DeputyMiddleName                  string                                `json:"middleName"`
+	DeputyMiddleName                  string                                `json:"middleNames"`
 	DeputySurname                     string                                `json:"surname"`
 	DeputyOtherNames                  string                                `json:"otherNames"`
 	DeputyNumber                      int                                   `json:"deputyNumber"`
