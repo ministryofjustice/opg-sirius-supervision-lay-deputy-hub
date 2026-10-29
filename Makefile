@@ -16,6 +16,9 @@ dev-up: clean build-dev
 dev-up-sirius: clean build-dev
 	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub
 
+up-sirius: 
+	docker compose -f docker-compose.yml -f docker/docker-compose.sirius.yml up lay-deputy-hub
+
 down:
 	docker compose down --remove-orphans
 
@@ -23,7 +26,7 @@ go-lint:
 	docker compose run --rm go-lint
 
 test-results:
-	mkdir -p -m 0777 test-results .gocache pacts logs cypress/screenshots
+	mkdir -p -m 0777 test-results .gocache logs cypress/screenshots
 
 unit-test: test-results
 	docker compose run --rm test-runner

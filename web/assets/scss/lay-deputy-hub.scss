@@ -110,6 +110,14 @@ $moj-assets-path: "/supervision/deputies/lay/static/assets/";
   margin-bottom: 2em;
 }
 
+.title-inline {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 0 0.5em;
+  border-bottom: 1px solid govuk-functional-colour("border");
+  margin-bottom: 2em;
+}
+
 .moj-button-menu__item {
   display: inline-block;
   width: auto;

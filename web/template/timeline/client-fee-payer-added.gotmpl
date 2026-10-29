@@ -1,0 +1,38 @@
+{{ define "client-fee-payer-added" }}
+    <div class="moj-timeline__item" data-cy="fee-payer-added-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+               Set fee payer
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            {{ range .Event.MultiPersons }}
+                {{if eq .PersonType "Client"}}
+                    <b>{{.PersonName}} (client)</b>
+                    <a href="
+                        {{ sirius (printf "/supervision/#/clients/%s" .PersonId) }}"
+                        class="govuk-link"
+                        id="hook-fee-payer-added-timeline-event-client-id"
+                        >
+                        {{ .PersonUid }}
+                    </a>
+                    <p><b>Set </b>to be the feepayer for client {{.PersonName}}
+                        <a href="{{ sirius (printf "/supervision/#/clients/%s" .PersonId) }}"
+                           class="govuk-link"
+                           id="hook-fee-payer-added-timeline-event-link-2-client-id"
+                        >
+                            {{ .PersonUid }}
+                        </a>
+                        on <time>{{ $.TimestampAsDate }}</time>
+                    </p>
+                {{end}}
+            {{end}}
+        </div>
+    </div>
+{{ end }}

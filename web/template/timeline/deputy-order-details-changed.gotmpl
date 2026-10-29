@@ -1,0 +1,53 @@
+{{ define "deputy-order-details-changed" }}
+    <div class="moj-timeline__item" data-cy="deputy-order-details-changed-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+               Order details updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <p><b>Order details updated</b> {{.Event.OrderType}} {{.Event.OrderCourtRef}} -
+                {{ if .Event.AdditionalPersons}}
+                    {{ range .Event.AdditionalPersons }}
+                        {{ if eq .PersonType "Client" }}
+                            <a href="{{ sirius (printf "/supervision/#/clients/%s?order=%s" .PersonId $.Event.OrderId) }}"
+                               class="govuk-link"
+                               id="hook-deputy-linked-to-order-timeline-event-client-id"
+                            >
+                                {{ $.Event.OrderUid}}
+                            </a>
+                        {{ end }}
+                    {{ end }}
+                {{ else }}
+                    {{ .Event.OrderUid}}
+                {{ end }}
+                on <time>{{ .TimestampAsDate }}</time>
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                {{ range .Event.Changes }}
+                    {{if eq .FieldName "relationshipToClient"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "statusOnCase"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "statusChangeDate"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "mainCorrespondent"}}
+                        {{ template "yes-no-changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "deputyType"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                {{end}}
+            </ul>
+        </div>
+    </div>
+{{ end }}

@@ -1,0 +1,30 @@
+{{ define "correspondence-document-published" }}
+    <div class="moj-timeline__item" data-cy="correspondence-document-published-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Correspondence document published
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <p>
+                <b>{{.Event.PersonName}} - {{.Event.DocumentSystemType}}</b>
+                has been published for
+                <a href="
+                        {{ sirius (printf "/supervision/#/clients/%s" .Event.DocumentClientId) }}"
+                   class="govuk-link"
+                   id="hook-correspondence-document-published-timeline-event-client-id"
+                >
+                    {{ .Event.PersonUid }}
+                </a>
+                <br>
+                {{.Event.OrderType}} - {{ .Event.OrderCourtRef }} on <time>{{ .TimestampAsDate}}</time>
+            </p>
+        </div>
+    </div>
+{{ end }}

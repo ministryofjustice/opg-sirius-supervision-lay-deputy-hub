@@ -1,0 +1,38 @@
+{{ define "deputy-unlinked-from-order" }}
+    <div class="moj-timeline__item" data-cy="deputy-unlinked-from-order-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Unlink
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                {{ if .Event.OrderType }}
+                    <li><b>Unlinked</b> from case {{.Event.OrderType}} {{.Event.OrderCourtRef}} -
+                        {{ if .Event.AdditionalPersons}}
+                            {{ range .Event.AdditionalPersons }}
+                                {{ if eq .PersonType "Client" }}
+                                    <a href="{{ sirius (printf "/supervision/#/clients/%s?order=%s" .PersonId $.Event.OrderId) }}"
+                                       class="govuk-link"
+                                       id="hook-deputy-unlinked-from-order-timeline-event-client-id"
+                                    >
+                                        {{ $.Event.OrderUid}}
+                                    </a>
+                                {{ end }}
+                            {{ end }}
+                        {{ else }}
+                            {{ .Event.OrderUid}}
+                        {{ end }}
+                        on <time>{{ .TimestampAsDate }}</time>
+                    </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+{{ end }}
