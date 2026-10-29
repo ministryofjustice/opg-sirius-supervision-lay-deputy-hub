@@ -63,7 +63,7 @@ type Event struct {
 type TimelineEvent struct {
 	Id              int    `json:"id"`
 	Timestamp       string `json:"timestamp"`
-	TimestampAsDate string `json:"timestampAsDate"`
+	TimestampAsDate string
 	EventType       string `json:"eventType"`
 	User            User   `json:"user"`
 	Event           Event  `json:"event"`
@@ -239,13 +239,10 @@ func GetTimelineValueForField(myFieldName string) string {
 }
 
 func reformatAllCapitalValues(myFieldName string) bool {
-	if (myFieldName == "statusChangeDate") ||
-		(myFieldName == "statusOnCase") ||
-		(myFieldName == "deputyType") ||
-		(myFieldName == "deputySubType") ||
-		(myFieldName == "relationshipToClient") {
+	switch myFieldName {
+	case "deputyType", "deputySubType", "statusChangeDate", "statusOnCase", "relationshipToClient":
 		return true
+	default:
+		return false
 	}
-
-	return false
 }
