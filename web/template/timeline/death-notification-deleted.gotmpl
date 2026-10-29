@@ -14,9 +14,11 @@
         <div class="moj-timeline__description">
             <p>The death record of the deputy has been reset</p>
             <ul class="govuk-list govuk-list--bullet">
-                <li> Date of death <b>{{ .Event.DateOfDeath }}</b></li>
-                {{ if eq 0 .Event.DateDeathCertificateReceived.IsNull }}
-                    <li> Certificate received <b>{{ .Event.DateDeathCertificateReceived }}</b></li>
+                {{ if ne true .Event.DateOfDeath.IsNull }}
+                    <li> Date of death <b>{{ .Event.DateOfDeath }}</b></li>
+                {{ end }}
+                {{ if ne true .Event.DateDeathCertificateReceived.IsNull }}
+                    <li> Certificate received <b> {{ .Event.DateDeathCertificateReceived }}</b></li>
                 {{ end }}
                 <li>
                     Notified by
@@ -25,9 +27,11 @@
                     {{ else }}
                         <b>{{ .Event.NotifiedBy }}</b>
                     {{ end }}
-                    on <b>{{ if eq 0 .Event.DateNotified.IsNull }}{{ .Event.DateNotified }}{{ end }}</b> by <b>{{ .Event.NotificationMethod }}</b>
+                    on <b>{{ .Event.DateNotified }}</b> by <b>{{ .Event.NotificationMethod }}</b>
                 </li>
+                {{ if ne (len .Event.Notes) 0  }}
                 <li> {{ .Event.Notes }}</li>
+                {{ end }}
             </ul>
         </div>
     </div>
