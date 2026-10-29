@@ -16,6 +16,7 @@ import (
 type Client interface {
 	LayDeputyHubClient
 	LayDeputyHubInformation
+	DeputyDetailsInformation
 }
 
 type Template interface {
@@ -34,7 +35,8 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 
 	mux.Handle("GET /{id}", wrap(renderTemplateForDeputyHub(client, templates["deputy-details.gotmpl"])))
 	mux.Handle("GET /{id}/clients", wrap(renderTemplateForClientTab(templates["clients.gotmpl"])))
-	mux.Handle("GET /{id}/timeline", wrap(renderTemplateForDeputyHubEvents(templates["timeline.gotmpl"])))
+	mux.Handle("GET /{id}/timeline", wrap(renderTemplateForTimeline(client, templates["timeline.gotmpl"])))
+	mux.Handle("/{id}/manage-deputy-details", wrap(renderTemplateForManageDeputyDetailsForm(client, templates["manage-deputy-details.gotmpl"])))
 
 	mux.Handle("GET /health-check", healthCheck())
 

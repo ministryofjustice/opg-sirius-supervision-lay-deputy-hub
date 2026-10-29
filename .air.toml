@@ -9,3 +9,5 @@ bin = ""
 cmd = "go build -gcflags='all=-N -l' -o /tmp/main ."
 entrypoint = ["dlv", "exec", "--accept-multiclient", "--log", "--headless", "--continue", "--listen", ":2345", "--api-version", "2", "/tmp/main"]
 include_ext = ["go", "gotmpl"]
+send_interrupt = true
+kill_delay = "2s"

@@ -1,0 +1,75 @@
+{{ define "deputy-details-changed" }}
+    <div class="moj-timeline__item" data-cy="person-details-changed-event">
+        <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">
+                Details updated
+            </h2>
+            <p class="moj-timeline__byline">
+                {{ printf "by %v (%v)" .User.DisplayName .User.PhoneNumber }}
+            </p>
+        </div>
+        <p class="moj-timeline__date">
+            <time>{{ .Timestamp }}</time>
+        </p>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list govuk-list--bullet">
+                {{ range .Event.Changes }}
+                    {{if eq .FieldName "salutation"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "firstname"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "middleName"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "surname"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "otherNames"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "dob"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "addressLine1"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "addressLine2"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "addressLine3"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "town"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "county"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "country"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "postcode"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "isAirmailRequired"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "email"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "mobileNumber"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "homePhoneNumber"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "telephone"}}
+                        {{ template "changeset" . }}
+                    {{end}}
+                {{end}}
+            </ul>
+        </div>
+    </div>
+{{ end }}
