@@ -54,7 +54,7 @@
                         {{ template "changeset" . }}
                     {{end}}
                     {{if eq .FieldName "isAirmailRequired"}}
-                        {{ template "changeset" . }}
+                        {{ template "yes-no-changeset" . }}
                     {{end}}
                     {{if eq .FieldName "email"}}
                         {{ template "changeset" . }}

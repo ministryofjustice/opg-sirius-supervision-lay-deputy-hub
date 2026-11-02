@@ -13,6 +13,7 @@ type DeputyDetailsInformation interface {
 
 type ManageDeputyDetailsVars struct {
 	AppVars
+	Form sirius.DeputyDetails
 }
 
 type pair struct {
@@ -39,6 +40,9 @@ var validationMappings = map[string]map[string]pair{
 	"county": {
 		"stringLengthTooLong": pair{"county", "The county must be 255 characters or fewer"},
 	},
+	"country": {
+		"stringLengthTooLong": pair{"country", "The country must be 255 characters or fewer"},
+	},
 	"postcode": {
 		"stringLengthTooLong": pair{"postcode", "The postcode must be 255 characters or fewer"},
 		"isEmpty":             pair{"postcode", "The postcode is required and can't be empty"},
@@ -62,9 +66,21 @@ var validationMappings = map[string]map[string]pair{
 		"stringLengthTooLong": pair{"firstname", "The deputy first name must be 255 characters or fewer"},
 		"isEmpty":             pair{"firstname", "The deputy first name is required and can't be empty"},
 	},
+	"middleName": {
+		"stringLengthTooLong": pair{"middleName", "The deputy middle name must be 255 characters or fewer"},
+	},
 	"surname": {
 		"stringLengthTooLong": pair{"surname", "The deputy surname must be 255 characters or fewer"},
 		"isEmpty":             pair{"surname", "The deputy surname is required and can't be empty"},
+	},
+	"otherNames": {
+		"stringLengthTooLong": pair{"otherNames", "The deputy other name must be 255 characters or fewer"},
+	},
+	"homePhoneNumber": {
+		"stringLengthTooLong": pair{"homePhoneNumber", "The evening telephone number must be 255 characters or fewer"},
+	},
+	"mobileNumber": {
+		"stringLengthTooLong": pair{"mobileNumber", "The mobile number must be 255 characters or fewer"},
 	},
 }
 
@@ -90,7 +106,7 @@ func renderTemplateForManageDeputyDetailsForm(client DeputyDetailsInformation, t
 		ctx := getContext(r)
 		app.PageName = "Manage deputy contact details"
 
-		vars := ManageDeputyDetailsVars{AppVars: app}
+		vars := ManageDeputyDetailsVars{AppVars: app, Form: app.DeputyDetails}
 
 		switch r.Method {
 		case http.MethodGet:
@@ -122,7 +138,7 @@ func renderTemplateForManageDeputyDetailsForm(client DeputyDetailsInformation, t
 
 			if verr, ok := err.(sirius.ValidationError); ok {
 				vars.Errors = RenameErrors(verr.Errors)
-				vars.DeputyDetails = sirius.DeputyDetails{
+				vars.Form = sirius.DeputyDetails{
 					ID:                     app.DeputyId(),
 					DeputyFirstName:        form.DeputyFirstName,
 					DeputyMiddleName:       form.DeputyMiddleName,
