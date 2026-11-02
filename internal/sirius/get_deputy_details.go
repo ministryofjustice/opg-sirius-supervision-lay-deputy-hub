@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/utility"
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 )
 
 type DeputyType struct {
@@ -103,7 +103,7 @@ func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, err
 }
 
 func formatDeputyDetails(v DeputyDetails) DeputyDetails {
-	v.DeputyDateOfBirth = utility.FormatDateTime(utility.SiriusDate, v.DeputyDateOfBirth, utility.IsoDate)
+	v.DeputyDateOfBirth = util.FormatDateTime(util.SiriusDate, v.DeputyDateOfBirth, util.IsoDate)
 
 	return v
 }
