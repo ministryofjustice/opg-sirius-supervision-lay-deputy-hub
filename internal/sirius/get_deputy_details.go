@@ -51,7 +51,7 @@ type DeputyDetails struct {
 	CorrespondenceByEmail             bool                                  `json:"correspondenceByEmail"`
 	CorrespondenceByPhone             bool                                  `json:"correspondenceByPhone"`
 	CorrespondenceByPost              bool                                  `json:"correspondenceByPost"`
-	Notes                             string                                `json:"notes"`
+	Notes                             string                                `json:"additionalInformationNotes"`
 }
 
 func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {

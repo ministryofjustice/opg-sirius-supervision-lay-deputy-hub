@@ -14,9 +14,6 @@
         <div class="moj-timeline__description">
             <ul class="govuk-list govuk-list--bullet">
                 {{ range .Event.Changes }}
-                    {{if eq .FieldName "occupation"}}
-                        {{ template "changeset" . }}
-                    {{end}}
                     {{if eq .FieldName "audioTape"}}
                         {{ template "yes-no-changeset" . }}
                     {{end}}
@@ -43,6 +40,9 @@
                     {{end}}
                     {{if eq .FieldName "spellingOfNameRequiresCare"}}
                         {{ template "yes-no-changeset" . }}
+                    {{end}}
+                    {{if eq .FieldName "notes"}}
+                        {{ template "changeset" . }}
                     {{end}}
                 {{end}}
             </ul>

@@ -13,13 +13,13 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
                 <div class="govuk-form-group">
-                    <div class="govuk-form-group {{ if index .Errors "interpreter-required" }} govuk-form-group--error{{ end }}">
+                    <div class="govuk-form-group{{ if index .Errors "interpreterRequired" }} govuk-form-group--error{{ end }}">
                         <label class="govuk-label" for="interpreter-required">
                             Interpreter requirements (optional)
                         </label>
-                        {{ template "error-message" (index .Errors "interpreter-required") }}
-                        <input class="govuk-input {{ if index .Errors "interpreter-required" }} govuk-input--error{{ end }}"
-                           id="interpreter-required"
+                        {{ template "error-message" (index .Errors "interpreterRequired") }}
+                        <input class="govuk-input{{ if index .Errors "interpreterRequired" }} govuk-input--error{{ end }}"
+                           id="f-interpreterRequired"
                            name="interpreter-required"
                            type="text"
                            value="{{ .Form.InterpreterRequired }}">
@@ -63,11 +63,17 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-form-group">
+                <div class="govuk-form-group{{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
                     <label class="govuk-label" for="notes">
                         Additional information
                     </label>
-                    <textarea class="govuk-textarea" id="notes" name="notes" rows="5"></textarea>
+                    {{ template "error-message" (index .Errors "notes") }}
+                    <textarea class="govuk-textarea{{ if index .Errors "notes" }} govuk-input--error{{ end }}"
+                          id="f-notes"
+                          name="notes"
+                          rows="5">
+                        {{ .Form.Notes }}
+                    </textarea>
                 </div>
             </div>
         </div>

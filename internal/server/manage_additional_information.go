@@ -53,9 +53,7 @@ func renderTemplateForManageAdditionalInformationForm(client AdditionalInformati
 
 			if verr, ok := err.(sirius.ValidationError); ok {
 				vars.Errors = util.RenameErrors(verr.Errors)
-				vars.Form = sirius.AdditionalInformationForm{
-					InterpreterRequired: form.InterpreterRequired,
-				}
+				vars.Form = form
 				return tmpl.ExecuteTemplate(w, "page", vars)
 			} else if err != nil {
 				return err
