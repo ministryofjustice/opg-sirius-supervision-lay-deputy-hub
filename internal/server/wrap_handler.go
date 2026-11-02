@@ -40,6 +40,7 @@ type ErrorVars struct {
 
 type LayDeputyHubClient interface {
 	GetDeputyDetails(sirius.Context, int) (sirius.DeputyDetails, error)
+	GetDeputyTimeline(sirius.Context, int) ([]sirius.TimelineEvent, error)
 }
 
 type ExpandedError interface {

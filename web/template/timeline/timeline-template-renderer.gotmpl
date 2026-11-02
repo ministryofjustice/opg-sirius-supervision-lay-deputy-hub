@@ -1,0 +1,41 @@
+{{ define "timeline-template-renderer" }}
+    {{ if eq .EventType "AddressChanged" }}
+        {{ template "address-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "ClientFeePayerAdded" }}
+        {{ template "client-fee-payer-added" . }}
+    {{ end }}
+    {{ if eq .EventType "ClientFeePayerRemoved" }}
+        {{ template "client-fee-payer-removed" . }}
+    {{ end }}
+    {{ if eq .EventType "CorrespondenceDocumentPublished" }}
+        {{ template "correspondence-document-published" . }}
+    {{ end }}
+    {{ if eq .EventType "DeathNotificationDeleted" }}
+        {{ template "death-notification-deleted" . }}
+    {{ end }}
+    {{ if eq .EventType "DeputyLinkedToOrder" }}
+        {{ template "deputy-linked-to-order" . }}
+    {{ end }}
+    {{ if eq .EventType "DeputyUnlinkedFromOrder" }}
+        {{ template "deputy-unlinked-from-order" . }}
+    {{ end }}
+    {{ if eq .EventType "DeputyOrderDetailsChanged" }}
+        {{ template "deputy-order-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonAdditionalInfoChanged" }}
+        {{ template "person-additional-information-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonContactDetailsChanged" }}
+       {{ template "person-contact-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonDeathNotified" }}
+        {{ template "person-death-notified" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonDetailsChanged" }}
+        {{ template "person-details-changed" . }}
+    {{ end }}
+    {{ if eq .EventType "PersonStatusChanged" }}
+       {{ template "person-status-changed" . }}
+    {{ end }}
+{{ end }}

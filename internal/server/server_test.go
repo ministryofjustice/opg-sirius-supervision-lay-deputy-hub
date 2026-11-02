@@ -10,12 +10,33 @@ import (
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
 
-type mockClient struct{}
+type mockTemplates struct {
+	mock.Mock
+	count    int
+	lastName string
+	lastVars interface{}
+}
 
-func (m mockClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams) (sirius.ClientList, error) {
+func (m *mockTemplates) ExecuteTemplate(i io.Writer, name string, vars interface{}) error {
+	m.count += 1
+	m.lastName = name
+	m.lastVars = vars
+
+	return nil
+}
+
+type mockApiClient struct {
+	error          error
+	Clients        sirius.ClientList
+	DeputyDetails  sirius.DeputyDetails
+	TimelineEvents []sirius.TimelineEvent
+}
+
+func (m mockApiClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams) (sirius.ClientList, error) {
 	return sirius.ClientList{
 		TotalClients: 3,
 		Metadata: sirius.Metadata{
@@ -24,7 +45,7 @@ func (m mockClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams
 	}, nil
 }
 
-func (m mockClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.DeputyDetails, error) {
+func (m mockApiClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.DeputyDetails, error) {
 	return sirius.DeputyDetails{
 		ID:              deputyID,
 		DeputyFirstName: "Test",
@@ -34,6 +55,10 @@ func (m mockClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.Dep
 			Label:  "Lay Deputy",
 		},
 	}, nil
+}
+
+func (m mockApiClient) GetDeputyTimeline(_ sirius.Context, deputyID int) ([]sirius.TimelineEvent, error) {
+	return m.TimelineEvents, m.error
 }
 
 func TestPagesLoadSuccessfully(t *testing.T) {
@@ -46,7 +71,7 @@ func TestPagesLoadSuccessfully(t *testing.T) {
 
 	handler := New(
 		slog.New(slog.NewTextHandler(io.Discard, nil)),
-		mockClient{},
+		mockApiClient{},
 		templates,
 		EnvironmentVars{},
 	)

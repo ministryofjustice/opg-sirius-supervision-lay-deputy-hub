@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
 type DeputyType struct {
@@ -73,7 +75,7 @@ func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
 func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, error) {
 	var v DeputyDetails
 
-	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d", deputyID), nil)
+	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d", deputyID), nil)
 	if err != nil {
 		return v, err
 	}
