@@ -48,6 +48,10 @@ type DeputyDetails struct {
 	SpecialCorrespondenceRequirements SpecialCorrespondenceRequirementsType `json:"specialCorrespondenceRequirements"`
 	InterpreterRequired               string                                `json:"interpreterRequired"`
 	CorrespondenceByWelsh             bool                                  `json:"correspondenceByWelsh"`
+	CorrespondenceByEmail             bool                                  `json:"correspondenceByEmail"`
+	CorrespondenceByPhone             bool                                  `json:"correspondenceByPhone"`
+	CorrespondenceByPost              bool                                  `json:"correspondenceByPost"`
+	Notes                             string                                `json:"notes"`
 }
 
 func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
