@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/stretchr/testify/assert"
@@ -20,7 +21,7 @@ func TestGetDeputyTimeline(t *testing.T) {
     {
         "id": 20,
         "hash": "K",
-        "timestamp": "2026-09-28T16:13:12+00:00",
+        "timestamp": "2026-09-28T17:13:12+00:00",
         "eventType": "Opg\\Core\\Model\\Event\\Person\\PersonDetailsChanged",
         "user": {
             "id": 61,
@@ -126,7 +127,62 @@ func TestGetDeputyTimeline(t *testing.T) {
             ],
             "parentEventType": "MultiPersonEvent"
         }
-    }]`))
+    },
+    {
+        "id": 365,
+        "hash": "A5",
+        "timestamp": "2026-11-02T11:12:33+00:00",
+        "eventType": "Opg\\Core\\Model\\Event\\Person\\PersonDeathNotified",
+        "user": {
+            "id": 101,
+            "phoneNumber": "12345678",
+            "displayName": "PROTeam1 User1",
+            "email": "pro1@opgtest.com"
+        },
+        "event": {
+            "notifiedBy": "EXECUTOR",
+            "proofOfDeathReceived": true,
+            "dateOfDeath": "2020-01-01 00:00:00",
+            "dateDeathCertificateReceived": "2025-01-01 00:00:00",
+            "dateNotified": "2025-02-01 00:00:00",
+            "notificationMethod": "Email",
+            "notes": "",
+            "personType": "Deputy",
+            "personId": "49",
+            "personUid": "7000-0000-1367",
+            "personName": "Mrs Betty Banks",
+            "personCourtRef": null
+        }
+    },
+	{
+		"id": 368,
+		"hash": "A8",
+		"timestamp": "2026-11-02T11:16:18+00:00",
+		"eventType": "Opg\\Core\\Model\\Event\\Person\\DeathNotificationDeleted",
+		"user": {
+			"id": 61,
+			"phoneNumber": "12345678",
+			"displayName": "case manager",
+			"email": "case.manager@opgtest.com"
+		},
+		"event": {
+			"dateNotified": "2025-01-01T00:00:00+00:00",
+			"dateOfDeath": "2020-01-01T00:00:00+00:00",
+			"proofOfDeathReceived": true,
+			"dateDeathCertificateReceived": "2025-02-01T00:00:00+00:00",
+			"notes": "",
+			"notificationMethod": "Email",
+			"notifiedBy": "EXECUTOR",
+			"notifiedByOther": null,
+			"personType": "Deputy",
+			"personId": "49",
+			"personUid": "7000-0000-1367",
+			"personName": "Mrs Betty Banks",
+			"personCourtRef": null,
+			"parentEventType": "PersonEvent"
+		}
+	}
+]`))
 	}))
 	t.Cleanup(server.Close)
 
@@ -138,10 +194,9 @@ func TestGetDeputyTimeline(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, []TimelineEvent{
 		{
-			Id:              20,
-			Timestamp:       "28/09/2026 17:13:12",
-			TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
-			EventType:       "PersonDetailsChanged",
+			Id:        20,
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+			EventType: "PersonDetailsChanged",
 			User: User{
 				Id:          61,
 				PhoneNumber: "12345678",
@@ -186,10 +241,9 @@ func TestGetDeputyTimeline(t *testing.T) {
 			},
 		},
 		{
-			Id:              23,
-			Timestamp:       "28/09/2026 17:13:12",
-			TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
-			EventType:       "DeputyLinkedToOrder",
+			Id:        23,
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 16, 13, 12, 0, time.UTC)},
+			EventType: "DeputyLinkedToOrder",
 			User: User{
 				Id:          61,
 				PhoneNumber: "12345678",
@@ -217,10 +271,9 @@ func TestGetDeputyTimeline(t *testing.T) {
 			},
 		},
 		{
-			Id:              367,
-			Timestamp:       "12/10/2026 13:35:35",
-			TimestampAsDate: shared.NewDate("12/10/2026 13:35:35").String(),
-			EventType:       "ClientFeePayerRemoved",
+			Id:        367,
+			Timestamp: shared.Date{Time: time.Date(2026, time.October, 12, 12, 35, 35, 0, time.UTC)},
+			EventType: "ClientFeePayerRemoved",
 			User: User{
 				Id:          101,
 				PhoneNumber: "12345678",
@@ -245,16 +298,63 @@ func TestGetDeputyTimeline(t *testing.T) {
 				ParentEventType: "MultiPersonEvent",
 			},
 		},
+		{
+			Id:        365,
+			Timestamp: shared.Date{Time: time.Date(2026, time.November, 2, 11, 12, 33, 0, time.UTC)},
+			EventType: "PersonDeathNotified",
+			User: User{
+				Id:          101,
+				PhoneNumber: "12345678",
+				DisplayName: "PROTeam1 User1",
+				Email:       "pro1@opgtest.com",
+			},
+			Event: Event{
+				NotifiedBy:                   "Executor",
+				DateOfDeath:                  shared.NewDate("2020-01-01 00:00:00"),
+				DateDeathCertificateReceived: shared.NewDate("2025-01-01 00:00:00"),
+				DateNotified:                 shared.NewDate("2025-02-01 00:00:00"),
+				NotificationMethod:           "Email",
+				Notes:                        "",
+				PersonType:                   "Deputy",
+				PersonId:                     "49",
+				PersonUid:                    "7000-0000-1367",
+				PersonName:                   "Mrs Betty Banks",
+			},
+		},
+		{
+			Id:        368,
+			Timestamp: shared.Date{Time: time.Date(2026, time.November, 2, 11, 16, 18, 0, time.UTC)},
+			EventType: "DeathNotificationDeleted",
+			User: User{
+				Id:          61,
+				PhoneNumber: "12345678",
+				DisplayName: "case manager",
+				Email:       "case.manager@opgtest.com",
+			},
+			Event: Event{
+				DateNotified:                 shared.NewDate("2025-01-01 00:00:00"),
+				DateOfDeath:                  shared.NewDate("2020-01-01 00:00:00"),
+				DateDeathCertificateReceived: shared.NewDate("2025-02-01 00:00:00"),
+				Notes:                        "",
+				NotificationMethod:           "Email",
+				NotifiedBy:                   "Executor",
+				NotifiedByOther:              "",
+				PersonType:                   "Deputy",
+				PersonId:                     "49",
+				PersonUid:                    "7000-0000-1367",
+				PersonName:                   "Mrs Betty Banks",
+				ParentEventType:              "PersonEvent",
+			},
+		},
 	}, deputyDetails)
 }
 
 func TestEditDeputyEvents(t *testing.T) {
 	expectedEvents := []TimelineEvent{
 		{
-			Id:              20,
-			Timestamp:       "28/09/2026 17:13:12",
-			TimestampAsDate: "28/09/2026",
-			EventType:       "PersonDetailsChanged",
+			Id:        20,
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+			EventType: "PersonDetailsChanged",
 			User: User{
 				Id:          61,
 				PhoneNumber: "12345678",
@@ -299,10 +399,9 @@ func TestEditDeputyEvents(t *testing.T) {
 			},
 		},
 		{
-			Id:              20,
-			Timestamp:       "27/09/2026 17:13:12",
-			TimestampAsDate: "27/09/2026",
-			EventType:       "ClientFeePayerRemoved",
+			Id:        19,
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 27, 17, 13, 12, 0, time.UTC)},
+			EventType: "ClientFeePayerRemoved",
 			User: User{
 				Id:          61,
 				PhoneNumber: "12345678",
@@ -332,10 +431,9 @@ func TestEditDeputyEvents(t *testing.T) {
 			},
 		},
 		{
-			Id:              23,
-			Timestamp:       "28/09/2026 17:13:12",
-			TimestampAsDate: "28/09/2026",
-			EventType:       "DeputyLinkedToOrder",
+			Id:        23,
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+			EventType: "DeputyLinkedToOrder",
 			User: User{
 				Id:          61,
 				PhoneNumber: "12345678",
@@ -367,7 +465,7 @@ func TestEditDeputyEvents(t *testing.T) {
 	actualEvents := editDeputyEvents([]TimelineEvent{
 		{
 			Id:        20,
-			Timestamp: "2026-09-28T16:13:12+00:00",
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
 			EventType: "Opg\\\\Core\\\\Model\\\\Event\\\\Person\\\\PersonDetailsChanged",
 			User: User{
 				Id:          61,
@@ -409,8 +507,8 @@ func TestEditDeputyEvents(t *testing.T) {
 			},
 		},
 		{
-			Id:        20,
-			Timestamp: "27/09/2026 17:13:12",
+			Id:        19,
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 27, 17, 13, 12, 0, time.UTC)},
 			EventType: "Opg\\Core\\Model\\Event\\Client\\ClientFeePayerRemoved",
 			User: User{
 				Id:          61,
@@ -442,7 +540,7 @@ func TestEditDeputyEvents(t *testing.T) {
 		},
 		{
 			Id:        23,
-			Timestamp: "2026-09-28T16:13:12+00:00",
+			Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
 			EventType: "Opg\\\\Core\\\\Model\\\\Event\\\\Order\\\\DeputyLinkedToOrder",
 			User: User{
 				Id:          61,

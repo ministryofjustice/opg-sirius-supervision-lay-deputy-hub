@@ -26,11 +26,18 @@ func (d Date) After(d2 Date) bool {
 	return d.Time.After(d2.Time)
 }
 
-func (d Date) String() string {
+func (d Date) DateString() string {
 	if d.IsNull() {
 		return ""
 	}
 	return d.Time.Format("02/01/2006")
+}
+
+func (d Date) DateTimeString() string {
+	if d.IsNull() {
+		return ""
+	}
+	return d.Time.Format("02/01/2006 15:04:05")
 }
 
 func (d Date) IsNull() bool {

@@ -61,12 +61,11 @@ type Event struct {
 	Status                       string             `json:"status"`
 }
 type TimelineEvent struct {
-	Id              int    `json:"id"`
-	Timestamp       string `json:"timestamp"`
-	TimestampAsDate string
-	EventType       string `json:"eventType"`
-	User            User   `json:"user"`
-	Event           Event  `json:"event"`
+	Id        int         `json:"id"`
+	Timestamp shared.Date `json:"timestamp"`
+	EventType string      `json:"eventType"`
+	User      User        `json:"user"`
+	Event     Event       `json:"event"`
 }
 
 func (c *Client) GetDeputyTimeline(ctx Context, deputyID int) ([]TimelineEvent, error) {
@@ -102,12 +101,11 @@ func editDeputyEvents(events []TimelineEvent) []TimelineEvent {
 	var list []TimelineEvent
 	for _, e := range events {
 		event := TimelineEvent{
-			Timestamp:       shared.FormatDateTime(shared.IsoDateTimeZone, e.Timestamp, shared.SiriusDateTime),
-			TimestampAsDate: shared.NewDate(e.Timestamp).String(),
-			EventType:       reformatEventType(e.EventType),
-			Id:              e.Id,
-			User:            e.User,
-			Event:           reformatEvent(e.Event, e.EventType),
+			Timestamp: e.Timestamp,
+			EventType: reformatEventType(e.EventType),
+			Id:        e.Id,
+			User:      e.User,
+			Event:     reformatEvent(e.Event, e.EventType),
 		}
 
 		list = append(list, event)

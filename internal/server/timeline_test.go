@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
@@ -17,10 +18,9 @@ func TestNavigateToTimeline(t *testing.T) {
 	client := &mockApiClient{
 		TimelineEvents: []sirius.TimelineEvent{
 			{
-				Id:              20,
-				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
-				EventType:       "PersonDetailsChanged",
+				Id:        20,
+				Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+				EventType: "PersonDetailsChanged",
 				User: sirius.User{
 					Id:          61,
 					PhoneNumber: "12345678",
@@ -65,10 +65,9 @@ func TestNavigateToTimeline(t *testing.T) {
 				},
 			},
 			{
-				Id:              23,
-				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: shared.NewDate("28/09/2026 17:13:12").String(),
-				EventType:       "DeputyLinkedToOrder",
+				Id:        23,
+				Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+				EventType: "DeputyLinkedToOrder",
 				User: sirius.User{
 					Id:          61,
 					PhoneNumber: "12345678",
@@ -96,10 +95,9 @@ func TestNavigateToTimeline(t *testing.T) {
 				},
 			},
 			{
-				Id:              367,
-				Timestamp:       "12/10/2026 13:35:35",
-				TimestampAsDate: shared.NewDate("12/10/2026 13:35:35").String(),
-				EventType:       "ClientFeePayerRemoved",
+				Id:        367,
+				Timestamp: shared.Date{Time: time.Date(2026, time.October, 12, 13, 35, 35, 0, time.UTC)},
+				EventType: "ClientFeePayerRemoved",
 				User: sirius.User{
 					Id:          101,
 					PhoneNumber: "12345678",
@@ -167,10 +165,9 @@ func TestNavigateToTimeline(t *testing.T) {
 		},
 		Timeline: []sirius.TimelineEvent{
 			{
-				Id:              20,
-				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: "28/09/2026",
-				EventType:       "PersonDetailsChanged",
+				Id:        20,
+				Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+				EventType: "PersonDetailsChanged",
 				User: sirius.User{
 					Id:          61,
 					PhoneNumber: "12345678",
@@ -215,10 +212,9 @@ func TestNavigateToTimeline(t *testing.T) {
 				},
 			},
 			{
-				Id:              23,
-				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: "28/09/2026",
-				EventType:       "DeputyLinkedToOrder",
+				Id:        23,
+				Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+				EventType: "DeputyLinkedToOrder",
 				User: sirius.User{
 					Id:          61,
 					PhoneNumber: "12345678",
@@ -246,10 +242,9 @@ func TestNavigateToTimeline(t *testing.T) {
 				},
 			},
 			{
-				Id:              367,
-				Timestamp:       "12/10/2026 13:35:35",
-				TimestampAsDate: "12/10/2026",
-				EventType:       "ClientFeePayerRemoved",
+				Id:        367,
+				Timestamp: shared.Date{Time: time.Date(2026, time.October, 12, 13, 35, 35, 0, time.UTC)},
+				EventType: "ClientFeePayerRemoved",
 				User: sirius.User{
 					Id:          101,
 					PhoneNumber: "12345678",
@@ -285,10 +280,9 @@ func TestHandlesErrorReturnedByGetDeputyTimeline(t *testing.T) {
 		error: sirius.StatusError{Code: 500},
 		TimelineEvents: []sirius.TimelineEvent{
 			{
-				Id:              20,
-				Timestamp:       "28/09/2026 17:13:12",
-				TimestampAsDate: "28/09/2026",
-				EventType:       "PersonDetailsChanged",
+				Id:        20,
+				Timestamp: shared.Date{Time: time.Date(2026, time.September, 28, 17, 13, 12, 0, time.UTC)},
+				EventType: "PersonDetailsChanged",
 				User: sirius.User{
 					Id:          61,
 					PhoneNumber: "12345678",

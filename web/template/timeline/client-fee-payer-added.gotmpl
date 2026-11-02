@@ -9,7 +9,7 @@
             </p>
         </div>
         <p class="moj-timeline__date">
-            <time>{{ .Timestamp }}</time>
+            <time>{{ .Timestamp.DateTimeString }}</time>
         </p>
         <div class="moj-timeline__description">
             {{ range .Event.MultiPersons }}
@@ -29,7 +29,7 @@
                         >
                             {{ .PersonUid }}
                         </a>
-                        on <time>{{ $.TimestampAsDate }}</time>
+                        on <time>{{ $.Timestamp.DateString }}</time>
                     </p>
                 {{end}}
             {{end}}
