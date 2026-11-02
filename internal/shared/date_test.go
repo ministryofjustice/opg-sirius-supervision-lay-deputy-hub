@@ -131,6 +131,21 @@ func TestDate_String(t *testing.T) {
 			want:      "02/01/2025",
 		},
 		{
+			name:      "returns correct format for date time string",
+			inputDate: "02/01/2025 18:07:10",
+			want:      "02/01/2025",
+		},
+		{
+			name:      "returns correct format for date time string",
+			inputDate: "2025-01-02T18:07:10+00:00",
+			want:      "02/01/2025",
+		},
+		{
+			name:      "returns correct format for date time string",
+			inputDate: "2025-01-02T18:07:10+00:00",
+			want:      "02/01/2025",
+		},
+		{
 			name:      "returns nothing for default date string",
 			inputDate: "01/01/0001",
 			want:      "",
@@ -158,6 +173,14 @@ func TestDate_UnmarshalJSON(t *testing.T) {
 		},
 		{
 			json: `{"testDate":"2020-01-01T20:01:02+00:00"}`,
+			want: "01/01/2020",
+		},
+		{
+			json: `{"testDate":"2020-01-01 20:01:02"}`,
+			want: "01/01/2020",
+		},
+		{
+			json: `{"testDate":"01\/01\/2020 20:01:02"}`,
 			want: "01/01/2020",
 		},
 	}
