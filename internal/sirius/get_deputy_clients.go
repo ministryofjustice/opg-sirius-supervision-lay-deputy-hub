@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
 type Metadata struct {
@@ -26,7 +28,7 @@ func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientL
 	query := url.Values{}
 	filter := "order-status:ACTIVE"
 	query.Set("filter", filter)
-	requestURL := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/clients?%s", params.DeputyId, query.Encode())
+	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/clients?%s", params.DeputyId, query.Encode())
 
 	req, err := c.newRequest(ctx, http.MethodGet, requestURL, nil)
 

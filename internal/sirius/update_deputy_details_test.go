@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/mocks"
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -75,7 +76,7 @@ func TestUpdateDeputyContactDetailsReturnsNewStatusError(t *testing.T) {
 
 	assert.Equal(t, StatusError{
 		Code:   http.StatusMethodNotAllowed,
-		URL:    fmt.Sprintf("%v/v1/deputies/%d/contact-details", svr.URL+SupervisionAPIPath, 1),
+		URL:    fmt.Sprintf("%v/v1/deputies/%d/contact-details", svr.URL+shared.SupervisionAPIPath, 1),
 		Method: http.MethodPut,
 	}, err)
 }
