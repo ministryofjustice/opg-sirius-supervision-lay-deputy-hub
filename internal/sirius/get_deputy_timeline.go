@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )
@@ -36,9 +37,9 @@ type Event struct {
 	AdditionalPersons            []AdditionalPerson `json:"additionalPersons"`
 	Changes                      []Changeset        `json:"changes"`
 	CourtReference               string             `json:"courtReference"`
-	DateOfDeath                  string             `json:"dateOfDeath"`
-	DateDeathCertificateReceived string             `json:"dateDeathCertificateReceived"`
-	DateNotified                 string             `json:"dateNotified"`
+	DateOfDeath                  shared.Date        `json:"dateOfDeath"`
+	DateDeathCertificateReceived shared.Date        `json:"dateDeathCertificateReceived"`
+	DateNotified                 shared.Date        `json:"dateNotified"`
 	DocumentId                   string             `json:"documentId"`
 	DocumentClientId             string             `json:"clientId"`
 	DocumentSystemType           string             `json:"systemType"`
@@ -60,18 +61,17 @@ type Event struct {
 	Status                       string             `json:"status"`
 }
 type TimelineEvent struct {
-	Id              int    `json:"id"`
-	Timestamp       string `json:"timestamp"`
-	TimestampAsDate string `json:"timestampAsDate"`
-	EventType       string `json:"eventType"`
-	User            User   `json:"user"`
-	Event           Event  `json:"event"`
+	Id        int         `json:"id"`
+	Timestamp shared.Date `json:"timestamp"`
+	EventType string      `json:"eventType"`
+	User      User        `json:"user"`
+	Event     Event       `json:"event"`
 }
 
 func (c *Client) GetDeputyTimeline(ctx Context, deputyID int) ([]TimelineEvent, error) {
 	var v []TimelineEvent
 
-	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(SupervisionAPIPath+"/v1/timeline/%d/lay-deputy", deputyID), nil)
+	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/timeline/%d/lay-deputy", deputyID), nil)
 	if err != nil {
 		return v, err
 	}
@@ -101,12 +101,11 @@ func editDeputyEvents(events []TimelineEvent) []TimelineEvent {
 	var list []TimelineEvent
 	for _, e := range events {
 		event := TimelineEvent{
-			Timestamp:       FormatDateTime(IsoDateTimeZone, e.Timestamp, SiriusDateTime),
-			TimestampAsDate: FormatDateTimeAsDate(IsoDateTimeZone, e.Timestamp, SiriusDate),
-			EventType:       reformatEventType(e.EventType),
-			Id:              e.Id,
-			User:            e.User,
-			Event:           reformatEvent(e.Event, e.EventType),
+			Timestamp: e.Timestamp,
+			EventType: reformatEventType(e.EventType),
+			Id:        e.Id,
+			User:      e.User,
+			Event:     reformatEvent(e.Event, e.EventType),
 		}
 
 		list = append(list, event)
@@ -123,23 +122,6 @@ func reformatEvent(myEvent Event, eventType string) Event {
 	caser := cases.Title(language.English)
 
 	eventToReturn := myEvent
-
-	if strings.Contains(eventType, "DeathNotificationDeleted") || strings.Contains(eventType, "PersonDeathNotified") {
-		myTimeZone := IsoDateTime
-		if strings.Contains(eventType, "DeathNotificationDeleted") {
-			myTimeZone = IsoDateTimeZone
-		}
-
-		if myEvent.DateNotified != "" {
-			eventToReturn.DateNotified = FormatDateTimeAsDate(myTimeZone, myEvent.DateNotified, SiriusDate)
-		}
-		if myEvent.DateOfDeath != "" {
-			eventToReturn.DateOfDeath = FormatDateTimeAsDate(myTimeZone, myEvent.DateOfDeath, SiriusDate)
-		}
-		if myEvent.DateDeathCertificateReceived != "" {
-			eventToReturn.DateDeathCertificateReceived = FormatDateTimeAsDate(myTimeZone, myEvent.DateDeathCertificateReceived, SiriusDate)
-		}
-	}
 
 	var updatedChanges []Changeset
 	for _, e := range myEvent.Changes {
@@ -165,8 +147,8 @@ func updateChangeset(c Changeset) Changeset {
 	if c.FieldName == "statusChangeDate" || c.FieldName == "dob" {
 		return Changeset{
 			FieldName:         c.FieldName,
-			OldValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.OldValue, SiriusDate),
-			NewValue:          FormatDateTimeAsDate(IsoDateTimeZone, c.NewValue, SiriusDate),
+			OldValue:          shared.NewDate(c.OldValue).DateString(),
+			NewValue:          shared.NewDate(c.NewValue).DateString(),
 			Type:              c.Type,
 			TimelineValueName: GetTimelineValueForField(c.FieldName),
 		}
@@ -255,13 +237,10 @@ func GetTimelineValueForField(myFieldName string) string {
 }
 
 func reformatAllCapitalValues(myFieldName string) bool {
-	if (myFieldName == "statusChangeDate") ||
-		(myFieldName == "statusOnCase") ||
-		(myFieldName == "deputyType") ||
-		(myFieldName == "deputySubType") ||
-		(myFieldName == "relationshipToClient") {
+	switch myFieldName {
+	case "deputyType", "deputySubType", "statusChangeDate", "statusOnCase", "relationshipToClient":
 		return true
+	default:
+		return false
 	}
-
-	return false
 }

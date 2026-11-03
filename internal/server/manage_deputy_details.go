@@ -14,15 +14,34 @@ type DeputyDetailsInformation interface {
 
 type ManageDeputyDetailsVars struct {
 	AppVars
-	Form sirius.DeputyDetails
+	Form sirius.DeputyDetailsForm
 }
 
 func renderTemplateForManageDeputyDetailsForm(client DeputyDetailsInformation, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = "Manage deputy contact details"
-
-		vars := ManageDeputyDetailsVars{AppVars: app, Form: app.DeputyDetails}
+		form := sirius.DeputyDetailsForm{
+			DeputyFirstName:        app.DeputyDetails.DeputyFirstName,
+			DeputyMiddleName:       app.DeputyDetails.DeputyMiddleName,
+			DeputySurname:          app.DeputyDetails.DeputySurname,
+			DeputyOtherNames:       app.DeputyDetails.DeputyOtherNames,
+			DeputySubType:          sirius.DeputySubType{SubType: "PERSON"},
+			DeputyDateOfBirth:      app.DeputyDetails.DeputyDateOfBirth,
+			Email:                  app.DeputyDetails.Email,
+			MobileTelephoneNumber:  app.DeputyDetails.MobileTelephoneNumber,
+			DaytimeTelephoneNumber: app.DeputyDetails.DaytimeTelephoneNumber,
+			EveningTelephoneNumber: app.DeputyDetails.EveningTelephoneNumber,
+			AddressLine1:           app.DeputyDetails.AddressLine1,
+			AddressLine2:           app.DeputyDetails.AddressLine2,
+			AddressLine3:           app.DeputyDetails.AddressLine3,
+			Town:                   app.DeputyDetails.Town,
+			County:                 app.DeputyDetails.County,
+			Country:                app.DeputyDetails.Country,
+			Postcode:               app.DeputyDetails.Postcode,
+			IsAirmailRequired:      app.DeputyDetails.IsAirmailRequired,
+		}
+		vars := ManageDeputyDetailsVars{AppVars: app, Form: form}
 
 		switch r.Method {
 		case http.MethodGet:
@@ -34,6 +53,7 @@ func renderTemplateForManageDeputyDetailsForm(client DeputyDetailsInformation, t
 				DeputyMiddleName:       r.PostFormValue("deputy-middle-name"),
 				DeputySurname:          r.PostFormValue("deputy-last-name"),
 				DeputyOtherNames:       r.PostFormValue("deputy-other-names"),
+				DeputySubType:          sirius.DeputySubType{SubType: "PERSON"},
 				DeputyDateOfBirth:      r.PostFormValue("deputy-date-of-birth"),
 				MobileTelephoneNumber:  r.PostFormValue("deputy-mobile-number"),
 				DaytimeTelephoneNumber: r.PostFormValue("deputy-phone-number"),
@@ -47,33 +67,13 @@ func renderTemplateForManageDeputyDetailsForm(client DeputyDetailsInformation, t
 				Postcode:               r.PostFormValue("postcode"),
 				Country:                r.PostFormValue("country"),
 				IsAirmailRequired:      r.PostFormValue("airmail-required") == "true",
-				DeputySubType:          sirius.DeputySubType{SubType: "PERSON"},
 			}
 
 			err := client.UpdateDeputyDetails(ctx, app.DeputyId(), form)
 
 			if verr, ok := err.(sirius.ValidationError); ok {
 				vars.Errors = util.RenameErrors(verr.Errors)
-				vars.Form = sirius.DeputyDetails{
-					ID:                     app.DeputyId(),
-					DeputyFirstName:        form.DeputyFirstName,
-					DeputyMiddleName:       form.DeputyMiddleName,
-					DeputySurname:          form.DeputySurname,
-					DeputyOtherNames:       form.DeputyOtherNames,
-					DeputyDateOfBirth:      form.DeputyDateOfBirth,
-					MobileTelephoneNumber:  form.MobileTelephoneNumber,
-					DaytimeTelephoneNumber: form.DaytimeTelephoneNumber,
-					EveningTelephoneNumber: form.EveningTelephoneNumber,
-					Email:                  form.Email,
-					AddressLine1:           form.AddressLine1,
-					AddressLine2:           form.AddressLine2,
-					AddressLine3:           form.AddressLine3,
-					Town:                   form.Town,
-					County:                 form.County,
-					Postcode:               form.Postcode,
-					Country:                form.Country,
-					IsAirmailRequired:      form.IsAirmailRequired,
-				}
+				vars.Form = form
 				return tmpl.ExecuteTemplate(w, "page", vars)
 			} else if err != nil {
 				return err

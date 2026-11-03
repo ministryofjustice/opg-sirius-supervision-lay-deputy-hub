@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
 type DeputyDetailsForm struct {
@@ -35,7 +37,7 @@ func (c *Client) UpdateDeputyDetails(ctx Context, deputyID int, deputyDetails De
 		return err
 	}
 
-	requestURL := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/contact-details", deputyID)
+	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/contact-details", deputyID)
 
 	req, err := c.newRequest(ctx, http.MethodPut, requestURL, &body)
 

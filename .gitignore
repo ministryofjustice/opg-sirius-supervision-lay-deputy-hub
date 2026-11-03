@@ -14,7 +14,7 @@ web/static/
 .gocache
 
 # Cypress cli run artifact folders
-cypress/logs/
+cypress/logs/*
 cypress/screenshots
 cypress/videos
 cypress/downloads

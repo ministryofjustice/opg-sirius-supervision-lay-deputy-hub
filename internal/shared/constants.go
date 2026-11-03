@@ -1,4 +1,4 @@
-package sirius
+package shared
 
 const (
 	SupervisionAPIPath = "/supervision-api"
