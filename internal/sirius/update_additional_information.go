@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
 type AdditionalInformationForm struct {
@@ -24,7 +26,7 @@ func (c *Client) UpdateAdditionalInformation(ctx Context, deputyID int, addition
 		return err
 	}
 
-	requestURL := fmt.Sprintf(SupervisionAPIPath+"/v1/deputies/%d/additional-details", deputyID)
+	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/additional-details", deputyID)
 
 	req, err := c.newRequest(ctx, http.MethodPut, requestURL, &body)
 

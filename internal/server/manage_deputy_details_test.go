@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -87,14 +88,16 @@ func TestPostManageDeputyDetailsValidationError(t *testing.T) {
 	assert.Equal(1, client.count)
 	assert.Equal(1, template.count)
 	assert.Equal("page", template.lastName)
-	//assert.Equal(ManageDeputyDetailsVars{
-	//	AppVars: AppVars{
-	//		DeputyDetails: manageDeputyAppVars.DeputyDetails,
-	//		Errors:        util.RenameErrors(validationErrors),
-	//		PageName:      "Manage deputy contact details",
-	//	},
-	//	Form: sirius.DeputyDetailsForm{},
-	//}, template.lastVars)
+	assert.Equal(ManageDeputyDetailsVars{
+		AppVars: AppVars{
+			DeputyDetails: manageDeputyAppVars.DeputyDetails,
+			Errors:        util.RenameErrors(validationErrors),
+			PageName:      "Manage deputy contact details",
+		},
+		Form: sirius.DeputyDetailsForm{
+			DeputySubType: sirius.DeputySubType{SubType: "PERSON"},
+		},
+	}, template.lastVars)
 }
 
 func TestManageDeputyDetailsHandlesErrors(t *testing.T) {
