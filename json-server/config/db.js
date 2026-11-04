@@ -1105,8 +1105,14 @@ module.exports = function () {
                     "firstname": {
                         "isEmpty": "",
                     },
+                    "middleName": {
+                        "stringLengthTooLong": "",
+                    },
                     "surname": {
                         "isEmpty": "",
+                    },
+                    "otherNames": {
+                        "stringLengthTooLong": "",
                     },
                     "addressLine1": {
                         "stringLengthTooLong": "",
@@ -1129,9 +1135,18 @@ module.exports = function () {
                     "workPhoneNumber": {
                         "stringLengthTooLong": "",
                     },
+                    "homePhoneNumber": {
+                        "stringLengthTooLong": "",
+                    },
+                    "mobileNumber": {
+                        "stringLengthTooLong": "",
+                    },
                     "email": {
                         "stringLengthTooLong": "",
-                    }
+                    },
+                    "country": {
+                        "stringLengthTooLong": "",
+                    },
                 }
             }
         ],

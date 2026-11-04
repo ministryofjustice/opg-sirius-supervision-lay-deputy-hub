@@ -11,7 +11,6 @@ describe("Manage deputy details tab", () => {
 
     describe("Deputy contact details form", () => {
         it("fetches deputy details into form", () => {
-            // cy.get("input #f-firstname").should("contain", "First name"); // Check labels?
             cy.get('[name="deputy-first-name"]').should('have.value', 'Mike');
             cy.get('[name="deputy-middle-name"]').should("have.value", "Jonathon");
             cy.get('[name="deputy-last-name"]').should("have.value", "Deputy");
@@ -35,28 +34,34 @@ describe("Manage deputy details tab", () => {
             cy.get('#airmail-required-false').should("have.attr", "checked");
         });
 
+        it("Redirects to the correct route", () => {
+            cy.get('.govuk-button').click();
+            cy.url().should("include", "?success=deputyDetails");
+        })
+
+    });
+    describe("Deputy contact details form", () => {
         it("Displays validation messages", () => {
             cy.setCookie("fail-route", "contact-details");
 
-            // Required fields
-            cy.get('[name="deputy-first-name"]').clear();
-            cy.get('[name="deputy-last-name"]').clear();
-            cy.get('[name="address-line-1"]').clear();
-            cy.get('[name="town"]').clear();
-            cy.get('[name="postcode"]').clear();
-
-            // Over character limit
-            cy.get('[name="deputy-other-names"]').clear().type('a'.repeat(256));
-
             cy.get('.govuk-button').click();
 
-            cy.get('[data-module="govuk-error-summary"]').should("be.visible");
-            cy.get('[data-module="govuk-error-summary"]').should("contain", "Enter a first name");
-            cy.get('[data-module="govuk-error-summary"]').should("contain", "Enter a last name");
-            cy.get('[data-module="govuk-error-summary"]').should("contain", "Enter an address");
-            cy.get('[data-module="govuk-error-summary"]').should("contain", "Enter a town or city");
-            cy.get('[data-module="govuk-error-summary"]').should("contain", "Enter a postcode");
-            cy.get('[data-module="govuk-error-summary"]').should("contain", "Other names must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("be.visible");
+            cy.get('.govuk-error-summary').should("contain", "The building or street must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "Address line 2 must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "Address line 3 must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The country must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The county must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The email must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The deputy first name is required and can't be empty");
+            cy.get('.govuk-error-summary').should("contain", "The evening telephone number must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The deputy middle name must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The mobile number must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The deputy other name must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The postcode must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The deputy surname is required and can't be empty");
+            cy.get('.govuk-error-summary').should("contain", "The town or city must be 255 characters or fewer");
+            cy.get('.govuk-error-summary').should("contain", "The telephone number must be 255 characters or fewer");
         })
     });
 });

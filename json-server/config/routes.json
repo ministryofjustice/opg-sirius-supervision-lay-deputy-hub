@@ -2,5 +2,5 @@
     "/supervision-api/v1/*": "/$1",
     "/deputies/lay/:personId/clients*": "/clients",
     "/timeline/*": "/timeline",
-    "/supervision-api/v1/deputies/*/contact-details": "/contact-details"
+    "/deputies/:id/contact-details": "/deputies/:id"
 }
