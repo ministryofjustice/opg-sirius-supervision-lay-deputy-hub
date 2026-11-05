@@ -42,10 +42,11 @@ module.exports = function () {
                 "specialCorrespondenceRequirements": {
                     "audioTape": true,
                     "largePrint": true,
-                    "hearingImpaired": false,
-                    "spellingOfNameRequiresCare": false
+                    "hearingImpaired": true,
+                    "spellingOfNameRequiresCare": true
                 },
-                "interpreterRequired": "",
+                "interpreterRequired": "Interpreter is required for deputy",
+                "additionalInformationNotes": "Deputy has additional notes",
                 "canDelete": false,
                 "deputyStatus": "Active",
                 "orders": [
@@ -1145,6 +1146,17 @@ module.exports = function () {
                         "stringLengthTooLong": "",
                     },
                     "country": {
+                        "stringLengthTooLong": "",
+                    },
+                }
+            },
+            {
+                "id": "additional-information",
+                "validation_errors": {
+                    "interpreterRequired": {
+                        "stringLengthTooLong": "",
+                    },
+                    "notes": {
                         "stringLengthTooLong": "",
                     },
                 }
