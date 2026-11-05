@@ -83,7 +83,6 @@ func TestPostManageDeputyDetailsValidationError(t *testing.T) {
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
 	returnedTemplate := renderTemplateForManageDeputyDetailsForm(client, template)(manageDeputyAppVars, w, r)
-
 	assert.Nil(returnedTemplate)
 	assert.Equal(1, client.count)
 	assert.Equal(1, template.count)
