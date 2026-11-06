@@ -1,4 +1,4 @@
-import {initAll} from 'govuk-frontend';
+import { initAll } from "govuk-frontend";
 import "govuk-frontend/dist/govuk/all.mjs";
 import "opg-sirius-header/sirius-header.js";
 import htmx from "htmx.org/dist/htmx.esm";

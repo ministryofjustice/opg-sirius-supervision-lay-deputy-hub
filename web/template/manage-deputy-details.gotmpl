@@ -1,0 +1,207 @@
+{{ template "page" . }}
+
+{{ define "main" }}
+    {{ template "lay-deputy-details" . }}
+
+     <header class="title-and-buttons-inline">
+        <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
+            {{ .PageName }}
+        </h1>
+    </header>
+    {{ template "error-summary" .Errors }}
+    <form method="post"><input type="hidden" name="xsrfToken" value="{{ .XSRFToken}}" />
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <div class="govuk-form-group {{ if index .Errors "firstname" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-firstname">
+                        First name
+                    </label>
+                    {{ template "error-message" (index .Errors "firstname") }}
+                    <input class="govuk-input {{ if index .Errors "firstname" }} govuk-input--error{{ end }}"
+                        id="f-firstname"
+                        name="deputy-first-name"
+                        type="text"
+                        value="{{ .Form.DeputyFirstName }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "middleName" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-middleName">
+                        Middle names (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "middleName") }}
+                    <input class="govuk-input {{ if index .Errors "middleName" }} govuk-input--error{{ end }}" id="f-middleName" name="deputy-middle-name" type="text" value="{{ .Form.DeputyMiddleName }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "surname" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-surname">
+                        Last name
+                    </label>
+                    {{ template "error-message" (index .Errors "surname") }}
+                    <input class="govuk-input {{ if index .Errors "surname" }} govuk-input--error{{ end }}"
+                        id="f-surname"
+                        name="deputy-last-name"
+                        type="text"
+                        value="{{ .Form.DeputySurname }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "otherNames" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-otherNames">
+                        Other names (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "otherNames") }}
+                    <input class="govuk-input {{ if index .Errors "otherNames" }} govuk-input--error{{ end }}" id="f-otherNames" name="deputy-other-names" type="text" value="{{ .Form.DeputyOtherNames }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "dob" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-dob">
+                        Date of birth (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "dob") }}
+                    <input class="govuk-input govuk-input--width-10 {{ if index .Errors "dob" }} govuk-input--error{{ end }}" id="f-dob" name="deputy-date-of-birth" type="date" value="{{ .Form.DeputyDateOfBirth }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "mobileNumber" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-mobileNumber">
+                        Mobile telephone number (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "mobileNumber") }}
+                    <input class="govuk-input {{ if index .Errors "mobileNumber" }} govuk-input--error{{ end }}" id="f-mobileNumber" name="deputy-mobile-number" type="text" value="{{ .Form.MobileTelephoneNumber }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "workPhoneNumber" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-workPhoneNumber">
+                        Daytime telephone number (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "workPhoneNumber") }}
+                    <input class="govuk-input {{ if index .Errors "workPhoneNumber" }} govuk-input--error{{ end }}" id="f-workPhoneNumber" name="deputy-phone-number" type="text" value="{{ .Form.DaytimeTelephoneNumber }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "homePhoneNumber" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-homePhoneNumber">
+                        Evening telephone number (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "homePhoneNumber") }}
+                    <input class="govuk-input {{ if index .Errors "homePhoneNumber" }} govuk-input--error{{ end }}" id="f-homePhoneNumber" name="deputy-evening-number" type="text" value="{{ .Form.EveningTelephoneNumber }}">
+                </div>
+
+                <div class="govuk-form-group {{ if index .Errors "email" }} govuk-form-group--error{{ end }}">
+                    <label class="govuk-label" for="f-email">
+                        Email address (optional)
+                    </label>
+                    {{ template "error-message" (index .Errors "email") }}
+                    <input class="govuk-input {{ if index .Errors "email" }} govuk-input--error{{ end }}" id="f-email" name="deputy-email" type="text" value="{{ .Form.Email }}">
+                </div>
+
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        Address
+                    </legend>
+
+                    <div class="govuk-form-group {{ if index .Errors "addressLine1" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="f-addressLine1">
+                            Building and street <span class="govuk-visually-hidden">line 1 of 3</span>
+                        </label>
+                        {{ template "error-message" (index .Errors "addressLine1") }}
+                        <input class="govuk-input {{ if index .Errors "addressLine1" }} govuk-input--error{{ end }}"
+                            id="f-addressLine1"
+                            name="address-line-1"
+                            type="text"
+                            value="{{ .Form.AddressLine1 }}">
+                    </div>
+
+                    <div class="govuk-form-group {{ if index .Errors "addressLine2" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="f-addressLine2">
+                            <span class="govuk-visually-hidden">Building and street line 2 of 3</span>
+                        </label>
+                        {{ template "error-message" (index .Errors "addressLine2") }}
+                        <input class="govuk-input {{ if index .Errors "addressLine2" }} govuk-input--error{{ end }}" id="f-addressLine2" name="address-line-2" type="text" value="{{ .Form.AddressLine2 }}">
+                    </div>
+
+                    <div class="govuk-form-group {{ if index .Errors "addressLine3" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="f-addressLine3">
+                            <span class="govuk-visually-hidden">Building and street line 3 of 3</span>
+                        </label>
+                        {{ template "error-message" (index .Errors "addressLine3") }}
+                        <input class="govuk-input {{ if index .Errors "addressLine3" }} govuk-input--error{{ end }}" id="f-addressLine3" name="address-line-3" type="text" value="{{ .Form.AddressLine3 }}">
+                    </div>
+
+                    <div class="govuk-form-group {{ if index .Errors "town" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label govuk-!-width-two-thirds" for="f-town">
+                            Town or city
+                        </label>
+                        {{ template "error-message" (index .Errors "town") }}
+                        <input class="govuk-input {{ if index .Errors "town" }} govuk-input--error{{ end }}"
+                            id="f-town"
+                            name="town"
+                            type="text"
+                            value="{{ .Form.Town }}">
+                    </div>
+
+                    <div class="govuk-form-group {{ if index .Errors "county" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label govuk-!-width-two-thirds" for="f-county">
+                            County (optional)
+                        </label>
+                        {{ template "error-message" (index .Errors "county") }}
+                        <input class="govuk-input {{ if index .Errors "county" }} govuk-input--error{{ end }}" id="f-county" name="county" type="text" value="{{ .Form.County }}">
+                    </div>
+
+                    <div class="govuk-form-group {{ if index .Errors "postcode" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="f-postcode">
+                            Postcode
+                        </label>
+                        {{ template "error-message" (index .Errors "postcode") }}
+                        <input class="govuk-input govuk-input--width-10 {{ if index .Errors "postcode" }} govuk-input--error{{ end }}"
+                            id="f-postcode"
+                            name="postcode"
+                            type="text"
+                            value="{{ .Form.Postcode }}">
+                    </div>
+
+                    <div class="govuk-form-group {{ if index .Errors "country" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label govuk-!-width-two-thirds" for="f-country">
+                            Country (optional)
+                        </label>
+                        {{ template "error-message" (index .Errors "country") }}
+                        <input class="govuk-input {{ if index .Errors "country" }} govuk-input--error{{ end }}" id="f-country" name="country" type="text" value="{{ .Form.Country }}">
+                    </div>
+                </fieldset>
+
+                <div class="govuk-form-group {{ if index .Errors "isAirmailRequired" }} govuk-form-group--error{{ end }}">
+                    <fieldset class="govuk-fieldset" id="f-isAirmailRequired">
+                        <legend class="govuk-fieldset__legend">
+                            Is airmail required?
+                        </legend>
+
+                        {{ template "error-message" (index .Errors "isAirmailRequired") }}
+                        <div class="govuk-radios__item">
+                            <div class="govuk-radios" data-module="govuk-radios" data-govuk-radios-init="">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="airmail-required-true" {{ if .Form.IsAirmailRequired }} checked {{ end }} name="airmail-required" type="radio" value="true">
+                                    <label class="govuk-label govuk-radios__label" for="airmail-required-true">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="airmail-required-false" {{ if .Form.IsAirmailRequired }} {{ else }} checked {{ end }} name="airmail-required" type="radio" value="false">
+                                    <label class="govuk-label govuk-radios__label" for="airmail-required-false">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-button-group govuk-!-margin-top-7" style="border-top: 1px solid #b1b4b6; padding-top: 1em;">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save deputy contact details
+            </button>
+            <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
+        </div>
+    </form>
+
+
+
+{{ end }}
