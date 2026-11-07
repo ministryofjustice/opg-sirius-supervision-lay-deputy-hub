@@ -21,13 +21,13 @@ describe("Deputy details tab", () => {
     describe("Deputy contact details", () => {
         it("has rows in tables with accurate keys and values", () => {
             cy.get("#deputy-details > :nth-child(1) > .govuk-summary-list__key").should("contain", "Name");
-            cy.get("#deputy-details > :nth-child(1) > .govuk-summary-list__value").should("contain", "Mr Mike Deputy");
+            cy.get("#deputy-details > :nth-child(1) > .govuk-summary-list__value").should("contain", "Mr Mike Jonathon Deputy");
 
             cy.get("#deputy-details > :nth-child(2) > .govuk-summary-list__key").should("contain", "Other names");
             cy.get("#deputy-details > :nth-child(2) > .govuk-summary-list__value").should("contain", "Michael");
 
             cy.get("#deputy-details > :nth-child(3) > .govuk-summary-list__key").should("contain", "Date of birth");
-            cy.get("#deputy-details > :nth-child(3) > .govuk-summary-list__value").should("contain", "01/01/1980");
+            cy.get("#deputy-details > :nth-child(3) > .govuk-summary-list__value").should("contain", "1980-01-01");
 
             cy.get("#deputy-details > :nth-child(4) > .govuk-summary-list__key").should("contain", "Mobile telephone number");
             cy.get("#deputy-details > :nth-child(4) > .govuk-summary-list__value").should("contain", "0771 2345678");
