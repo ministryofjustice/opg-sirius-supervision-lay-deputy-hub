@@ -99,11 +99,5 @@ func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, err
 
 	err = json.NewDecoder(resp.Body).Decode(&v)
 
-	return formatDeputyDetails(v), err
-}
-
-func formatDeputyDetails(v DeputyDetails) DeputyDetails {
-	v.DeputyDateOfBirth = FormatDateTime(SiriusDate, v.DeputyDateOfBirth, IsoDate)
-
-	return v
+	return v, err
 }

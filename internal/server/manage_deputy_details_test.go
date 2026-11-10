@@ -32,14 +32,12 @@ var manageDeputyAppVars = AppVars{
 
 func TestGetManageDeputyDetails(t *testing.T) {
 	assert := assert.New(t)
-
-	client := &mockManageDeputyDetails{}
 	template := &mockTemplates{}
 
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("GET", "", nil)
 
-	handler := renderTemplateForManageDeputyDetailsForm(client, template)
+	handler := renderTemplateForManageDeputyDetailsGet(template)
 	err := handler(manageDeputyAppVars, w, r)
 
 	assert.Nil(err)
@@ -57,7 +55,7 @@ func TestPostManageDeputyDetails(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
-	returnedTemplate := renderTemplateForManageDeputyDetailsForm(client, template)(manageDeputyAppVars, w, r)
+	returnedTemplate := renderTemplateForManageDeputyDetailsPost(client, template)(manageDeputyAppVars, w, r)
 
 	assert.Equal(Redirect("/123?success=deputyDetails"), returnedTemplate)
 }
@@ -82,7 +80,7 @@ func TestPostManageDeputyDetailsValidationError(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
-	returnedTemplate := renderTemplateForManageDeputyDetailsForm(client, template)(manageDeputyAppVars, w, r)
+	returnedTemplate := renderTemplateForManageDeputyDetailsPost(client, template)(manageDeputyAppVars, w, r)
 	assert.Nil(returnedTemplate)
 	assert.Equal(1, client.count)
 	assert.Equal(1, template.count)
@@ -111,7 +109,7 @@ func TestManageDeputyDetailsHandlesErrors(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
-	returnedTemplate := renderTemplateForManageDeputyDetailsForm(client, template)(AppVars{}, w, r)
+	returnedTemplate := renderTemplateForManageDeputyDetailsPost(client, template)(AppVars{}, w, r)
 
 	assert.Equal(client.updateErr, returnedTemplate)
 }
