@@ -33,6 +33,13 @@ func (d Date) DateString() string {
 	return d.Time.Format("02/01/2006")
 }
 
+func (d Date) DateFormString() string {
+	if d.IsNull() {
+		return ""
+	}
+	return d.Time.Format("2006-01-02")
+}
+
 func (d Date) DateTimeString() string {
 	if d.IsNull() {
 		return ""

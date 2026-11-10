@@ -57,7 +57,7 @@
                         Date of birth (optional)
                     </label>
                     {{ template "error-message" (index .Errors "dob") }}
-                    <input class="govuk-input govuk-input--width-10 {{ if index .Errors "dob" }} govuk-input--error{{ end }}" id="f-dob" name="deputy-date-of-birth" type="date" value="{{ .Form.DeputyDateOfBirth.Time.Format "2006-01-02" }}">
+                    <input class="govuk-input govuk-input--width-10 {{ if index .Errors "dob" }} govuk-input--error{{ end }}" id="f-dob" name="deputy-date-of-birth" type="date" value="{{ .Form.DeputyDateOfBirth.DateFormString }}">
                 </div>
 
                 <div class="govuk-form-group {{ if index .Errors "mobileNumber" }} govuk-form-group--error{{ end }}">
