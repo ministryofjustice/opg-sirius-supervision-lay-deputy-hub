@@ -35,7 +35,6 @@ module.exports = function () {
                 "correspondenceByPost": false,
                 "correspondenceByPhone": false,
                 "correspondenceByEmail": false,
-                "correspondenceByWelsh": true,
                 "createdDate": "14/09/2026",
                 "updatedDate": "2026-09-15T12:13:38+00:00",
                 "personType": "Deputy",
@@ -356,12 +355,6 @@ module.exports = function () {
                         },
                         {
                             "fieldName": "correspondenceByPhone",
-                            "oldValue": "",
-                            "newValue": "1",
-                            "type": "string"
-                        },
-                        {
-                            "fieldName": "correspondenceByWelsh",
                             "oldValue": "",
                             "newValue": "1",
                             "type": "string"

@@ -69,9 +69,6 @@ func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
 		requirementsToList = append(requirementsToList, "Hearing impaired")
 	}
 	if d.SpecialCorrespondenceRequirements.SpellingOfNameRequiresCare {
-		requirementsToList = append(requirementsToList, "Spelling of name requires care")
-	}
-	if d.CorrespondenceByWelsh {
 		requirementsToList = append(requirementsToList, "Welsh")
 	}
 

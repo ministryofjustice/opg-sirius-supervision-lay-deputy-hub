@@ -91,9 +91,8 @@ func TestGetDeputyDetailsReturnsActiveSpecialCorrespondenceRequirements(t *testi
 				"audioTape": true,
 				"largePrint": false,
 				"hearingImpaired": true,
-				"spellingOfNameRequiresCare": false
-			},
-			"correspondenceByWelsh": true
+				"spellingOfNameRequiresCare": true
+			}
 		}`))
 	}))
 	t.Cleanup(server.Close)

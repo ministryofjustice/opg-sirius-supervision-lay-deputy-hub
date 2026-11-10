@@ -63,23 +63,29 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-form-group{{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
-                    <label class="govuk-label" for="notes">
-                        Additional information
-                    </label>
-                    {{ template "error-message" (index .Errors "notes") }}
-                    <textarea class="govuk-textarea{{ if index .Errors "notes" }} govuk-input--error{{ end }}"
-                          id="f-notes"
-                          name="notes"
-                          rows="5"
-                        >{{ .Form.Notes }}</textarea>
+                <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="1000">
+                    <div class="govuk-form-group{{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="notes">
+                            Additional information
+                        </label>
+                        {{ template "error-message" (index .Errors "notes") }}
+                        <textarea class="govuk-textarea govuk-js-character-count{{ if index .Errors "notes" }} govuk-input--error{{ end }}"
+                              id="f-notes"
+                              name="notes"
+                              rows="5"
+                              aria-describedby="f-notes-info notes-hint"
+                            >{{ .Form.Notes }}</textarea>
+                    </div>
+                    <div id="f-notes-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                        You have 1,000 characters remaining
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="govuk-button-group govuk-!-margin-top-3" style="border-top: 1px solid #b1b4b6; padding-top: 1em;">
             <button type="submit" class="govuk-button" data-module="govuk-button">
-                Save additional details
+                Save additional information
             </button>
             <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
         </div>
