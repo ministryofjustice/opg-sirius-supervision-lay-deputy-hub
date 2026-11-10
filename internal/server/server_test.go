@@ -61,6 +61,14 @@ func (m mockApiClient) GetDeputyTimeline(_ sirius.Context, deputyID int) ([]siri
 	return m.TimelineEvents, m.error
 }
 
+func (m mockApiClient) UpdateDeputyDetails(sirius.Context, int, sirius.DeputyDetailsForm) error {
+	return m.error
+}
+
+func (m mockApiClient) UpdateAdditionalInformation(sirius.Context, int, sirius.AdditionalInformationForm) error {
+	return m.error
+}
+
 func TestPagesLoadSuccessfully(t *testing.T) {
 	templates := map[string]*template.Template{
 		"error.gotmpl":          testTemplate(t, "error.gotmpl"),

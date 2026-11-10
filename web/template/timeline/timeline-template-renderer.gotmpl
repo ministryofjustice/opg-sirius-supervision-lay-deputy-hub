@@ -29,6 +29,9 @@
     {{ if eq .EventType "PersonContactDetailsChanged" }}
        {{ template "person-contact-details-changed" . }}
     {{ end }}
+    {{ if eq .EventType "DeputyContactDetailsChanged" }}
+       {{ template "deputy-details-changed" . }}
+    {{ end }}
     {{ if eq .EventType "PersonDeathNotified" }}
         {{ template "person-death-notified" . }}
     {{ end }}

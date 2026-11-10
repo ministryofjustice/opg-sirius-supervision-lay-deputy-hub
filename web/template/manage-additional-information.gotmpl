@@ -1,0 +1,96 @@
+{{ template "page" . }}
+
+{{ define "main" }}
+    {{ template "lay-deputy-details" . }}
+
+     <header class="title-and-buttons-inline">
+        <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
+            {{ .PageName }}
+        </h1>
+    </header>
+    {{ template "error-summary" .Errors }}
+    <form method="post"><input type="hidden" name="xsrfToken" value="{{ .XSRFToken}}" />
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group{{ if index .Errors "interpreterRequired" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="interpreter-required">
+                            Interpreter requirements (optional)
+                        </label>
+                        {{ template "error-message" (index .Errors "interpreterRequired") }}
+                        <input class="govuk-input{{ if index .Errors "interpreterRequired" }} govuk-input--error{{ end }}"
+                           id="f-interpreterRequired"
+                           name="interpreter-required"
+                           type="text"
+                           value="{{ .Form.InterpreterRequired }}">
+                    </div>
+                </div>
+
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="special-correspondence-hint">
+                        <legend class="govuk-fieldset__legend">
+                            Special correspondence requirements (optional)
+                        </legend>
+                        <div id="special-correspondence-hint" class="govuk-hint">
+                            Select all that apply.
+                        </div>
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes" data-govuk-checkboxes-init="">
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="audio" name="audio" type="checkbox" {{ if .Form.SpecialCorrespondenceRequirements.AudioTape }}checked{{ end }}>
+                                <label class="govuk-label govuk-checkboxes__label" for="audio">
+                                    Audio
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="large-print" name="large-print" type="checkbox" {{ if .Form.SpecialCorrespondenceRequirements.LargePrint }}checked{{ end }}>
+                                <label class="govuk-label govuk-checkboxes__label" for="large-print">
+                                    Large print
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="hearing-impaired" name="hearing-impaired" type="checkbox" {{ if .Form.SpecialCorrespondenceRequirements.HearingImpaired }}checked{{ end }}>
+                                <label class="govuk-label govuk-checkboxes__label" for="hearing-impaired">
+                                    Hearing impaired
+                                </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                                <input class="govuk-checkboxes__input" id="spelling-takes-care" name="spelling-takes-care" type="checkbox" {{ if .Form.SpecialCorrespondenceRequirements.SpellingOfNameRequiresCare }}checked{{ end }}>
+                                <label class="govuk-label govuk-checkboxes__label" for="spelling-takes-care">
+                                    Welsh
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="1000">
+                    <div class="govuk-form-group{{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="notes">
+                            Additional information
+                        </label>
+                        {{ template "error-message" (index .Errors "notes") }}
+                        <textarea class="govuk-textarea govuk-js-character-count{{ if index .Errors "notes" }} govuk-input--error{{ end }}"
+                              id="f-notes"
+                              name="notes"
+                              rows="5"
+                              aria-describedby="f-notes-info notes-hint"
+                            >{{ .Form.Notes }}</textarea>
+                    </div>
+                    <div id="f-notes-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                        You have 1,000 characters remaining
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-button-group govuk-!-margin-top-3" style="border-top: 1px solid #b1b4b6; padding-top: 1em;">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                Save additional information
+            </button>
+            <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
+        </div>
+    </form>
+
+
+
+{{ end }}

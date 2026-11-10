@@ -28,6 +28,7 @@ type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
 	Salutation                        string                                `json:"salutation"`
 	DeputyFirstName                   string                                `json:"firstName"`
+	DeputyMiddleName                  string                                `json:"middleNames"`
 	DeputySurname                     string                                `json:"surname"`
 	DeputyOtherNames                  string                                `json:"otherNames"`
 	DeputyNumber                      int                                   `json:"deputyNumber"`
@@ -43,11 +44,16 @@ type DeputyDetails struct {
 	AddressLine3                      string                                `json:"addressLine3"`
 	Town                              string                                `json:"town"`
 	County                            string                                `json:"county"`
+	Country                           string                                `json:"country"`
 	Postcode                          string                                `json:"postcode"`
 	IsAirmailRequired                 bool                                  `json:"isAirmailRequired"`
 	SpecialCorrespondenceRequirements SpecialCorrespondenceRequirementsType `json:"specialCorrespondenceRequirements"`
 	InterpreterRequired               string                                `json:"interpreterRequired"`
 	CorrespondenceByWelsh             bool                                  `json:"correspondenceByWelsh"`
+	CorrespondenceByEmail             bool                                  `json:"correspondenceByEmail"`
+	CorrespondenceByPhone             bool                                  `json:"correspondenceByPhone"`
+	CorrespondenceByPost              bool                                  `json:"correspondenceByPost"`
+	Notes                             string                                `json:"additionalInformationNotes"`
 }
 
 func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
@@ -63,9 +69,6 @@ func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
 		requirementsToList = append(requirementsToList, "Hearing impaired")
 	}
 	if d.SpecialCorrespondenceRequirements.SpellingOfNameRequiresCare {
-		requirementsToList = append(requirementsToList, "Spelling of name requires care")
-	}
-	if d.CorrespondenceByWelsh {
 		requirementsToList = append(requirementsToList, "Welsh")
 	}
 
@@ -97,5 +100,11 @@ func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, err
 
 	err = json.NewDecoder(resp.Body).Decode(&v)
 
-	return v, err
+	return formatDeputyDetails(v), err
+}
+
+func formatDeputyDetails(v DeputyDetails) DeputyDetails {
+	v.DeputyDateOfBirth = FormatDateTime(SiriusDate, v.DeputyDateOfBirth, IsoDate)
+
+	return v
 }
