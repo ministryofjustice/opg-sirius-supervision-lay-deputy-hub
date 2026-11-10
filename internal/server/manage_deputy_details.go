@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 )
@@ -57,7 +58,7 @@ func renderTemplateForManageDeputyDetailsPost(client DeputyDetailsInformation, t
 			DeputySurname:          r.PostFormValue("deputy-last-name"),
 			DeputyOtherNames:       r.PostFormValue("deputy-other-names"),
 			DeputySubType:          sirius.DeputySubType{SubType: "PERSON"},
-			DeputyDateOfBirth:      r.PostFormValue("deputy-date-of-birth"),
+			DeputyDateOfBirth:      shared.NewDate(r.PostFormValue("deputy-date-of-birth")),
 			MobileTelephoneNumber:  r.PostFormValue("deputy-mobile-number"),
 			DaytimeTelephoneNumber: r.PostFormValue("deputy-phone-number"),
 			EveningTelephoneNumber: r.PostFormValue("deputy-evening-number"),

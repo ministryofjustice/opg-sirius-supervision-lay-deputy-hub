@@ -15,7 +15,7 @@ type DeputyDetailsForm struct {
 	DeputySurname          string        `json:"surname"`
 	DeputyOtherNames       string        `json:"otherNames"`
 	DeputySubType          DeputySubType `json:"deputySubType"`
-	DeputyDateOfBirth      string        `json:"dob"`
+	DeputyDateOfBirth      shared.Date   `json:"dob"`
 	Email                  string        `json:"email"`
 	MobileTelephoneNumber  string        `json:"mobileNumber"`
 	DaytimeTelephoneNumber string        `json:"workPhoneNumber"`

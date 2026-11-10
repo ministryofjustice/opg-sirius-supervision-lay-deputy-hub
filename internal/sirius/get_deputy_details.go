@@ -34,7 +34,7 @@ type DeputyDetails struct {
 	DeputyNumber                      int                                   `json:"deputyNumber"`
 	DeputyStatus                      string                                `json:"deputyStatus"`
 	DeputyType                        DeputyType                            `json:"deputyType"`
-	DeputyDateOfBirth                 string                                `json:"dob"`
+	DeputyDateOfBirth                 shared.Date                           `json:"dob"`
 	Email                             string                                `json:"email"`
 	MobileTelephoneNumber             string                                `json:"mobileNumber"`
 	DaytimeTelephoneNumber            string                                `json:"phoneNumber"`
