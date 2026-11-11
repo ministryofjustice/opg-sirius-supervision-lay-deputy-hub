@@ -37,12 +37,7 @@ type mockApiClient struct {
 }
 
 func (m mockApiClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams) (sirius.ClientList, error) {
-	return sirius.ClientList{
-		TotalClients: 3,
-		Metadata: sirius.Metadata{
-			TotalActiveClients: 3,
-		},
-	}, nil
+	return m.Clients, m.error
 }
 
 func (m mockApiClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.DeputyDetails, error) {

@@ -3,9 +3,79 @@
 {{ define "main" }}
     {{ template "lay-deputy-details" . }}
 
-     <header class="govuk-!-padding-top-1 title-inline">
+    <header class="govuk-!-padding-top-1 title-inline">
         <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
             {{ .PageName }}
         </h1>
     </header>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Client</th>
+                        <th scope="col" class="govuk-table__header">Relationship</th>
+                        <th scope="col" class="govuk-table__header">Appointed</th>
+                        <th scope="col" class="govuk-table__header">Order made date</th>
+                        <th scope="col" class="govuk-table__header">Order type</th>
+                        <th scope="col" class="govuk-table__header">Order status</th>
+                        <th scope="col" class="govuk-table__header">Deputy status</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {{ range .Clients }}
+                        {{ $client := . }}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell nowrap">
+                                <a class="govuk-link" href="{{ sirius (printf "/supervision/#/clients/%d" .ClientId) }}">
+                                    {{ if .Firstname }}{{ .Firstname }}{{ else }}-{{ end }}
+                                    {{ if .Surname }}{{ .Surname }}{{ else }}-{{ end }}
+                                </a>
+                                <br>
+                                <span class="govuk-body-s">
+                                    {{ if .CourtRef }}{{ .CourtRef }}{{ else }}-{{ end }}
+                                </span>
+                            </td>
+                            <td class="govuk-table__cell nowrap">
+                                {{ range .Orders }}
+                                    <div>{{ if $client.Relationship }}{{ $client.Relationship }}{{ else }}-{{ end }}</div>
+                                {{ else }}
+                                    {{ if .Relationship }}{{ .Relationship }}{{ else }}-{{ end }}
+                                {{ end }}
+                            </td>
+                            <td class="govuk-table__cell nowrap">
+                                {{ range .Orders }}
+                                    <div>{{ if .AppointmentType }}{{ .AppointmentType }}{{ else }}-{{ end }}</div>
+                                {{ else }}
+                                    -
+                                {{ end }}
+                            </td>
+                            <td class="govuk-table__cell nowrap">
+                                {{ range .Orders }}
+                                    <div>{{ if not .OrderDate.IsNull }}{{ .OrderDate.DateString }}{{ else }}-{{ end }}</div>
+                                {{ else }}-{{ end }}
+                            </td>
+                            <td class="govuk-table__cell nowrap">
+                                {{ range .Orders }}
+                                    <div>{{ if .OrderType }}{{ .OrderType }}{{ else }}-{{ end }}</div>
+                                {{ else }}-{{ end }}
+                            </td>
+                            <td class="govuk-table__cell nowrap">
+                                {{ range .Orders }}
+                                    <div>{{ if .OrderStatus }}{{ .OrderStatus }}{{ else }}-{{ end }}</div>
+                                {{ else }}-{{ end }}
+                            </td>
+                            <td class="govuk-table__cell nowrap">
+                                {{ range .Orders }}
+                                    <div>{{ if $client.DeputyStatus }}{{ $client.DeputyStatus }}{{ else }}-{{ end }}</div>
+                                {{ else }}
+                                    {{ if .DeputyStatus }}{{ .DeputyStatus }}{{ else }}-{{ end }}
+                                {{ end }}
+                            </td>
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {{ end }}

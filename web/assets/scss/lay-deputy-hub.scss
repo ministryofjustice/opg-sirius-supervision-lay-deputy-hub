@@ -56,6 +56,10 @@ $moj-assets-path: "/supervision/deputies/lay/static/assets/";
     display: none;
   }
 
+  .nowrap {
+    white-space: nowrap;
+  }
+
   .no-underline {
     text-decoration: none;
   }
@@ -125,6 +129,5 @@ $moj-assets-path: "/supervision/deputies/lay/static/assets/";
   margin-bottom: 10px;
   vertical-align: baseline;
 }
-
 
 

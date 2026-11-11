@@ -61,9 +61,194 @@
     }
   ],
   "clients": {
+    "limit": 25,
+    "pages": {
+      "current": 1,
+      "total": 1
+    },
+    "total": 6,
     "metadata": {
       "totalActiveClients": 3
-    }
+    },
+    "clients": [
+      {
+        "id": 71,
+        "firstname": "Agnes",
+        "surname": "Burgundy",
+        "caseRecNumber": "93404674",
+        "relationshipToClient": "Sibling",
+        "statusOnCase": "Active",
+        "appointmentType": "Joint and Severally",
+        "orders": [
+          {
+            "orderDate": "01/01/2016",
+            "appointmentType": "Joint and Severally",
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          },
+          {
+            "orderDate": "02/02/2016",
+            "appointmentType": "Sole",
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/01/2014",
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          },
+          {
+            "orderDate": "01/01/2015",
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/01/2020",
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 74,
+        "firstname": "Louis",
+        "surname": "Dauphin",
+        "caseRecNumber": "18227939",
+        "relationshipToClient": "Spouse",
+        "statusOnCase": "Suspended",
+        "appointmentType": "Sole",
+        "orders": [
+          {
+            "orderDate": "01/01/2020",
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/01/2015",
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa",
+            "appointmentType": "Sole"
+          }
+        ]
+      },
+      {
+        "id": 75,
+        "firstname": "Something",
+        "surname": "Here",
+        "caseRecNumber": "93404699",
+        "relationshipToClient": "Parent",
+        "statusOnCase": "Active",
+        "appointmentType": "Joint",
+        "orders": [
+          {
+            "orderDate": "01/01/2016",
+            "appointmentType": "Joint",
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 76,
+        "firstname": "Robert",
+        "surname": "Robson",
+        "caseRecNumber": "12323984",
+        "relationshipToClient": "Sibling",
+        "statusOnCase": "Discharged",
+        "appointmentType": "Sole",
+        "orders": [
+          {
+            "orderDate": "15/03/2024",
+            "appointmentType": "Sole",
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "20/12/2019",
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 77,
+        "firstname": "Jane",
+        "surname": "Smith",
+        "caseRecNumber": "12323985",
+        "relationshipToClient": "Child",
+        "statusOnCase": "Active",
+        "appointmentType": "Joint",
+        "orders": [
+          {
+            "orderDate": "10/06/2024",
+            "appointmentType": "Joint",
+            "orderStatus": {
+              "handle": "OPEN",
+              "label": "Open"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 78,
+        "firstname": "Alex",
+        "surname": "Taylor",
+        "caseRecNumber": "12323986",
+        "relationshipToClient": "Spouse",
+        "statusOnCase": "Error",
+        "appointmentType": "Joint and Severally",
+        "orders": [
+          {
+            "orderDate": "01/09/2023",
+            "orderStatus": {
+              "handle": "DUPLICATE",
+              "label": "Duplicate"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/09/2023",
+            "orderStatus": {
+              "handle": "DUPLICATE",
+              "label": "Duplicate"
+            },
+            "caseSubtype": "pfa",
+            "appointmentType": "Joint and Severally"
+          }
+        ]
+      }
+    ]
   },
   "timeline": [
     {
