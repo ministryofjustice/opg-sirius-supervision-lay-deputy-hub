@@ -2,11 +2,13 @@ package sirius
 
 import (
 	"bytes"
+	"encoding/json"
 	"io"
 	"net/http"
 	"testing"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/mocks"
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,6 +24,9 @@ func TestDeputyClientsReturned(t *testing.T) {
 			  "email": "john.fearless@example.com",
 			  "firstname": "John",
 			  "surname": "Fearless",
+			  "relationshipToClient": "Sibling",
+			  "statusOnCase": "Active",
+			  "appointmentType": "Joint and Severally",
 			  "addressLine1": "94 Duckpit Lane",
 			  "addressLine2": "Upper Oddington",
 			  "addressLine3": "Canvey Island",
@@ -38,36 +43,20 @@ func TestDeputyClientsReturned(t *testing.T) {
 			  "orders": [
 				{
 				  "id": 59,
-				  "latestSupervisionLevel": {
-					"appliesFrom": "01/12/2020",
-					"supervisionLevel": {
-					  "handle": "GENERAL",
-					  "label": "General",
-					  "deprecated": null
-					}
-				  },
+				  "casesubtype": "pfa",
+				  "appointmentType": "Joint",
 				  "orderDate": "01/12/2020",
 				  "orderStatus": {
-					"handle": "ACTIVE",
-					"label": "Active",
-					"deprecated": false
+					"label": "Active"
 				  }
 				},
 				{
 				  "id": 60,
-				  "latestSupervisionLevel": {
-					 "appliesFrom": "01/12/2017",
-					"supervisionLevel": {
-					  "handle": "GENERAL",
-					  "label": "General",
-					  "deprecated": null
-					}
-				  },
+				  "casesubtype": "hw",
+				  "appointmentType": "Sole",
 				  "orderDate": "01/12/2017",
 				  "orderStatus": {
-					"handle": "ACTIVE",
-					"label": "Active",
-					"deprecated": false
+					"label": "Closed"
 				  }
 				}
 			  ],
@@ -94,7 +83,8 @@ func TestDeputyClientsReturned(t *testing.T) {
 
 	r := io.NopCloser(bytes.NewReader([]byte(json)))
 
-	mocks.GetDoFunc = func(*http.Request) (*http.Response, error) {
+	mocks.GetDoFunc = func(req *http.Request) (*http.Response, error) {
+		assert.Empty(t, req.URL.RawQuery)
 		return &http.Response{
 			StatusCode: 200,
 			Body:       r,
@@ -102,13 +92,54 @@ func TestDeputyClientsReturned(t *testing.T) {
 	}
 
 	expectedResponse := ClientList{
+		Clients: []DeputyClient{{
+			ClientId:        67,
+			Firstname:       "John",
+			Surname:         "Fearless",
+			CourtRef:        "67422477",
+			Relationship:    "Sibling",
+			DeputyStatus:    "Active",
+			AppointmentType: "Joint and Severally",
+			Orders: []Order{
+				{OrderDate: shared.NewDate("01/12/2020"), OrderStatus: OrderStatus{Label: "Active"}, CaseSubType: "pfa", AppointmentType: "Joint"},
+				{OrderDate: shared.NewDate("01/12/2017"), OrderStatus: OrderStatus{Label: "Closed"}, CaseSubType: "hw", AppointmentType: "Sole"},
+			},
+		}},
 		Metadata:     Metadata{TotalActiveClients: 1},
 		TotalClients: 1,
 	}
 
-	deputyClientDetails, err := client.GetDeputyClients(getContext(nil), ClientListParams{1})
+	deputyClientDetails, err := client.GetDeputyClients(getContext(nil), ClientListParams{DeputyId: 1})
 
 	assert.Equal(t, 1, deputyClientDetails.Metadata.TotalActiveClients)
 	assert.Equal(t, expectedResponse, deputyClientDetails)
 	assert.Equal(t, nil, err)
+}
+
+func TestOrderDateDeserialization(t *testing.T) {
+	for _, test := range []struct {
+		name     string
+		value    string
+		expected string
+	}{
+		{name: "Sirius date", value: `"01/12/2020"`, expected: "01/12/2020"},
+		{name: "ISO date", value: `"2020-12-01"`, expected: "01/12/2020"},
+		{name: "timestamp", value: `"2020-12-01T12:30:00+00:00"`, expected: "01/12/2020"},
+		{name: "empty", value: `""`},
+		{name: "null", value: `null`},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			var order Order
+			err := json.Unmarshal([]byte(`{"orderDate":`+test.value+`}`), &order)
+
+			assert.NoError(t, err)
+			assert.Equal(t, test.expected, order.OrderDate.DateString())
+			assert.Equal(t, test.expected == "", order.OrderDate.IsNull())
+		})
+	}
+
+	t.Run("invalid date", func(t *testing.T) {
+		var order Order
+		assert.Error(t, json.Unmarshal([]byte(`{"orderDate":"not-a-date"}`), &order))
+	})
 }
