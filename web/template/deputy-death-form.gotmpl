@@ -1,0 +1,138 @@
+{{ template "page" . }}
+
+{{ define "main" }}
+    {{ template "lay-deputy-details" . }}
+
+     <header class="title-and-buttons-inline">
+        <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
+            {{ .PageName }}
+        </h1>
+     </header>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <form id="record-deputy-death-form" method="post" autocomplete="off">
+                <input type="hidden"
+                       name="xsrfToken"
+                       value="{{ .XSRFToken }}" />
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend">Proof of death received?</legend>
+                        <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                            <div class="govuk-radios__item" >
+                                <input class="govuk-radios__input" id="proofofdeath-yes" name="proofofdeath" type="radio" value="yes">
+                                <label class="govuk-label govuk-radios__label" for="proofofdeath-yes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item govuk-radios--inline" >
+                                <input class="govuk-radios__input" id="proofofdeath-no" name="proofofdeath" type="radio" value="no">
+                                <label class="govuk-label govuk-radios__label" for="proofofdeath-no">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group hide" id="proof-of-death-receieved-yes">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="dateofdeath">
+                            Date of death
+                        </label>
+                        <input class="govuk-input govuk-input--width-10" id="dateofdeath" name="dateofdeath" type="date">
+                        <br><br>
+                        <label class="govuk-label" for="dateproofofdeathreceived">
+                            Date proof of death received
+                        </label>
+                        <input class="govuk-input govuk-input--width-10" id="dateproofofdeathreceived" name="dateproofofdeathreceived" type="date">
+                        <br><br>
+                        <label class="govuk-label" for="datenotified">
+                            Date notified
+                        </label>
+                        <input class="govuk-input govuk-input--width-10" id="datenotified" name="datenotified" type="date">
+                    </div>
+                </div>
+                <div class="govuk-form-group" id="proof-of-death-receieved-no">
+                    <div class="govuk-form-group" id="dateofdeath-optional">
+                        <label class="govuk-label" for="dateofdeath-optional">
+                            Date of death (optional)
+                        </label>
+                        <input class="govuk-input govuk-input--width-10" id="dateofdeath-optional" name="dateofdeath-optional" type="date">
+                    </div>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="notified-by">
+                        <legend class="govuk-fieldset__legend ">
+                            <h1 class="govuk-fieldset__heading">
+                                Notified by
+                            </h1>
+                        </legend>
+
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="notified-by-co-deputy" name="notified-by" type="radio" value="co-deputy">
+                                <label class="govuk-label govuk-radios__label" for="notified-by">
+                                    Co-deputy
+                                </label>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="notified-by-executor" name="notified-by" type="radio" value="executor">
+                                <label class="govuk-label govuk-radios__label" for="notified-by">
+                                    Executor
+                                </label>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="notified-by-other" name="notified-by" type="radio" value="other">
+                                <label class="govuk-label govuk-radios__label" for="notified-by">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="how-opg-notified-email" name="how-opg-notified" type="radio" value="email">
+                                <label class="govuk-label govuk-radios__label" for="how-opg-notified">
+                                    Email
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="how-opg-notified-phone" name="how-opg-notified" type="radio" value="phone">
+                                <label class="govuk-label govuk-radios__label" for="how-opg-notified">
+                                    Phone
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="how-opg-notified-letter" name="how-opg-notified" type="radio" value="letter">
+                                <label class="govuk-label govuk-radios__label" for="how-opg-notified">
+                                    Letter
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="notes">
+                        Notes (optional)
+                    </label>
+                    <textarea class="govuk-textarea govuk-input--width-30" id="notes" name="notes"></textarea>
+                </div>
+                <div class="govuk-button-group govuk-!-margin-top-7">
+                    <button
+                        class="govuk-button"
+                        type="submit"
+                        data-module="govuk-button">
+                        Save record a death
+                    </button>
+                    <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{{ end }}
