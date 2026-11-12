@@ -14,39 +14,42 @@ window.htmx = htmx
 htmx.logAll();
 htmx.config.responseHandling = [{code:".*", swap: true}]
 
+function showOrHideProofOfDeathReceivedContent() {
+    const currentUrl = window.location.href;
+    console.log("in func");
+        htmx.addClass(htmx.find("#proof-of-death-receieved-no"), "hide");
+        htmx.removeClass(htmx.find("#proof-of-death-receieved-yes"), "hide");
+    // } else {
+    //     htmx.addClass(htmx.find("#proof-of-death-receieved-no"), "hide");
+    //     htmx.removeClass(htmx.find("#proof-of-death-receieved-yes"), "hide");
+    // }
+}
+
+document.body.addEventListener("htmx:afterOnLoad", function () {
+    return showOrHideProofOfDeathReceivedContent();
+});
+
 htmx.onLoad((content) => {
     initAll();
-    htmx.findAll("#proofofdeath").forEach((element) => {
-        console.log("clicked proof of death")
-        element.addEventListener(
-            "change",
-            function () {
-                document
-                    .querySelector("#proof-of-death-receieved-yes")
-                    .setAttribute("hide", "false");
-                document
-                    .querySelector("#proof-of-death-receieved-no")
-                    .setAttribute("hide", "true");
-            },
-            false,
+
+    htmx.findAll(content, ".summary").forEach((element) => {
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.toggleClass(htmx.find(`#${element.id}-reveal`), "hide"),
         );
     });
 
-    htmx.findAll("#proofofdeath-no").forEach((element) => {
-        console.log("clicked proof of death no")
-
-        element.addEventListener(
-            "change",
-            function () {
-                document
-                    .querySelector("#proof-of-death-receieved-yes")
-                    .setAttribute("hide", "true");
-                document
-                    .querySelector("#proof-of-death-receieved-no")
-                    .setAttribute("hide", "false");
-            },
-            false,
-        );
+    htmx.findAll("#proofofdeath").forEach((el) => {
+        console.log("pod");
+        console.log(el.valueOf());
+        return showOrHideProofOfDeathReceivedContent(el.valueOf());
+    });
+    htmx.findAll("#proofofdeath-yes").forEach(() => {
+        console.log("pod yes");
+        return showOrHideProofOfDeathReceivedContent();
+    });
+    htmx.findAll("#proofofdeath-no").forEach(() => {
+        console.log("pod no");
+        return showOrHideProofOfDeathReceivedContent();
     });
 });
 
