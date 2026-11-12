@@ -28,12 +28,13 @@ type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
 	Salutation                        string                                `json:"salutation"`
 	DeputyFirstName                   string                                `json:"firstName"`
+	DeputyMiddleName                  string                                `json:"middleNames"`
 	DeputySurname                     string                                `json:"surname"`
 	DeputyOtherNames                  string                                `json:"otherNames"`
 	DeputyNumber                      int                                   `json:"deputyNumber"`
 	DeputyStatus                      string                                `json:"deputyStatus"`
 	DeputyType                        DeputyType                            `json:"deputyType"`
-	DeputyDateOfBirth                 string                                `json:"dob"`
+	DeputyDateOfBirth                 shared.Date                           `json:"dob"`
 	Email                             string                                `json:"email"`
 	MobileTelephoneNumber             string                                `json:"mobileNumber"`
 	DaytimeTelephoneNumber            string                                `json:"phoneNumber"`
@@ -43,6 +44,7 @@ type DeputyDetails struct {
 	AddressLine3                      string                                `json:"addressLine3"`
 	Town                              string                                `json:"town"`
 	County                            string                                `json:"county"`
+	Country                           string                                `json:"country"`
 	Postcode                          string                                `json:"postcode"`
 	IsAirmailRequired                 bool                                  `json:"isAirmailRequired"`
 	SpecialCorrespondenceRequirements SpecialCorrespondenceRequirementsType `json:"specialCorrespondenceRequirements"`

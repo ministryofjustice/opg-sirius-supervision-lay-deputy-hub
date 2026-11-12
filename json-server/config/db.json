@@ -4,16 +4,12 @@
       "id": 1,
       "uId": "7000-0000-2530",
       "normalizedUid": 700000002530,
-      "homePhoneNumber": {
-        "id": 96,
-        "phoneNumber": "0115 876 5574",
-        "type": "Home",
-        "default": false
-      },
+      "homePhoneNumber": "0115 2767825",
       "email": "testemail@hotmail.co.uk",
       "dob": "01/01/1980",
       "salutation": "Mr",
       "firstName": "Mike",
+      "middleNames": "Jonathon",
       "surname": "Deputy",
       "otherNames": "Michael",
       "addressLine1": "Seax House",
@@ -22,7 +18,7 @@
       "town": "Chelmsford",
       "county": "Essex",
       "postcode": "CM1 1GG",
-      "country": "",
+      "country": "United Kingdom",
       "isAirmailRequired": false,
       "phoneNumber": "0115 876 5574",
       "executiveCaseManager": {
@@ -57,7 +53,13 @@
         "handle": "Lay",
         "label": "Lay Deputy"
       },
-      "deputyNumber": 46382901
+      "deputyNumber": 46382901,
+      "firstname": "Mike",
+      "middleName": "Jonathon",
+      "deputySubType": {
+        "handle": "PERSON"
+      },
+      "workPhoneNumber": "0115 876 5574"
     }
   ],
   "clients": {
@@ -1092,6 +1094,58 @@
             "type": "string"
           }
         ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "id": "contact-details",
+      "validation_errors": {
+        "firstname": {
+          "isEmpty": ""
+        },
+        "middleName": {
+          "stringLengthTooLong": ""
+        },
+        "surname": {
+          "isEmpty": ""
+        },
+        "otherNames": {
+          "stringLengthTooLong": ""
+        },
+        "addressLine1": {
+          "stringLengthTooLong": ""
+        },
+        "addressLine2": {
+          "stringLengthTooLong": ""
+        },
+        "addressLine3": {
+          "stringLengthTooLong": ""
+        },
+        "town": {
+          "stringLengthTooLong": ""
+        },
+        "county": {
+          "stringLengthTooLong": ""
+        },
+        "postcode": {
+          "stringLengthTooLong": ""
+        },
+        "workPhoneNumber": {
+          "stringLengthTooLong": ""
+        },
+        "homePhoneNumber": {
+          "stringLengthTooLong": ""
+        },
+        "mobileNumber": {
+          "stringLengthTooLong": ""
+        },
+        "email": {
+          "stringLengthTooLong": ""
+        },
+        "country": {
+          "stringLengthTooLong": ""
+        }
       }
     }
   ]
