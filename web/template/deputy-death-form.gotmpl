@@ -34,7 +34,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group hide" id="proof-of-death-receieved-yes">
+                <div class="govuk-form-group hide proof-of-death-received-conditional proof-of-death-received-reveal" id="proof-of-death-receieved-yes">
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="dateofdeath">
                             Date of death
@@ -53,12 +53,10 @@
                     </div>
                 </div>
                 <div class="govuk-form-group" id="proof-of-death-receieved-no">
-                    <div class="govuk-form-group" id="dateofdeath-optional">
-                        <label class="govuk-label" for="dateofdeath-optional">
-                            Date of death (optional)
-                        </label>
-                        <input class="govuk-input govuk-input--width-10" id="dateofdeath-optional" name="dateofdeath-optional" type="date">
-                    </div>
+                    <label class="govuk-label" for="dateofdeath-optional">
+                        Date of death (optional)
+                    </label>
+                    <input class="govuk-input govuk-input--width-10" id="dateofdeath-optional" name="dateofdeath-optional" type="date">
                 </div>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" aria-describedby="notified-by">
@@ -71,21 +69,21 @@
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="notified-by-co-deputy" name="notified-by" type="radio" value="co-deputy">
-                                <label class="govuk-label govuk-radios__label" for="notified-by">
+                                <label class="govuk-label govuk-radios__label" for="notified-by-co-deputy">
                                     Co-deputy
                                 </label>
                             </div>
 
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="notified-by-executor" name="notified-by" type="radio" value="executor">
-                                <label class="govuk-label govuk-radios__label" for="notified-by">
+                                <label class="govuk-label govuk-radios__label" for="notified-by-executor">
                                     Executor
                                 </label>
                             </div>
 
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="notified-by-other" name="notified-by" type="radio" value="other">
-                                <label class="govuk-label govuk-radios__label" for="notified-by">
+                                <label class="govuk-label govuk-radios__label" for="notified-by-other">
                                     Other
                                 </label>
                             </div>
@@ -98,19 +96,19 @@
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="how-opg-notified-email" name="how-opg-notified" type="radio" value="email">
-                                <label class="govuk-label govuk-radios__label" for="how-opg-notified">
+                                <label class="govuk-label govuk-radios__label" for="how-opg-notified-email">
                                     Email
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="how-opg-notified-phone" name="how-opg-notified" type="radio" value="phone">
-                                <label class="govuk-label govuk-radios__label" for="how-opg-notified">
+                                <label class="govuk-label govuk-radios__label" for="how-opg-notified-phone">
                                     Phone
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="how-opg-notified-letter" name="how-opg-notified" type="radio" value="letter">
-                                <label class="govuk-label govuk-radios__label" for="how-opg-notified">
+                                <label class="govuk-label govuk-radios__label" for="how-opg-notified-letter">
                                     Letter
                                 </label>
                             </div>
