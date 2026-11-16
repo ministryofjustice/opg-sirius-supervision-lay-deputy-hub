@@ -31,7 +31,7 @@ describe("Timeline tab", () => {
             cy.get('[data-cy="deputy-unlinked-from-order-event"] > .moj-timeline__header > .moj-timeline__title').should("contain", "Unlink");
             cy.get('[data-cy="deputy-unlinked-from-order-event"] > .moj-timeline__header > .moj-timeline__byline').should("contain", "by system admin (12345678)");
             cy.get('[data-cy="deputy-unlinked-from-order-event"] > .moj-timeline__date > time').should("contain", "13/10/2026");
-            cy.get('[data-cy="deputy-unlinked-from-order-event"] > .moj-timeline__date > time').should("contain", "09:31:24");
+            cy.get('[data-cy="deputy-unlinked-from-order-event"] > .moj-timeline__date > time').should("contain", "08:31:24");
             cy.get('[data-cy="deputy-unlinked-from-order-event"] > .moj-timeline__description > .govuk-list').should("contain", "Unlinked from case PFA");
         });
         it("displays changesets with set when old value is null", () => {

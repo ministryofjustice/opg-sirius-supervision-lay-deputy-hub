@@ -34,7 +34,7 @@ type DeputyDetails struct {
 	DeputyNumber                      int                                   `json:"deputyNumber"`
 	DeputyStatus                      string                                `json:"deputyStatus"`
 	DeputyType                        DeputyType                            `json:"deputyType"`
-	DeputyDateOfBirth                 string                                `json:"dob"`
+	DeputyDateOfBirth                 shared.Date                           `json:"dob"`
 	Email                             string                                `json:"email"`
 	MobileTelephoneNumber             string                                `json:"mobileNumber"`
 	DaytimeTelephoneNumber            string                                `json:"phoneNumber"`
@@ -100,11 +100,5 @@ func (c *Client) GetDeputyDetails(ctx Context, deputyID int) (DeputyDetails, err
 
 	err = json.NewDecoder(resp.Body).Decode(&v)
 
-	return formatDeputyDetails(v), err
-}
-
-func formatDeputyDetails(v DeputyDetails) DeputyDetails {
-	v.DeputyDateOfBirth = FormatDateTime(SiriusDate, v.DeputyDateOfBirth, IsoDate)
-
-	return v
+	return v, err
 }

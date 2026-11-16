@@ -35,6 +35,12 @@ describe("Manage deputy details tab", () => {
         });
 
         it("Redirects to the correct route", () => {
+            cy.get('[name="deputy-first-name"]').clear().type("Mike");
+            cy.get('[name="deputy-last-name"]').clear().type("Deputy");
+            cy.get('[name="address-line-1"]').clear().type("Seax House");
+            cy.get('[name="town"]').clear().type("Chelmsford");
+            cy.get('[name="postcode"]').clear().type("CM1 1GG");
+
             cy.get('.govuk-button').click();
             cy.url().should("include", "?success=deputyDetails");
         })
