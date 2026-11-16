@@ -24,9 +24,6 @@ func TestDeputyClientsReturned(t *testing.T) {
 			  "email": "john.fearless@example.com",
 			  "firstname": "John",
 			  "surname": "Fearless",
-			  "relationshipToClient": "Sibling",
-			  "statusOnCase": "Active",
-			  "appointmentType": "Joint and Severally",
 			  "addressLine1": "94 Duckpit Lane",
 			  "addressLine2": "Upper Oddington",
 			  "addressLine3": "Canvey Island",
@@ -44,7 +41,19 @@ func TestDeputyClientsReturned(t *testing.T) {
 				{
 				  "id": 59,
 				  "casesubtype": "pfa",
-				  "appointmentType": "Joint",
+				  "howDeputyAppointed": {"label": "Joint"},
+				  "deputies": [
+					{
+					  "deputy": {"id": 333},
+					  "relationshipToClient": {"label": "Sibling"},
+					  "statusOnCase": {"label": "Active"}
+					},
+					{
+					  "deputy": {"id": 444},
+					  "relationshipToClient": {"label": "Spouse"},
+					  "statusOnCase": {"label": "Discharged"}
+					}
+				  ],
 				  "orderDate": "01/12/2020",
 				  "orderStatus": {
 					"label": "Active"
@@ -53,7 +62,14 @@ func TestDeputyClientsReturned(t *testing.T) {
 				{
 				  "id": 60,
 				  "casesubtype": "hw",
-				  "appointmentType": "Sole",
+				  "howDeputyAppointed": {"label": "Sole"},
+				  "deputies": [
+					{
+					  "deputy": {"id": 333},
+					  "relationshipToClient": {"label": "Sibling"},
+					  "statusOnCase": {"label": "Suspended"}
+					}
+				  ],
 				  "orderDate": "01/12/2017",
 				  "orderStatus": {
 					"label": "Closed"
@@ -93,23 +109,51 @@ func TestDeputyClientsReturned(t *testing.T) {
 
 	expectedResponse := ClientList{
 		Clients: []DeputyClient{{
-			ClientId:        67,
-			Firstname:       "John",
-			Surname:         "Fearless",
-			CourtRef:        "67422477",
-			Relationship:    "Sibling",
-			DeputyStatus:    "Active",
-			AppointmentType: "Joint and Severally",
+			ClientId:  67,
+			Firstname: "John",
+			Surname:   "Fearless",
+			CourtRef:  "67422477",
 			Orders: []Order{
-				{OrderDate: shared.NewDate("01/12/2020"), OrderStatus: OrderStatus{Label: "Active"}, CaseSubType: "pfa", AppointmentType: "Joint"},
-				{OrderDate: shared.NewDate("01/12/2017"), OrderStatus: OrderStatus{Label: "Closed"}, CaseSubType: "hw", AppointmentType: "Sole"},
+				{
+					OrderDate: shared.NewDate("01/12/2020"), OrderStatus: RefData{Label: "Active"},
+					CaseSubType: "pfa", AppointmentType: RefData{Label: "Joint"},
+					Deputies: []OrderDeputy{
+						{
+							Deputy: struct {
+								ID int `json:"id"`
+							}{ID: 333},
+							Relationship: RefData{Label: "Sibling"},
+							DeputyStatus: RefData{Label: "Active"},
+						},
+						{
+							Deputy: struct {
+								ID int `json:"id"`
+							}{ID: 444},
+							Relationship: RefData{Label: "Spouse"},
+							DeputyStatus: RefData{Label: "Discharged"},
+						},
+					},
+				},
+				{
+					OrderDate: shared.NewDate("01/12/2017"), OrderStatus: RefData{Label: "Closed"},
+					CaseSubType: "hw", AppointmentType: RefData{Label: "Sole"},
+					Deputies: []OrderDeputy{
+						{
+							Deputy: struct {
+								ID int `json:"id"`
+							}{ID: 333},
+							Relationship: RefData{Label: "Sibling"},
+							DeputyStatus: RefData{Label: "Suspended"},
+						},
+					},
+				},
 			},
 		}},
 		Metadata:     Metadata{TotalActiveClients: 1},
 		TotalClients: 1,
 	}
 
-	deputyClientDetails, err := client.GetDeputyClients(getContext(nil), ClientListParams{DeputyId: 1})
+	deputyClientDetails, err := client.GetDeputyClients(getContext(nil), ClientListParams{DeputyID: 1})
 
 	assert.Equal(t, 1, deputyClientDetails.Metadata.TotalActiveClients)
 	assert.Equal(t, expectedResponse, deputyClientDetails)
