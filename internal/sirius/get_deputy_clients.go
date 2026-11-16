@@ -12,26 +12,32 @@ type Metadata struct {
 	TotalActiveClients int `json:"totalActiveClients"`
 }
 
-type OrderStatus struct {
+type RefData struct {
 	Label string `json:"label"`
 }
 
+type OrderDeputy struct {
+	Deputy struct {
+		ID int `json:"id"`
+	} `json:"deputy"`
+	Relationship RefData `json:"relationshipToClient"`
+	DeputyStatus RefData `json:"statusOnCase"`
+}
+
 type Order struct {
-	OrderDate       shared.Date `json:"orderDate"`
-	OrderStatus     OrderStatus `json:"orderStatus"`
-	CaseSubType     string      `json:"casesubtype"`
-	AppointmentType string      `json:"appointmentType"`
+	OrderDate       shared.Date   `json:"orderDate"`
+	OrderStatus     RefData       `json:"orderStatus"`
+	CaseSubType     string        `json:"casesubtype"`
+	AppointmentType RefData       `json:"howDeputyAppointed"`
+	Deputies        []OrderDeputy `json:"deputies"`
 }
 
 type DeputyClient struct {
-	ClientId        int     `json:"id"`
-	Firstname       string  `json:"firstname"`
-	Surname         string  `json:"surname"`
-	CourtRef        string  `json:"caseRecNumber"`
-	Relationship    string  `json:"relationshipToClient"`
-	DeputyStatus    string  `json:"statusOnCase"`
-	AppointmentType string  `json:"appointmentType"`
-	Orders          []Order `json:"orders"`
+	ClientId  int     `json:"id"`
+	Firstname string  `json:"firstname"`
+	Surname   string  `json:"surname"`
+	CourtRef  string  `json:"caseRecNumber"`
+	Orders    []Order `json:"orders"`
 }
 
 type ClientList struct {
@@ -41,13 +47,13 @@ type ClientList struct {
 }
 
 type ClientListParams struct {
-	DeputyId int
+	DeputyID int
 }
 
 func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientList, error) {
 	var clientList ClientList
 
-	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/clients", params.DeputyId)
+	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/clients", params.DeputyID)
 
 	req, err := c.newRequest(ctx, http.MethodGet, requestURL, nil)
 

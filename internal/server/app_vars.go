@@ -18,7 +18,7 @@ type AppVars struct {
 	EnvironmentVars
 }
 
-func (a AppVars) DeputyId() int {
+func (a AppVars) DeputyID() int {
 	return a.DeputyDetails.ID
 }
 

@@ -15,13 +15,11 @@ type ListClientsVars struct {
 }
 
 type DeputyClient struct {
-	ClientId     int
-	Firstname    string
-	Surname      string
-	CourtRef     string
-	Relationship string
-	DeputyStatus string
-	Orders       []Order
+	ClientId  int
+	Firstname string
+	Surname   string
+	CourtRef  string
+	Orders    []Order
 }
 
 type Order struct {
@@ -29,6 +27,8 @@ type Order struct {
 	OrderStatus     string
 	OrderType       string
 	AppointmentType string
+	Relationship    string
+	StatusOnCase    string
 }
 
 type DeputyClientsClient interface {
@@ -38,7 +38,7 @@ type DeputyClientsClient interface {
 func renderTemplateForClientTab(client DeputyClientsClient, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		clients, err := client.GetDeputyClients(getContext(r), sirius.ClientListParams{
-			DeputyId: app.DeputyId(),
+			DeputyID: app.DeputyID(),
 		})
 		if err != nil {
 			return err
@@ -48,7 +48,7 @@ func renderTemplateForClientTab(client DeputyClientsClient, tmpl Template) Handl
 
 		var items []DeputyClient
 		for _, client := range clients.Clients {
-			items = append(items, parseClientData(client))
+			items = append(items, parseClientData(client, app.DeputyID()))
 		}
 
 		return tmpl.ExecuteTemplate(w, "page", ListClientsVars{
@@ -58,22 +58,34 @@ func renderTemplateForClientTab(client DeputyClientsClient, tmpl Template) Handl
 	}
 }
 
-func parseClientData(client sirius.DeputyClient) DeputyClient {
+func parseClientData(client sirius.DeputyClient, deputyID int) DeputyClient {
 	item := DeputyClient{
-		ClientId:     client.ClientId,
-		Firstname:    client.Firstname,
-		Surname:      client.Surname,
-		CourtRef:     client.CourtRef,
-		Relationship: client.Relationship,
-		DeputyStatus: client.DeputyStatus,
+		ClientId:  client.ClientId,
+		Firstname: client.Firstname,
+		Surname:   client.Surname,
+		CourtRef:  client.CourtRef,
 	}
+	// Not all orders on a client will be relevant to the deputy, so we need to select only those that have the deputy on the order.
 	for _, order := range client.Orders {
-		item.Orders = append(item.Orders, Order{
-			OrderDate:       order.OrderDate,
-			OrderStatus:     order.OrderStatus.Label,
-			OrderType:       strings.ToUpper(order.CaseSubType),
-			AppointmentType: order.AppointmentType,
-		})
+		var o Order
+		for _, od := range order.Deputies {
+			if od.Deputy.ID == deputyID {
+				o = Order{
+					OrderDate:       order.OrderDate,
+					OrderStatus:     order.OrderStatus.Label,
+					OrderType:       strings.ToUpper(order.CaseSubType),
+					AppointmentType: order.AppointmentType.Label,
+					Relationship:    od.Relationship.Label,
+					StatusOnCase:    od.DeputyStatus.Label,
+				}
+
+				break
+			}
+		}
+		// Only append the order if it is relevant to the deputy.
+		if o.OrderType != "" {
+			item.Orders = append(item.Orders, o)
+		}
 	}
 	item.Orders = mostRelevantOrders(item.Orders)
 	return item
