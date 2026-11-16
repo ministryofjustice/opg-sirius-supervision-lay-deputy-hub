@@ -42,19 +42,28 @@ htmx.onLoad((content) => {
 
     htmx.findAll(content, "#notified-by-other").forEach((element) => {
         htmx.on(`#${element.id}`, "click", () =>
-            htmx.removeClass(htmx.find("#notified-by-other-reveal"), "hide"),
+            htmx.addClass(htmx.find("#notes-optional"), "hide"),
+        );
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.removeClass(htmx.find("#notes-required"), "hide"),
         );
     });
 
     htmx.findAll(content, "#notified-by-co-deputy").forEach((element) => {
         htmx.on(`#${element.id}`, "click", () =>
-            htmx.addClass(htmx.find("#notified-by-other-reveal"), "hide"),
+            htmx.addClass(htmx.find("#notes-required"), "hide"),
+        );
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.removeClass(htmx.find("#notes-optional"), "hide"),
         );
     });
 
     htmx.findAll(content, "#notified-by-executor").forEach((element) => {
         htmx.on(`#${element.id}`, "click", () =>
-            htmx.addClass(htmx.find("#notified-by-other-reveal"), "hide"),
+            htmx.addClass(htmx.find("#notes-required"), "hide"),
+        );
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.removeClass(htmx.find("#notes-optional"), "hide"),
         );
     });
 });

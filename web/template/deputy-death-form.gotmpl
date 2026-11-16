@@ -86,12 +86,6 @@
                                     Other
                                 </label>
                             </div>
-                            <div class="govuk-form-group hide" id="notified-by-other-reveal">
-                                <label class="govuk-label govuk-radios__label" for="notified-by-other">
-                                    Other - please specify
-                                </label>
-                                <textarea class="govuk-textarea govuk-input--width-20" id="notified-by-other-text" name="notified-by-other-text"></textarea>
-                            </div>
                         </div>
                     </fieldset>
                 </div>
@@ -100,20 +94,20 @@
                         <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="how-opg-notified-email" name="how-opg-notified" type="radio" value="email">
-                                <label class="govuk-label govuk-radios__label" for="how-opg-notified-email">
+                                <input class="govuk-radios__input" id="notification-method-email" name="notification-method" type="radio" value="email">
+                                <label class="govuk-label govuk-radios__label" for="notification-method-email">
                                     Email
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="how-opg-notified-phone" name="how-opg-notified" type="radio" value="phone">
-                                <label class="govuk-label govuk-radios__label" for="how-opg-notified-phone">
+                                <input class="govuk-radios__input" id="notification-method-phone" name="notification-method" type="radio" value="phone">
+                                <label class="govuk-label govuk-radios__label" for="notification-method-phone">
                                     Phone
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="how-opg-notified-letter" name="how-opg-notified" type="radio" value="letter">
-                                <label class="govuk-label govuk-radios__label" for="how-opg-notified-letter">
+                                <input class="govuk-radios__input" id="notification-method-letter" name="notification-method" type="radio" value="letter">
+                                <label class="govuk-label govuk-radios__label" for="notification-method-letter">
                                     Letter
                                 </label>
                             </div>
@@ -121,8 +115,11 @@
                     </fieldset>
                 </div>
                 <div class="govuk-form-group">
-                    <label class="govuk-label" for="notes">
+                    <label class="govuk-label" for="notes" id="notes-optional">
                         Notes (optional)
+                    </label>
+                    <label class="govuk-label hide" for="notes" id="notes-required">
+                        Notes
                     </label>
                     <textarea class="govuk-textarea govuk-input--width-30" id="notes" name="notes"></textarea>
                 </div>

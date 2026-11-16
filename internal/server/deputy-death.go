@@ -4,21 +4,13 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 )
 
 type deputyDeathVars struct {
 	AppVars
-	DeputyDeathForm deputyDeathForm
-}
-
-type deputyDeathForm struct {
-	ProofOfDeath             string
-	DateOfDeath              string
-	DateProofOfDeathReceived string
-	DateNotified             string
-	NotifiedBy               string
-	HowOpgNotified           string
-	Notes                    string
+	DeputyDeathForm sirius.DeputyDeathRecord
 }
 
 func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
@@ -29,40 +21,47 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 		case http.MethodGet:
 			return tmpl.ExecuteTemplate(w, "page", deputyDeathVars{
 				AppVars:         app,
-				DeputyDeathForm: deputyDeathForm{},
+				DeputyDeathForm: sirius.DeputyDeathRecord{},
 			})
 
 		case http.MethodPost:
-			//ctx := getContext(r)
+			ctx := getContext(r)
 
 			var proofOfDeath = r.PostFormValue("proofofdeath")
+			proofOfDeathReceived := false
+			if proofOfDeath == "yes" {
+				proofOfDeathReceived = true
+			}
 			var dateOfDeath = r.PostFormValue("dateofdeath")
 			var dateOfDeathOptional = r.PostFormValue("dateofdeath-optional")
 			var dateProofOfDeathReceived = r.PostFormValue("dateproofofdeathreceived")
 			var dateNotified = r.PostFormValue("datenotified")
 			var notifiedBy = r.PostFormValue("notified-by")
-			var howOpgNotified = r.PostFormValue("how-opg-notified")
+			var notifiedByOther = r.PostFormValue("notified-by-other-text")
+			var notificationMethod = r.PostFormValue("notification-method")
 			var notes = r.PostFormValue("notes")
 
 			if dateOfDeathOptional != "" {
 				dateOfDeath = dateOfDeathOptional
 			}
 
-			deputyDeathForm := deputyDeathForm{
-				ProofOfDeath:             proofOfDeath,
-				DateOfDeath:              dateOfDeath,
-				DateProofOfDeathReceived: dateProofOfDeathReceived,
-				DateNotified:             dateNotified,
-				NotifiedBy:               notifiedBy,
-				HowOpgNotified:           howOpgNotified,
-				Notes:                    notes,
+			deputyDeathForm := sirius.DeputyDeathRecord{
+				DeputyId:                      app.DeputyDetails.ID,
+				DateOfDeath:                   dateOfDeath,
+				ProofOfDeathReceived:          proofOfDeathReceived,
+				DateDeathCertificateReceieved: dateProofOfDeathReceived,
+				DateNotified:                  dateNotified,
+				NotifiedBy:                    notifiedBy,
+				NotifiedByOther:               notifiedByOther,
+				NotificationMethod:            notificationMethod,
+				Notes:                         notes,
 			}
 
 			logger.Info("deputyDeathForm", deputyDeathForm)
-			//timeline, err := client.GetDeputyTimeline(ctx, app.DeputyDetails.ID)
-			//if err != nil {
-			//	return err
-			//}
+			err := client.CreateDeputyDeathRecord(ctx, deputyDeathForm)
+			if err != nil {
+				return err
+			}
 			return tmpl.ExecuteTemplate(w, "page", deputyDeathVars{
 				AppVars: app,
 			})
