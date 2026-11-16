@@ -17,21 +17,27 @@ func TestNavigateToClients(t *testing.T) {
 		Clients: sirius.ClientList{
 			Clients: []sirius.DeputyClient{
 				{
-					ClientId:        67,
-					Firstname:       "Robert",
-					Surname:         "Robson",
-					CourtRef:        "12323984",
-					Relationship:    "Sibling",
-					AppointmentType: "Joint and Severally",
+					ClientId:  67,
+					Firstname: "Robert",
+					Surname:   "Robson",
+					CourtRef:  "12323984",
 					Orders: []sirius.Order{
 						{
 							OrderDate:       shared.NewDate("01/01/2024"),
 							CaseSubType:     "pfa",
-							OrderStatus:     sirius.OrderStatus{Label: "Active"},
-							AppointmentType: "Joint and Severally",
+							OrderStatus:     sirius.RefData{Label: "Active"},
+							AppointmentType: sirius.RefData{Label: "Joint and Severally"},
+							Deputies: []sirius.OrderDeputy{
+								{
+									Deputy: struct {
+										ID int `json:"id"`
+									}{ID: 333},
+									Relationship: sirius.RefData{Label: "Sibling"},
+									DeputyStatus: sirius.RefData{Label: "Active"},
+								},
+							},
 						},
 					},
-					DeputyStatus: "Active",
 				},
 			},
 			TotalClients: 1,
@@ -60,17 +66,17 @@ func TestNavigateToClients(t *testing.T) {
 	assert.Equal(ListClientsVars{
 		AppVars: app,
 		Clients: []DeputyClient{{
-			ClientId:     67,
-			Firstname:    "Robert",
-			Surname:      "Robson",
-			CourtRef:     "12323984",
-			Relationship: "Sibling",
-			DeputyStatus: "Active",
+			ClientId:  67,
+			Firstname: "Robert",
+			Surname:   "Robson",
+			CourtRef:  "12323984",
 			Orders: []Order{{
 				OrderDate:       shared.NewDate("01/01/2024"),
 				OrderType:       "PFA",
 				OrderStatus:     "Active",
 				AppointmentType: "Joint and Severally",
+				Relationship:    "Sibling",
+				StatusOnCase:    "Active",
 			}},
 		}},
 	}, template.lastVars)
@@ -108,24 +114,129 @@ func TestHandlesErrorReturnedByGetDeputyClients(t *testing.T) {
 	assert.Zero(template.count)
 }
 
-func TestParseClientDataDoesNotModifyAPIDataOrDefaultAppointments(t *testing.T) {
-	client := sirius.DeputyClient{
-		AppointmentType: "Joint",
-		Orders: []sirius.Order{
-			{OrderDate: shared.NewDate("01/01/2020"), CaseSubType: "hw", OrderStatus: sirius.OrderStatus{Label: "Active"}},
-			{OrderDate: shared.NewDate("01/01/2019"), CaseSubType: "pFa", OrderStatus: sirius.OrderStatus{Label: "Active"}, AppointmentType: "Sole"},
-			{OrderDate: shared.NewDate("01/01/2018"), CaseSubType: "pfa", OrderStatus: sirius.OrderStatus{Label: "Active"}, AppointmentType: "Joint and Severally"},
+func TestParseClientData(t *testing.T) {
+	deputy := func(id int, relationship, status string) sirius.OrderDeputy {
+		var result sirius.OrderDeputy
+		result.Deputy.ID = id
+		result.Relationship = sirius.RefData{Label: relationship}
+		result.DeputyStatus = sirius.RefData{Label: status}
+		return result
+	}
+	pfa := sirius.Order{
+		OrderDate:       shared.NewDate("01/01/2019"),
+		CaseSubType:     "pFa",
+		OrderStatus:     sirius.RefData{Label: "Active"},
+		AppointmentType: sirius.RefData{Label: "Sole"},
+		Deputies: []sirius.OrderDeputy{
+			deputy(999, "Spouse", "Discharged"),
+			deputy(333, "Sibling", "Active"),
+			deputy(444, "Parent", "Error"),
 		},
 	}
-	originalOrders := append([]sirius.Order(nil), client.Orders...)
+	hw := sirius.Order{
+		OrderDate:       shared.NewDate("01/01/2020"),
+		CaseSubType:     "hw",
+		OrderStatus:     sirius.RefData{Label: "Active"},
+		AppointmentType: sirius.RefData{Label: "Joint and Severally"},
+		Deputies:        []sirius.OrderDeputy{deputy(333, "Sibling", "Suspended")},
+	}
+	expectedPFA := Order{
+		OrderDate:       pfa.OrderDate,
+		OrderType:       "PFA",
+		OrderStatus:     "Active",
+		AppointmentType: "Sole",
+		Relationship:    "Sibling",
+		StatusOnCase:    "Active",
+	}
+	expectedHW := Order{
+		OrderDate:       hw.OrderDate,
+		OrderType:       "HW",
+		OrderStatus:     "Active",
+		AppointmentType: "Joint and Severally",
+		Relationship:    "Sibling",
+		StatusOnCase:    "Suspended",
+	}
+	unrelated := pfa
+	unrelated.OrderDate = shared.NewDate("01/01/2025")
+	unrelated.Deputies = []sirius.OrderDeputy{deputy(999, "Spouse", "Active")}
+	older := pfa
+	older.OrderDate = shared.NewDate("01/01/2018")
+	noDeputies := pfa
+	noDeputies.Deputies = nil
+	noType := pfa
+	noType.CaseSubType = ""
+	missingDetails := hw
+	missingDetails.AppointmentType = sirius.RefData{}
+	missingDetails.Deputies = []sirius.OrderDeputy{deputy(333, "", "")}
+	duplicateDeputy := pfa
+	duplicateDeputy.Deputies = []sirius.OrderDeputy{
+		deputy(333, "Sibling", "Active"),
+		deputy(333, "Spouse", "Discharged"),
+	}
 
-	item := parseClientData(client)
+	for _, test := range []struct {
+		name     string
+		deputyID int
+		orders   []sirius.Order
+		expected []Order
+	}{
+		{name: "no orders", deputyID: 333},
+		{
+			name:     "maps details from the matching deputy rather than other deputies",
+			deputyID: 333, orders: []sirius.Order{pfa}, expected: []Order{expectedPFA},
+		},
+		{
+			name:     "keeps separate deputy details for each order with PFA first",
+			deputyID: 333, orders: []sirius.Order{hw, pfa}, expected: []Order{expectedPFA, expectedHW},
+		},
+		{
+			name:     "filters unrelated newer orders before selecting the latest per type",
+			deputyID: 333, orders: []sirius.Order{unrelated, older, pfa}, expected: []Order{expectedPFA},
+		},
+		{
+			name:     "no orders for the requested deputy",
+			deputyID: 123, orders: []sirius.Order{pfa, hw},
+		},
+		{
+			name:     "ignores orders without deputies",
+			deputyID: 333, orders: []sirius.Order{noDeputies},
+		},
+		{
+			name:     "ignores orders without a case subtype",
+			deputyID: 333, orders: []sirius.Order{noType},
+		},
+		{
+			name:     "preserves missing appointment and deputy details",
+			deputyID: 333, orders: []sirius.Order{missingDetails},
+			expected: []Order{{OrderDate: hw.OrderDate, OrderType: "HW", OrderStatus: "Active"}},
+		},
+		{
+			name:     "uses the first matching deputy only",
+			deputyID: 333, orders: []sirius.Order{duplicateDeputy}, expected: []Order{expectedPFA},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			client := sirius.DeputyClient{
+				ClientId: 67, Firstname: "Robert", Surname: "Robson", CourtRef: "12323984",
+				Orders: test.orders,
+			}
+			original := client
+			if client.Orders != nil {
+				original.Orders = append([]sirius.Order(nil), client.Orders...)
+				for i, order := range client.Orders {
+					original.Orders[i].Deputies = append([]sirius.OrderDeputy(nil), order.Deputies...)
+				}
+			}
 
-	assert.Equal(t, []Order{
-		{OrderDate: shared.NewDate("01/01/2019"), OrderType: "PFA", OrderStatus: "Active", AppointmentType: "Sole"},
-		{OrderDate: shared.NewDate("01/01/2020"), OrderType: "HW", OrderStatus: "Active"},
-	}, item.Orders)
-	assert.Equal(t, originalOrders, client.Orders)
+			item := parseClientData(client, test.deputyID)
+
+			assert.Equal(t, DeputyClient{
+				ClientId: 67, Firstname: "Robert", Surname: "Robson", CourtRef: "12323984",
+				Orders: test.expected,
+			}, item)
+			assert.Equal(t, original, client)
+		})
+	}
 }
 
 func TestMostRelevantOrders(t *testing.T) {
