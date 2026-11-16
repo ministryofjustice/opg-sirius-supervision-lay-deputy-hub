@@ -17,15 +17,7 @@ htmx.config.responseHandling = [{code:".*", swap: true}]
 htmx.onLoad((content) => {
     initAll();
 
-    // htmx.findAll(content, "#record-deputy-death-form").forEach((element) => {
-    //     console.log("find all elements in rdd form");
-    //     htmx.on(`#${element.id}`, "click", () =>
-    //         htmx.toggleClass(htmx.find(`proof-of-death-received-reveal`), "hide"),
-    //     );
-    // });
-
     htmx.findAll("#proofofdeath-yes").forEach((element) => {
-        console.log("event listener pod y");
         element.addEventListener("click", () =>
             htmx.removeClass(htmx.find("#proof-of-death-receieved-yes"), "hide"),
         );
@@ -37,7 +29,6 @@ htmx.onLoad((content) => {
         );
     });
     htmx.findAll("#proofofdeath-no").forEach((element) => {
-        console.log("event listener pod n");
         element.addEventListener("click", () =>
             htmx.addClass(htmx.find("#proof-of-death-receieved-yes"), "hide"),
         );
@@ -46,6 +37,24 @@ htmx.onLoad((content) => {
         );
         element.addEventListener("click", () =>
             htmx.removeClass(htmx.find("#dateofdeath-optional"), "hide"),
+        );
+    });
+
+    htmx.findAll(content, "#notified-by-other").forEach((element) => {
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.removeClass(htmx.find("#notified-by-other-reveal"), "hide"),
+        );
+    });
+
+    htmx.findAll(content, "#notified-by-co-deputy").forEach((element) => {
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.addClass(htmx.find("#notified-by-other-reveal"), "hide"),
+        );
+    });
+
+    htmx.findAll(content, "#notified-by-executor").forEach((element) => {
+        htmx.on(`#${element.id}`, "click", () =>
+            htmx.addClass(htmx.find("#notified-by-other-reveal"), "hide"),
         );
     });
 });
