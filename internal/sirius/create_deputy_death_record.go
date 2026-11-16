@@ -4,15 +4,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
 type DeputyDeathRecord struct {
-	DeputyId                      int    `json:"personId"`
+	DeputyId                      int    `json:"id"`
 	DateOfDeath                   string `json:"dateOfDeath"`
-	ProofOfDeathReceived          bool   `json:"proofOfDeathReceived"`
+	ProofOfDeathReceived          string `json:"proofOfDeathReceived"`
 	DateDeathCertificateReceieved string `json:"dateDeathCertificateReceived"`
 	DateNotified                  string `json:"dateNotified"`
 	NotifiedBy                    string `json:"notifiedBy"`
@@ -29,7 +31,7 @@ func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRec
 	if err != nil {
 		return err
 	}
-	req, err := c.newRequest(ctx, http.MethodPost, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/death-notification", deathRecord.DeputyId), &body)
+	req, err := c.newRequest(ctx, http.MethodPost, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/lay/%d/death-notification", deathRecord.DeputyId), &body)
 
 	if err != nil {
 		return err
@@ -48,6 +50,8 @@ func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRec
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		io.Copy(os.Stdout, resp.Body)
+
 		var v struct {
 			ValidationErrors ValidationErrors `json:"validation_errors"`
 		}
