@@ -28,10 +28,6 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 			ctx := getContext(r)
 
 			var proofOfDeath = r.PostFormValue("proofofdeath")
-			proofOfDeathReceived := false
-			if proofOfDeath == "yes" {
-				proofOfDeathReceived = true
-			}
 			var dateOfDeath = r.PostFormValue("dateofdeath")
 			var dateOfDeathOptional = r.PostFormValue("dateofdeath-optional")
 			var dateProofOfDeathReceived = r.PostFormValue("dateproofofdeathreceived")
@@ -48,7 +44,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 			deputyDeathForm := sirius.DeputyDeathRecord{
 				DeputyId:                      app.DeputyDetails.ID,
 				DateOfDeath:                   dateOfDeath,
-				ProofOfDeathReceived:          proofOfDeathReceived,
+				ProofOfDeathReceived:          proofOfDeath,
 				DateDeathCertificateReceieved: dateProofOfDeathReceived,
 				DateNotified:                  dateNotified,
 				NotifiedBy:                    notifiedBy,
