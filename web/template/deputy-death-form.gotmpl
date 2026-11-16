@@ -34,29 +34,28 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group hide proof-of-death-received-conditional proof-of-death-received-reveal" id="proof-of-death-receieved-yes">
+                <div class="govuk-form-group proof-of-death-received-conditional">
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="dateofdeath">
+                        <label class="govuk-label hide proof-of-death-received-reveal" for="dateofdeath" id="dateofdeath-required">
                             Date of death
+                        </label>
+                        <label class="govuk-label" for="dateofdeath" id="dateofdeath-optional">
+                            Date of death (optional)
                         </label>
                         <input class="govuk-input govuk-input--width-10" id="dateofdeath" name="dateofdeath" type="date">
                         <br><br>
-                        <label class="govuk-label" for="dateproofofdeathreceived">
-                            Date proof of death received
-                        </label>
-                        <input class="govuk-input govuk-input--width-10" id="dateproofofdeathreceived" name="dateproofofdeathreceived" type="date">
-                        <br><br>
-                        <label class="govuk-label" for="datenotified">
-                            Date notified
-                        </label>
-                        <input class="govuk-input govuk-input--width-10" id="datenotified" name="datenotified" type="date">
+                        <div class="hide proof-of-death-received-reveal" id="proof-of-death-receieved-yes">
+                            <label class="govuk-label" for="dateproofofdeathreceived">
+                                Date proof of death received
+                            </label>
+                            <input class="govuk-input govuk-input--width-10" id="dateproofofdeathreceived" name="dateproofofdeathreceived" type="date">
+                            <br><br>
+                            <label class="govuk-label" for="datenotified">
+                                Date notified
+                            </label>
+                            <input class="govuk-input govuk-input--width-10" id="datenotified" name="datenotified" type="date">
+                        </div>
                     </div>
-                </div>
-                <div class="govuk-form-group" id="proof-of-death-receieved-no">
-                    <label class="govuk-label" for="dateofdeath-optional">
-                        Date of death (optional)
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="dateofdeath-optional" name="dateofdeath-optional" type="date">
                 </div>
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" aria-describedby="notified-by">
