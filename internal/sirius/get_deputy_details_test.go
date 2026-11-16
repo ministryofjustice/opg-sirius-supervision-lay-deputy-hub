@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -63,7 +64,7 @@ func TestGetDeputyDetailsReturnsDeputy(t *testing.T) {
 			Handle: "LAY",
 			Label:  "Lay Deputy",
 		},
-		DeputyDateOfBirth:      "01/01/1980",
+		DeputyDateOfBirth:      shared.NewDate("01/01/1980"),
 		Email:                  "testemail@hotmail.co.uk",
 		MobileTelephoneNumber:  "0771 2345678",
 		DaytimeTelephoneNumber: "0115 876 5574",
