@@ -55,7 +55,8 @@ var validationMappings = map[string]map[string]pair{
 		"stringLengthTooLong": pair{"mobileNumber", "The mobile number must be 255 characters or fewer"},
 	},
 	"notes": {
-		"notes": pair{"notes", "Enter a note explaining who notified the deputy death"},
+		"stringLengthTooLong": pair{"notes", "The note must be 1000 characters or fewer"},
+		"notes":               pair{"notes", "Enter a note explaining who notified the deputy death"},
 	},
 	"notifiedBy": {
 		"isEmpty": pair{"notifiedBy", "Notified by is required and can't be empty"},
