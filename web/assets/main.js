@@ -17,26 +17,26 @@ htmx.config.responseHandling = [{code:".*", swap: true}]
 htmx.onLoad((content) => {
     initAll();
 
-    htmx.findAll("#proofofdeath-yes").forEach((element) => {
+    htmx.findAll("#proof-of-death-true").forEach((element) => {
         element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#proof-of-death-receieved-yes"), "hide"),
+            htmx.removeClass(htmx.find("#date-proof-of-death-received-reveal"), "hide"),
         );
         element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#dateofdeath-required"), "hide"),
+            htmx.removeClass(htmx.find("#date-of-death-required"), "hide"),
         );
         element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#dateofdeath-optional"), "hide"),
+            htmx.addClass(htmx.find("#date-of-death-optional"), "hide"),
         );
     });
-    htmx.findAll("#proofofdeath-no").forEach((element) => {
+    htmx.findAll("#proof-of-death-false").forEach((element) => {
         element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#proof-of-death-receieved-yes"), "hide"),
+            htmx.addClass(htmx.find("#date-proof-of-death-received-reveal"), "hide"),
         );
         element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#dateofdeath-required"), "hide"),
+            htmx.addClass(htmx.find("#date-of-death-required"), "hide"),
         );
         element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#dateofdeath-optional"), "hide"),
+            htmx.removeClass(htmx.find("#date-of-death-optional"), "hide"),
         );
     });
 

@@ -11,6 +11,7 @@
 
     {{ template "error-summary" .Errors }}
     <div class="govuk-grid-row">
+        <h1>{{.DeputyDeathForm}}</h1>
         <div class="govuk-grid-column-one-half">
             <form id="record-deputy-death-form" method="post" autocomplete="off">
                 <input type="hidden"
@@ -19,16 +20,27 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend">Proof of death received?</legend>
-                        <div class="govuk-radios govuk-radios--inline {{ if index .Errors "proofofdeath" }} govuk-form-group--error{{ end }}">
+                        <div class="govuk-radios govuk-radios--inline {{ if index .Errors "proofOfDeathReceived" }} govuk-form-group--error{{ end }}">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="proofofdeath-yes" name="proofofdeath" type="radio" value="true">
-                                <label class="govuk-label govuk-radios__label" for="proofofdeath-yes">
+                                <input class="govuk-radios__input"
+                                   id="proof-of-death-true"
+                                   name="proof-of-death"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.ProofOfDeathReceived "true" }} checked {{ end }}
+                                   value="true"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="proof-of-death-true">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item govuk-radios--inline" >
-                                <input class="govuk-radios__input" id="proofofdeath-no" name="proofofdeath" type="radio" value="false">
-                                <label class="govuk-label govuk-radios__label" for="proofofdeath-no">
+                                <input class="govuk-radios__input" id="proof-of-death-false"
+                                   name="proof-of-death"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.ProofOfDeathReceived "false" }} checked {{ end }}
+                                   value="false"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="proof-of-death-false">
                                     No
                                 </label>
                             </div>
@@ -37,29 +49,44 @@
                 </div>
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
-                        <div {{ if index .Errors "dateofdeath" }} class="govuk-form-group--error"{{ end }}>
-                            <label class="govuk-label hide proof-of-death-received-reveal" for="dateofdeath" id="dateofdeath-required">
+                        <div {{ if index .Errors "dateOfDeath" }} class="govuk-form-group--error"{{ end }}>
+                            <label class="govuk-label hide" for="date-of-death" id="date-of-death-required">
                                 Date of death
                             </label>
-                            <label class="govuk-label" for="dateofdeath" id="dateofdeath-optional">
+                            <label class="govuk-label" for="date-of-death" id="date-of-death-optional">
                                 Date of death (optional)
                             </label>
-                            <input class="govuk-input govuk-input--width-10" id="dateofdeath" name="dateofdeath" type="date">
+                            <input class="govuk-input govuk-input--width-10"
+                               id="date-of-death"
+                               name="date-of-death"
+                                {{ if ne .DeputyDeathForm.DateOfDeath "" }} value={{.DeputyDeathForm.DateOfDeath}} {{ end }}
+                               type="date"
+                            >
                         </div>
                         <br><br>
-                        <div class="hide proof-of-death-received-reveal" id="proof-of-death-receieved-yes">
-                            <div {{ if index .Errors "dateproofofdeathreceived" }} class="govuk-form-group--error"{{ end }}>
-                                <label class="govuk-label" for="dateproofofdeathreceived">
+                        <div {{ if index .Errors "dateNotified" }} class="govuk-form-group--error"{{ end }}>
+                            <label class="govuk-label" for="date-notified">
+                                Date notified
+                            </label>
+                            <input class="govuk-input govuk-input--width-10"
+                               id="date-notified"
+                               name="date-notified"
+                                {{ if ne .DeputyDeathForm.DateNotified "" }} value={{.DeputyDeathForm.DateNotified}} {{ end }}
+                               type="date"
+                            >
+                        </div>
+                        <br><br>
+                        <div class="hide" id="date-proof-of-death-received-reveal">
+                            <div {{ if index .Errors "dateDeathCertificateReceived" }} class="govuk-form-group--error"{{ end }}>
+                                <label class="govuk-label" for="date-proof-of-death-received">
                                     Date proof of death received
                                 </label>
-                                <input class="govuk-input govuk-input--width-10" id="dateproofofdeathreceived" name="dateproofofdeathreceived" type="date">
-                            </div>
-                            <br><br>
-                            <div {{ if index .Errors "datenotified" }} class="govuk-form-group--error"{{ end }}>
-                                <label class="govuk-label" for="datenotified">
-                                    Date notified
-                                </label>
-                                <input class="govuk-input govuk-input--width-10" id="datenotified" name="datenotified" type="date">
+                                <input class="govuk-input govuk-input--width-10"
+                                   id="date-proof-of-death-received"
+                                   name="date-proof-of-death-received"
+                                    {{ if ne .DeputyDeathForm.DateDeathCertificateReceieved "" }} value={{.DeputyDeathForm.DateDeathCertificateReceieved}} {{ end }}
+                                   type="date"
+                                >
                             </div>
                         </div>
                     </div>
@@ -72,23 +99,41 @@
                             </h1>
                         </legend>
 
-                        <div class="govuk-radios {{ if index .Errors "notified-by" }} govuk-form-group--error{{ end }}">
+                        <div class="govuk-radios {{ if index .Errors "notifiedBy" }} govuk-form-group--error{{ end }}">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="notified-by-co-deputy" name="notified-by" type="radio" value="CO-DEPUTY">
+                                <input class="govuk-radios__input"
+                                   id="notified-by-co-deputy"
+                                   name="notified-by"
+                                    {{ if eq .DeputyDeathForm.NotifiedBy "CO-DEPUTY" }} checked {{ end }}
+                                   type="radio"
+                                   value="CO-DEPUTY"
+                                >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-co-deputy">
                                     Co-deputy
                                 </label>
                             </div>
 
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="notified-by-executor" name="notified-by" type="radio" value="EXECUTOR">
+                                <input class="govuk-radios__input"
+                                   id="notified-by-executor"
+                                   name="notified-by"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.NotifiedBy "EXECUTOR" }} checked {{ end }}
+                                    value="EXECUTOR"
+                                >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-executor">
                                     Executor
                                 </label>
                             </div>
 
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="notified-by-other" name="notified-by" type="radio" value="OTHER">
+                                <input class="govuk-radios__input"
+                                   id="notified-by-other"
+                                   name="notified-by"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.NotifiedBy "OTHER" }} checked {{ end }}
+                                   value="OTHER"
+                                >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-other">
                                     Other
                                 </label>
@@ -97,23 +142,41 @@
                     </fieldset>
                 </div>
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset govuk-form-group {{ if index .Errors "notification-method" }} govuk-form-group--error{{ end }}">
+                    <fieldset class="govuk-fieldset govuk-form-group">
                         <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
-                        <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios {{ if index .Errors "notificationMethod" }} govuk-form-group--error{{ end }}">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="notification-method-email" name="notification-method" type="radio" value="email">
+                                <input class="govuk-radios__input"
+                                   id="notification-method-email"
+                                   name="notification-method"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.NotificationMethod "EMAIL" }} checked {{ end }}
+                                   value="EMAIL"
+                                >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-email">
                                     Email
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="notification-method-phone" name="notification-method" type="radio" value="phone">
+                                <input class="govuk-radios__input"
+                                   id="notification-method-phone"
+                                   name="notification-method"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.NotificationMethod "PHONE" }} checked {{ end }}
+                                   value="PHONE"
+                                >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-phone">
                                     Phone
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="notification-method-letter" name="notification-method" type="radio" value="letter">
+                                <input class="govuk-radios__input"
+                                   id="notification-method-letter"
+                                   name="notification-method"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathForm.NotificationMethod "LETTER" }} checked {{ end }}
+                                   value="LETTER"
+                                >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-letter">
                                     Letter
                                 </label>
@@ -128,7 +191,11 @@
                     <label class="govuk-label hide" for="notes" id="notes-required">
                         Notes
                     </label>
-                    <textarea class="govuk-textarea govuk-input--width-30" id="notes" name="notes"></textarea>
+                    <textarea class="govuk-textarea govuk-input--width-30"
+                          id="notes"
+                          {{ if ne .DeputyDeathForm.Notes "" }} placeholder={{.DeputyDeathForm.Notes}} {{ end }}
+                          name="notes"
+                    ></textarea>
                 </div>
                 <div class="govuk-button-group govuk-!-margin-top-7">
                     <button
