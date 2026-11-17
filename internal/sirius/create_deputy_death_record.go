@@ -13,14 +13,14 @@ import (
 
 type DeputyDeathRecord struct {
 	DeputyId                      int    `json:"id"`
-	DateOfDeath                   string `json:"dateOfDeath"`
-	ProofOfDeathReceived          string `json:"proofOfDeathReceived"`
-	DateDeathCertificateReceieved string `json:"dateDeathCertificateReceived"`
-	DateNotified                  string `json:"dateNotified"`
-	NotifiedBy                    string `json:"notifiedBy"`
-	NotifiedByOther               string `json:"notifiedByOther"`
-	NotificationMethod            string `json:"notificationMethod"`
-	Notes                         string `json:"notes"`
+	DateOfDeath                   string `json:"dateOfDeath,omitempty"`
+	ProofOfDeathReceived          string `json:"proofOfDeathReceived,omitempty"`
+	DateDeathCertificateReceieved string `json:"dateDeathCertificateReceived,omitempty"`
+	DateNotified                  string `json:"dateNotified,omitempty"`
+	NotifiedBy                    string `json:"notifiedBy,omitempty"`
+	NotifiedByOther               string `json:"notifiedByOther,omitempty"`
+	NotificationMethod            string `json:"notificationMethod,omitempty"`
+	Notes                         string `json:"notes,omitempty"`
 }
 
 func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord) error {
