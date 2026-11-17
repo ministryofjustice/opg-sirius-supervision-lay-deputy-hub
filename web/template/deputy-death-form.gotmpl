@@ -2,8 +2,9 @@
 
 {{ define "main" }}
     {{ template "lay-deputy-details" . }}
+    {{ template "error-summary" .Errors }}
 
-     <header class="title-and-buttons-inline">
+    <header class="title-and-buttons-inline">
         <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
             {{ .PageName }}
         </h1>

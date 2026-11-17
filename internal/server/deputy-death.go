@@ -17,12 +17,16 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
 
+		vars := deputyDeathVars{
+			AppVars:         app,
+			DeputyDeathForm: sirius.DeputyDeathRecord{},
+		}
+
+		vars.Errors = sirius.ValidationErrors{}
+
 		switch r.Method {
 		case http.MethodGet:
-			return tmpl.ExecuteTemplate(w, "page", deputyDeathVars{
-				AppVars:         app,
-				DeputyDeathForm: sirius.DeputyDeathRecord{},
-			})
+			return tmpl.ExecuteTemplate(w, "page", vars)
 
 		case http.MethodPost:
 			ctx := getContext(r)
@@ -55,12 +59,16 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 
 			logger.Info("deputyDeathForm", deputyDeathForm)
 			err := client.CreateDeputyDeathRecord(ctx, deputyDeathForm)
+
+			if verr, ok := err.(sirius.ValidationError); ok {
+				vars.Errors = verr.Errors
+				return tmpl.ExecuteTemplate(w, "page", vars)
+			}
 			if err != nil {
 				return err
 			}
-			return tmpl.ExecuteTemplate(w, "page", deputyDeathVars{
-				AppVars: app,
-			})
+
+			return Redirect(fmt.Sprintf("/%d?success=recordDeath", app.DeputyId()))
 		default:
 			return StatusError(http.StatusMethodNotAllowed)
 		}
