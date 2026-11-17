@@ -193,9 +193,8 @@
                     </label>
                     <textarea class="govuk-textarea govuk-input--width-30"
                           id="notes"
-                          {{ if ne .DeputyDeathForm.Notes "" }} placeholder={{.DeputyDeathForm.Notes}} {{ end }}
                           name="notes"
-                    ></textarea>
+                    >{{ if ne .DeputyDeathForm.Notes "" }}{{.DeputyDeathForm.Notes}}{{ end }}</textarea>
                 </div>
                 <div class="govuk-button-group govuk-!-margin-top-7">
                     <button
