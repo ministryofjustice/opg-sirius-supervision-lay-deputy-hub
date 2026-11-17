@@ -2,7 +2,6 @@
 
 {{ define "main" }}
     {{ template "lay-deputy-details" . }}
-    {{ template "error-summary" .Errors }}
 
     <header class="title-and-buttons-inline">
         <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
@@ -10,6 +9,7 @@
         </h1>
      </header>
 
+    {{ template "error-summary" .Errors }}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
             <form id="record-deputy-death-form" method="post" autocomplete="off">
@@ -19,8 +19,8 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend">Proof of death received?</legend>
-                        <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
-                            <div class="govuk-radios__item" >
+                        <div class="govuk-radios govuk-radios--inline {{ if index .Errors "proofofdeath" }} govuk-form-group--error{{ end }}">
+                            <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="proofofdeath-yes" name="proofofdeath" type="radio" value="true">
                                 <label class="govuk-label govuk-radios__label" for="proofofdeath-yes">
                                     Yes
@@ -37,24 +37,30 @@
                 </div>
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
-                        <label class="govuk-label hide proof-of-death-received-reveal" for="dateofdeath" id="dateofdeath-required">
-                            Date of death
-                        </label>
-                        <label class="govuk-label" for="dateofdeath" id="dateofdeath-optional">
-                            Date of death (optional)
-                        </label>
-                        <input class="govuk-input govuk-input--width-10" id="dateofdeath" name="dateofdeath" type="date">
+                        <div {{ if index .Errors "dateofdeath" }} class="govuk-form-group--error"{{ end }}>
+                            <label class="govuk-label hide proof-of-death-received-reveal" for="dateofdeath" id="dateofdeath-required">
+                                Date of death
+                            </label>
+                            <label class="govuk-label" for="dateofdeath" id="dateofdeath-optional">
+                                Date of death (optional)
+                            </label>
+                            <input class="govuk-input govuk-input--width-10" id="dateofdeath" name="dateofdeath" type="date">
+                        </div>
                         <br><br>
                         <div class="hide proof-of-death-received-reveal" id="proof-of-death-receieved-yes">
-                            <label class="govuk-label" for="dateproofofdeathreceived">
-                                Date proof of death received
-                            </label>
-                            <input class="govuk-input govuk-input--width-10" id="dateproofofdeathreceived" name="dateproofofdeathreceived" type="date">
+                            <div {{ if index .Errors "dateproofofdeathreceived" }} class="govuk-form-group--error"{{ end }}>
+                                <label class="govuk-label" for="dateproofofdeathreceived">
+                                    Date proof of death received
+                                </label>
+                                <input class="govuk-input govuk-input--width-10" id="dateproofofdeathreceived" name="dateproofofdeathreceived" type="date">
+                            </div>
                             <br><br>
-                            <label class="govuk-label" for="datenotified">
-                                Date notified
-                            </label>
-                            <input class="govuk-input govuk-input--width-10" id="datenotified" name="datenotified" type="date">
+                            <div {{ if index .Errors "datenotified" }} class="govuk-form-group--error"{{ end }}>
+                                <label class="govuk-label" for="datenotified">
+                                    Date notified
+                                </label>
+                                <input class="govuk-input govuk-input--width-10" id="datenotified" name="datenotified" type="date">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +72,7 @@
                             </h1>
                         </legend>
 
-                        <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios {{ if index .Errors "notified-by" }} govuk-form-group--error{{ end }}">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="notified-by-co-deputy" name="notified-by" type="radio" value="CO-DEPUTY">
                                 <label class="govuk-label govuk-radios__label" for="notified-by-co-deputy">
@@ -91,7 +97,7 @@
                     </fieldset>
                 </div>
                 <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
+                    <fieldset class="govuk-fieldset govuk-form-group {{ if index .Errors "notification-method" }} govuk-form-group--error{{ end }}">
                         <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
@@ -115,7 +121,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group {{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
                     <label class="govuk-label" for="notes" id="notes-optional">
                         Notes (optional)
                     </label>
