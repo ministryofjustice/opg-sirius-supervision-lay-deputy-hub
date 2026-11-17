@@ -11,7 +11,7 @@
 
     {{ template "error-summary" .Errors }}
     <div class="govuk-grid-row">
-        <h1>{{.DeputyDeathForm}}</h1>
+        <h1>{{.DeputyDeathRecord}}</h1>
         <div class="govuk-grid-column-one-half">
             <form id="record-deputy-death-form" method="post" autocomplete="off">
                 <input type="hidden"
@@ -26,7 +26,7 @@
                                    id="proof-of-death-true"
                                    name="proof-of-death"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.ProofOfDeathReceived "true" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived true }} checked {{ end }}
                                    value="true"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="proof-of-death-true">
@@ -37,7 +37,7 @@
                                 <input class="govuk-radios__input" id="proof-of-death-false"
                                    name="proof-of-death"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.ProofOfDeathReceived "false" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived false }} checked {{ end }}
                                    value="false"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="proof-of-death-false">
@@ -59,7 +59,7 @@
                             <input class="govuk-input govuk-input--width-10"
                                id="date-of-death"
                                name="date-of-death"
-                                {{ if ne .DeputyDeathForm.DateOfDeath "" }} value={{.DeputyDeathForm.DateOfDeath}} {{ end }}
+                                {{ if ne .DeputyDeathRecord.DateOfDeath "" }} value={{.DeputyDeathRecord.DateOfDeath}} {{ end }}
                                type="date"
                             >
                         </div>
@@ -71,7 +71,7 @@
                             <input class="govuk-input govuk-input--width-10"
                                id="date-notified"
                                name="date-notified"
-                                {{ if ne .DeputyDeathForm.DateNotified "" }} value={{.DeputyDeathForm.DateNotified}} {{ end }}
+                                {{ if ne .DeputyDeathRecord.DateNotified "" }} value={{.DeputyDeathRecord.DateNotified}} {{ end }}
                                type="date"
                             >
                         </div>
@@ -84,7 +84,7 @@
                                 <input class="govuk-input govuk-input--width-10"
                                    id="date-proof-of-death-received"
                                    name="date-proof-of-death-received"
-                                    {{ if ne .DeputyDeathForm.DateDeathCertificateReceieved "" }} value={{.DeputyDeathForm.DateDeathCertificateReceieved}} {{ end }}
+                                    {{ if ne .DeputyDeathRecord.DateDeathCertificateReceieved "" }} value={{.DeputyDeathRecord.DateDeathCertificateReceieved}} {{ end }}
                                    type="date"
                                 >
                             </div>
@@ -104,7 +104,7 @@
                                 <input class="govuk-radios__input"
                                    id="notified-by-co-deputy"
                                    name="notified-by"
-                                    {{ if eq .DeputyDeathForm.NotifiedBy "CO-DEPUTY" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "CO-DEPUTY" }} checked {{ end }}
                                    type="radio"
                                    value="CO-DEPUTY"
                                 >
@@ -118,7 +118,7 @@
                                    id="notified-by-executor"
                                    name="notified-by"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.NotifiedBy "EXECUTOR" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "EXECUTOR" }} checked {{ end }}
                                     value="EXECUTOR"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-executor">
@@ -131,7 +131,7 @@
                                    id="notified-by-other"
                                    name="notified-by"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.NotifiedBy "OTHER" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }} checked {{ end }}
                                    value="OTHER"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-other">
@@ -150,7 +150,7 @@
                                    id="notification-method-email"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.NotificationMethod "EMAIL" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotificationMethod "EMAIL" }} checked {{ end }}
                                    value="EMAIL"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-email">
@@ -162,7 +162,7 @@
                                    id="notification-method-phone"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.NotificationMethod "PHONE" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotificationMethod "PHONE" }} checked {{ end }}
                                    value="PHONE"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-phone">
@@ -174,7 +174,7 @@
                                    id="notification-method-letter"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if eq .DeputyDeathForm.NotificationMethod "LETTER" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotificationMethod "LETTER" }} checked {{ end }}
                                    value="LETTER"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-letter">
@@ -194,7 +194,7 @@
                     <textarea class="govuk-textarea govuk-input--width-30"
                           id="notes"
                           name="notes"
-                    >{{ if ne .DeputyDeathForm.Notes "" }}{{.DeputyDeathForm.Notes}}{{ end }}</textarea>
+                    >{{ if ne .DeputyDeathRecord.Notes "" }}{{.DeputyDeathRecord.Notes}}{{ end }}</textarea>
                 </div>
                 <div class="govuk-button-group govuk-!-margin-top-7">
                     <button

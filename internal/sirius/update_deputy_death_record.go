@@ -4,24 +4,28 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log/slog"
 	"net/http"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
-type DeputyDeathRecord struct {
-	DeputyId                      int    `json:"id"`
-	DateOfDeath                   string `json:"dateOfDeath,omitempty"`
-	ProofOfDeathReceived          string `json:"proofOfDeathReceived,omitempty"`
-	DateDeathCertificateReceieved string `json:"dateDeathCertificateReceived,omitempty"`
-	DateNotified                  string `json:"dateNotified,omitempty"`
-	NotifiedBy                    string `json:"notifiedBy,omitempty"`
-	NotificationMethod            string `json:"notificationMethod,omitempty"`
-	Notes                         string `json:"notes,omitempty"`
+type RefData struct {
+	Label  string `json:"label,omitempty"`
+	Handle string `json:"handle,omitempty"`
 }
 
-func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord, logger *slog.Logger) error {
+type DeputyDeathRecord struct {
+	DeputyId                      int     `json:"id"`
+	DateOfDeath                   string  `json:"dateOfDeath,omitempty"`
+	ProofOfDeathReceived          bool    `json:"proofOfDeathReceived,omitempty"`
+	DateDeathCertificateReceieved string  `json:"dateDeathCertificateReceived,omitempty"`
+	DateNotified                  string  `json:"dateNotified,omitempty"`
+	NotifiedBy                    RefData `json:"notifiedBy,omitempty"`
+	NotificationMethod            string  `json:"notificationMethod,omitempty"`
+	Notes                         string  `json:"notes,omitempty"`
+}
+
+func (c *Client) UpdateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord) error {
 	var body bytes.Buffer
 
 	err := json.NewEncoder(&body).Encode(deathRecord)
@@ -58,7 +62,6 @@ func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRec
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		logger.Info("200 300 resp code")
 		return newStatusError(resp)
 	}
 

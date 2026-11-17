@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"strconv"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
@@ -11,53 +12,57 @@ import (
 
 type deputyDeathVars struct {
 	AppVars
-	DeputyDeathForm sirius.DeputyDeathRecord
+	DeputyDeathRecord sirius.DeputyDeathRecord
 }
 
 func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
-
+		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
 
 		vars := deputyDeathVars{
-			AppVars:         app,
-			DeputyDeathForm: sirius.DeputyDeathRecord{},
+			AppVars: app,
 		}
-
-		vars.Errors = sirius.ValidationErrors{}
 
 		switch r.Method {
 		case http.MethodGet:
+			deathRecord, err := client.GetDeputyDeathRecord(ctx, app.DeputyDetails.ID)
+			if err != nil {
+				return err
+			}
+
+			vars.DeputyDeathRecord = deathRecord
 			return tmpl.ExecuteTemplate(w, "page", vars)
 
 		case http.MethodPost:
-			ctx := getContext(r)
-
 			proofOfDeathReceived := r.PostFormValue("proof-of-death")
+			proofOfDeathReceivedBool, err := strconv.ParseBool(proofOfDeathReceived)
 			dateDeathCertificateReceieved := r.PostFormValue("date-proof-of-death-received")
 
 			//Manually reset to null when submitted with proof of death false
-			if proofOfDeathReceived == "false" {
+			if proofOfDeathReceivedBool == false {
 				dateDeathCertificateReceieved = ""
 			}
 
-			deputyDeathForm := sirius.DeputyDeathRecord{
+			deputyDeathRecordForm := sirius.DeputyDeathRecord{
 				DeputyId:                      app.DeputyDetails.ID,
 				DateOfDeath:                   r.PostFormValue("date-of-death"),
-				ProofOfDeathReceived:          proofOfDeathReceived,
+				ProofOfDeathReceived:          proofOfDeathReceivedBool,
 				DateDeathCertificateReceieved: dateDeathCertificateReceieved,
 				DateNotified:                  r.PostFormValue("date-notified"),
-				NotifiedBy:                    r.PostFormValue("notified-by"),
-				NotificationMethod:            r.PostFormValue("notification-method"),
-				Notes:                         r.PostFormValue("notes"),
+				NotifiedBy: sirius.RefData{
+					Handle: r.PostFormValue("notified-by"),
+				},
+				NotificationMethod: r.PostFormValue("notification-method"),
+				Notes:              r.PostFormValue("notes"),
 			}
 
-			logger.Info("deputyDeathForm", deputyDeathForm)
-			err := client.CreateDeputyDeathRecord(ctx, deputyDeathForm, logger)
+			logger.Info("deputyDeathForm", deputyDeathRecordForm)
+			err = client.UpdateDeputyDeathRecord(ctx, deputyDeathRecordForm)
 
 			if verr, ok := err.(sirius.ValidationError); ok {
 				vars.Errors = util.RenameErrors(verr.Errors)
-				vars.DeputyDeathForm = deputyDeathForm
+				vars.DeputyDeathRecord = deputyDeathRecordForm
 				return tmpl.ExecuteTemplate(w, "page", vars)
 			} else if err != nil {
 				return err
