@@ -24,6 +24,15 @@ var validationMappings = map[string]map[string]pair{
 	"country": {
 		"stringLengthTooLong": pair{"country", "The country must be 255 characters or fewer"},
 	},
+	"dateDeathCertificateReceived": {
+		"dateDeathCertificateReceived": pair{"dateDeathCertificateReceived", "Date death certificate received is required when Proof of Death is given"},
+	},
+	"dateOfDeath": {
+		"dateOfDeath": pair{"dateOfDeath", "Date of death is required when Proof of Death is given"},
+	},
+	"dateNotified": {
+		"isEmpty": pair{"dateNotified", "Date notified is required and can't be empty"},
+	},
 	"email": {
 		"stringLengthTooLong":         pair{"email", "The email must be 255 characters or fewer"},
 		"isEmpty":                     pair{"email", "Enter an email address"},
@@ -44,6 +53,9 @@ var validationMappings = map[string]map[string]pair{
 	},
 	"mobileNumber": {
 		"stringLengthTooLong": pair{"mobileNumber", "The mobile number must be 255 characters or fewer"},
+	},
+	"notes": {
+		"notes": pair{"notes", "Enter a note explaining who notified the deputy death"},
 	},
 	"notifiedBy": {
 		"isEmpty": pair{"notifiedBy", "Notified by is required and can't be empty"},

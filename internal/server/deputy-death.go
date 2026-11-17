@@ -33,22 +33,20 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 		case http.MethodPost:
 			ctx := getContext(r)
 
-			proofOfDeathReceived := r.PostFormValue("proofofdeath")
-			dateDeathCertificateReceieved := r.PostFormValue("dateproofofdeathreceived")
+			proofOfDeathReceived := r.PostFormValue("proof-of-death")
+			dateDeathCertificateReceieved := r.PostFormValue("date-proof-of-death-received")
 
 			//Manually reset to null when submitted with proof of death false
 			if proofOfDeathReceived == "false" {
-				logger.Info("pod received", proofOfDeathReceived)
 				dateDeathCertificateReceieved = ""
 			}
-			logger.Info("hpodr after", proofOfDeathReceived)
 
 			deputyDeathForm := sirius.DeputyDeathRecord{
 				DeputyId:                      app.DeputyDetails.ID,
-				DateOfDeath:                   r.PostFormValue("dateofdeath"),
+				DateOfDeath:                   r.PostFormValue("date-of-death"),
 				ProofOfDeathReceived:          proofOfDeathReceived,
 				DateDeathCertificateReceieved: dateDeathCertificateReceieved,
-				DateNotified:                  r.PostFormValue("datenotified"),
+				DateNotified:                  r.PostFormValue("date-notified"),
 				NotifiedBy:                    r.PostFormValue("notified-by"),
 				NotificationMethod:            r.PostFormValue("notification-method"),
 				Notes:                         r.PostFormValue("notes"),
@@ -58,16 +56,10 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 			err := client.CreateDeputyDeathRecord(ctx, deputyDeathForm, logger)
 
 			if verr, ok := err.(sirius.ValidationError); ok {
-				logger.Info("has a validation error", verr)
-
 				vars.Errors = util.RenameErrors(verr.Errors)
 				vars.DeputyDeathForm = deputyDeathForm
-				logger.Info("ready to return", verr)
-
 				return tmpl.ExecuteTemplate(w, "page", vars)
 			} else if err != nil {
-				logger.Info("non validation death", err)
-
 				return err
 			}
 
