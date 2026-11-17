@@ -4,9 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
+	"log/slog"
 	"net/http"
-	"os"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
@@ -18,12 +17,11 @@ type DeputyDeathRecord struct {
 	DateDeathCertificateReceieved string `json:"dateDeathCertificateReceived,omitempty"`
 	DateNotified                  string `json:"dateNotified,omitempty"`
 	NotifiedBy                    string `json:"notifiedBy,omitempty"`
-	NotifiedByOther               string `json:"notifiedByOther,omitempty"`
 	NotificationMethod            string `json:"notificationMethod,omitempty"`
 	Notes                         string `json:"notes,omitempty"`
 }
 
-func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord) error {
+func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord, logger *slog.Logger) error {
 	var body bytes.Buffer
 
 	err := json.NewEncoder(&body).Encode(deathRecord)
@@ -49,9 +47,7 @@ func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRec
 		return ErrUnauthorized
 	}
 
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		io.Copy(os.Stdout, resp.Body)
-
+	if resp.StatusCode == http.StatusBadRequest {
 		var v struct {
 			ValidationErrors ValidationErrors `json:"validation_errors"`
 		}
@@ -59,7 +55,10 @@ func (c *Client) CreateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRec
 		if err := json.NewDecoder(resp.Body).Decode(&v); err == nil && len(v.ValidationErrors) > 0 {
 			return ValidationError{Errors: v.ValidationErrors}
 		}
+	}
 
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		logger.Info("200 300 resp code")
 		return newStatusError(resp)
 	}
 
