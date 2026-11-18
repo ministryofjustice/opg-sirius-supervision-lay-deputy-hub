@@ -103,11 +103,11 @@
                                 <input class="govuk-radios__input"
                                    id="notified-by-co-deputy"
                                    name="notified-by"
-                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "CO-DEPUTY" }}
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "DEPUTY" }}
                                         checked
                                     {{ end }}
                                    type="radio"
-                                   value="CO-DEPUTY"
+                                   value="DEPUTY"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-co-deputy">
                                     Co-deputy
@@ -136,7 +136,7 @@
                                    value="OTHER"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notified-by-other">
-                                    Other
+                                    Other - Explain in notes
                                 </label>
                             </div>
                         </div>

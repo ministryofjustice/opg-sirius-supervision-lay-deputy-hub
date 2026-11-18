@@ -15,7 +15,7 @@ type RefData struct {
 }
 
 type DeputyDeathRecord struct {
-	DeputyId                      int     `json:"id"`
+	DeputyID                      int     `json:"id"`
 	DateOfDeath                   string  `json:"dateOfDeath,omitempty"`
 	ProofOfDeathReceived          string  `json:"proofOfDeathReceived,omitempty"`
 	DateDeathCertificateReceieved string  `json:"dateDeathCertificateReceived,omitempty"`
@@ -33,7 +33,7 @@ func (c *Client) UpdateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRec
 	if err != nil {
 		return err
 	}
-	req, err := c.newRequest(ctx, http.MethodPost, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/lay/%d/death-notification", deathRecord.DeputyId), &body)
+	req, err := c.newRequest(ctx, http.MethodPost, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/lay/%d/death-notification", deathRecord.DeputyID), &body)
 
 	if err != nil {
 		return err
