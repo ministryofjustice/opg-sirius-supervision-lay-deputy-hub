@@ -27,7 +27,7 @@ describe("Deputy details tab", () => {
             cy.get("#deputy-details > :nth-child(2) > .govuk-summary-list__value").should("contain", "Michael");
 
             cy.get("#deputy-details > :nth-child(3) > .govuk-summary-list__key").should("contain", "Date of birth");
-            cy.get("#deputy-details > :nth-child(3) > .govuk-summary-list__value").should("contain", "1980-01-01");
+            cy.get("#deputy-details > :nth-child(3) > .govuk-summary-list__value").should("contain", "01/01/1980");
 
             cy.get("#deputy-details > :nth-child(4) > .govuk-summary-list__key").should("contain", "Mobile telephone number");
             cy.get("#deputy-details > :nth-child(4) > .govuk-summary-list__value").should("contain", "0771 2345678");

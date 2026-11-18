@@ -36,10 +36,11 @@
       "specialCorrespondenceRequirements": {
         "audioTape": true,
         "largePrint": true,
-        "hearingImpaired": false,
-        "spellingOfNameRequiresCare": false
+        "hearingImpaired": true,
+        "spellingOfNameRequiresCare": true
       },
-      "interpreterRequired": "",
+      "interpreterRequired": "Interpreter is required for deputy",
+      "additionalInformationNotes": "Deputy has additional notes",
       "canDelete": false,
       "deputyStatus": "Active",
       "orders": [
@@ -59,7 +60,8 @@
       "deputySubType": {
         "handle": "PERSON"
       },
-      "workPhoneNumber": "0115 876 5574"
+      "workPhoneNumber": "0115 876 5574",
+      "notes": "Deputy has additional notes"
     }
   ],
   "clients": {
@@ -1144,6 +1146,17 @@
           "stringLengthTooLong": ""
         },
         "country": {
+          "stringLengthTooLong": ""
+        }
+      }
+    },
+    {
+      "id": "additional-information",
+      "validation_errors": {
+        "interpreterRequired": {
+          "stringLengthTooLong": ""
+        },
+        "notes": {
           "stringLengthTooLong": ""
         }
       }
