@@ -8,30 +8,71 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
+type deputyDeathRecordResponse struct {
+	Id                           int    `json:"id"`
+	ProofOfDeathReceived         bool   `json:"proofOfDeathReceived"`
+	DateDeathCertificateReceived string `json:"dateDeathCertificateReceived"`
+	DateNotified                 string `json:"dateNotified"`
+	NotifiedBy                   struct {
+		Handle string `json:"handle"`
+		Label  string `json:"label"`
+	} `json:"notifiedBy"`
+	NotifiedByOther    string `json:"notifiedByOther"`
+	NotificationMethod string `json:"notificationMethod"`
+	Notes              string `json:"notes"`
+	Person             struct {
+		DateOfDeath string `json:"dateOfDeath"`
+	} `json:"person"`
+}
+
 func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRecord, error) {
-	var v DeputyDeathRecord
+	var r deputyDeathRecordResponse
 
 	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/death-notification", DeputyId), nil)
 	if err != nil {
-		return v, err
+		return DeputyDeathRecord{}, err
 	}
 
 	resp, err := c.http.Do(req)
 	if err != nil {
-		return v, err
+		return DeputyDeathRecord{}, err
 	}
 
 	defer unchecked(resp.Body.Close)
 
 	if resp.StatusCode == http.StatusUnauthorized {
-		return v, ErrUnauthorized
+		return DeputyDeathRecord{}, ErrUnauthorized
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return v, newStatusError(resp)
+		return DeputyDeathRecord{}, newStatusError(resp)
 	}
 
-	err = json.NewDecoder(resp.Body).Decode(&v)
+	err = json.NewDecoder(resp.Body).Decode(&r)
+
+	notes := r.NotifiedByOther
+	if r.NotifiedByOther == "" {
+		notes = r.Notes
+	}
+
+	v := DeputyDeathRecord{
+		DeputyId:                      DeputyId,
+		ProofOfDeathReceived:          r.ProofOfDeathReceived,
+		DateDeathCertificateReceieved: changeDateFormatForDisplay(r.DateDeathCertificateReceived),
+		DateNotified:                  changeDateFormatForDisplay(r.DateNotified),
+		NotifiedBy:                    RefData{r.NotifiedBy.Label, r.NotifiedBy.Handle},
+		NotificationMethod:            r.NotificationMethod,
+		Notes:                         notes,
+		DateOfDeath:                   changeDateFormatForDisplay(r.Person.DateOfDeath),
+	}
 
 	return v, err
+}
+
+func changeDateFormatForDisplay(myDate string) string {
+	date := shared.NewDate(myDate)
+	if date.IsNull() == false {
+		return date.DateFormString()
+	}
+	return ""
 }
