@@ -17,9 +17,8 @@ type ManageAdditionalInformationVars struct {
 	Form sirius.AdditionalInformationForm
 }
 
-func renderTemplateForManageAdditionalInformationForm(client AdditionalInformationInformation, tmpl Template) Handler {
+func renderTemplateForManageAdditionalInformationGet(client AdditionalInformationInformation, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
-		ctx := getContext(r)
 		app.PageName = "Manage additional information"
 		form := sirius.AdditionalInformationForm{
 			InterpreterRequired:               app.DeputyDetails.InterpreterRequired,
@@ -29,39 +28,42 @@ func renderTemplateForManageAdditionalInformationForm(client AdditionalInformati
 
 		vars := ManageAdditionalInformationVars{AppVars: app, Form: form}
 
-		switch r.Method {
-		case http.MethodGet:
-			return tmpl.ExecuteTemplate(w, "page", vars)
+		return tmpl.ExecuteTemplate(w, "page", vars)
+	}
+}
 
-		case http.MethodPost:
-			form := sirius.AdditionalInformationForm{
-				InterpreterRequired: r.PostFormValue("interpreter-required"),
-				SpecialCorrespondenceRequirements: sirius.SpecialCorrespondenceRequirementsType{
-					AudioTape:                  r.PostFormValue("audio") == "on",
-					LargePrint:                 r.PostFormValue("large-print") == "on",
-					HearingImpaired:            r.PostFormValue("hearing-impaired") == "on",
-					SpellingOfNameRequiresCare: r.PostFormValue("spelling-takes-care") == "on",
-				},
-				Notes:                 r.PostFormValue("notes"),
-				CorrespondenceByWelsh: vars.DeputyDetails.CorrespondenceByWelsh,
-				CorrespondenceByEmail: vars.DeputyDetails.CorrespondenceByEmail,
-				CorrespondenceByPhone: vars.DeputyDetails.CorrespondenceByPhone,
-				CorrespondenceByPost:  vars.DeputyDetails.CorrespondenceByPost,
-			}
+func renderTemplateForManageAdditionalInformationPost(client AdditionalInformationInformation, tmpl Template) Handler {
+	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
+		ctx := getContext(r)
+		app.PageName = "Manage additional information"
 
-			err := client.UpdateAdditionalInformation(ctx, app.DeputyId(), form)
-
-			if verr, ok := err.(sirius.ValidationError); ok {
-				vars.Errors = util.RenameErrors(verr.Errors)
-				vars.Form = form
-				return tmpl.ExecuteTemplate(w, "page", vars)
-			} else if err != nil {
-				return err
-			}
-
-			return Redirect(fmt.Sprintf("/%d?success=additionalInformation", app.DeputyId()))
-		default:
-			return StatusError(http.StatusMethodNotAllowed)
+		form := sirius.AdditionalInformationForm{
+			InterpreterRequired: r.PostFormValue("interpreter-required"),
+			SpecialCorrespondenceRequirements: sirius.SpecialCorrespondenceRequirementsType{
+				AudioTape:                  r.PostFormValue("audio") == "on",
+				LargePrint:                 r.PostFormValue("large-print") == "on",
+				HearingImpaired:            r.PostFormValue("hearing-impaired") == "on",
+				SpellingOfNameRequiresCare: r.PostFormValue("spelling-takes-care") == "on",
+			},
+			Notes:                 r.PostFormValue("notes"),
+			CorrespondenceByWelsh: app.DeputyDetails.CorrespondenceByWelsh,
+			CorrespondenceByEmail: app.DeputyDetails.CorrespondenceByEmail,
+			CorrespondenceByPhone: app.DeputyDetails.CorrespondenceByPhone,
+			CorrespondenceByPost:  app.DeputyDetails.CorrespondenceByPost,
 		}
+
+		vars := ManageAdditionalInformationVars{AppVars: app, Form: form}
+
+		err := client.UpdateAdditionalInformation(ctx, app.DeputyId(), form)
+
+		if verr, ok := err.(sirius.ValidationError); ok {
+			vars.Errors = util.RenameErrors(verr.Errors)
+			vars.Form = form
+			return tmpl.ExecuteTemplate(w, "page", vars)
+		} else if err != nil {
+			return err
+		}
+
+		return Redirect(fmt.Sprintf("/%d?success=additionalInformation", app.DeputyId()))
 	}
 }

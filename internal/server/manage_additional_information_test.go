@@ -39,7 +39,7 @@ func TestGetManageAdditionalInformation(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("GET", "", nil)
 
-	handler := renderTemplateForManageAdditionalInformationForm(client, template)
+	handler := renderTemplateForManageAdditionalInformationGet(client, template)
 	err := handler(manageAdditionalInformationAppVars, w, r)
 
 	assert.Nil(err)
@@ -57,7 +57,7 @@ func TestPostManageAdditionalInformation(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
-	returnedTemplate := renderTemplateForManageAdditionalInformationForm(client, template)(manageAdditionalInformationAppVars, w, r)
+	returnedTemplate := renderTemplateForManageAdditionalInformationPost(client, template)(manageAdditionalInformationAppVars, w, r)
 
 	assert.Equal(Redirect("/123?success=additionalInformation"), returnedTemplate)
 }
@@ -82,7 +82,7 @@ func TestPostManageAdditionalInformationValidationError(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
-	returnedTemplate := renderTemplateForManageAdditionalInformationForm(client, template)(manageAdditionalInformationAppVars, w, r)
+	returnedTemplate := renderTemplateForManageAdditionalInformationPost(client, template)(manageAdditionalInformationAppVars, w, r)
 
 	assert.Nil(returnedTemplate)
 	assert.Equal(1, client.count)
@@ -109,7 +109,7 @@ func TestManageAdditionalInformationHandlesErrors(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
 
-	returnedTemplate := renderTemplateForManageAdditionalInformationForm(client, template)(AppVars{}, w, r)
+	returnedTemplate := renderTemplateForManageAdditionalInformationPost(client, template)(AppVars{}, w, r)
 
 	assert.Equal(client.updateErr, returnedTemplate)
 }
