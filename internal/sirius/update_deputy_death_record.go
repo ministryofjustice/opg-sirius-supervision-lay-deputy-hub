@@ -17,7 +17,7 @@ type RefData struct {
 type DeputyDeathRecord struct {
 	DeputyId                      int     `json:"id"`
 	DateOfDeath                   string  `json:"dateOfDeath,omitempty"`
-	ProofOfDeathReceived          bool    `json:"proofOfDeathReceived,omitempty"`
+	ProofOfDeathReceived          string  `json:"proofOfDeathReceived,omitempty"`
 	DateDeathCertificateReceieved string  `json:"dateDeathCertificateReceived,omitempty"`
 	DateNotified                  string  `json:"dateNotified,omitempty"`
 	NotifiedBy                    RefData `json:"notifiedBy,omitempty"`

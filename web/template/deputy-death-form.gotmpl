@@ -25,7 +25,7 @@
                                    id="proof-of-death-true"
                                    name="proof-of-death"
                                    type="radio"
-                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived true }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "true" }} checked {{ end }}
                                    value="true"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="proof-of-death-true">
@@ -36,7 +36,7 @@
                                 <input class="govuk-radios__input" id="proof-of-death-false"
                                    name="proof-of-death"
                                    type="radio"
-                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived false }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "false" }} checked {{ end }}
                                    value="false"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="proof-of-death-false">
@@ -49,10 +49,10 @@
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
                         <div {{ if index .Errors "dateOfDeath" }} class="govuk-form-group--error"{{ end }}>
-                            <label class="govuk-label hide" for="date-of-death" id="date-of-death-required">
+                            <label class="govuk-label {{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" for="date-of-death" id="date-of-death-required">
                                 Date of death
                             </label>
-                            <label class="govuk-label" for="date-of-death" id="date-of-death-optional">
+                            <label class="govuk-label {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" for="date-of-death" id="date-of-death-optional">
                                 Date of death (optional)
                             </label>
                             <input class="govuk-input govuk-input--width-10"
@@ -75,7 +75,7 @@
                             >
                         </div>
                         <br>
-                        <div class="hide" id="date-proof-of-death-received-reveal">
+                        <div class="{{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" id="date-proof-of-death-received-reveal">
                             <div {{ if index .Errors "dateDeathCertificateReceived" }} class="govuk-form-group--error"{{ end }}>
                                 <label class="govuk-label" for="date-proof-of-death-received">
                                     Date proof of death received
@@ -186,10 +186,10 @@
                     </fieldset>
                 </div>
                 <div class="govuk-form-group {{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
-                    <label class="govuk-label" for="notes" id="notes-optional">
+                    <label class="govuk-label {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }}hide{{ end }}" for="notes" id="notes-optional">
                         Notes (optional)
                     </label>
-                    <label class="govuk-label hide" for="notes" id="notes-required">
+                    <label class="govuk-label {{ if ne .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }}hide{{ end }}" for="notes" id="notes-required">
                         Notes
                     </label>
                     <textarea class="govuk-textarea govuk-input--width-30"
