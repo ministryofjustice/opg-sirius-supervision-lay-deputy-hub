@@ -63,7 +63,7 @@
                                type="date"
                             >
                         </div>
-                        <br><br>
+                        <br>
                         <div {{ if index .Errors "dateNotified" }} class="govuk-form-group--error"{{ end }}>
                             <label class="govuk-label" for="date-notified">
                                 Date notified
@@ -75,7 +75,7 @@
                                type="date"
                             >
                         </div>
-                        <br><br>
+                        <br>
                         <div class="hide" id="date-proof-of-death-received-reveal">
                             <div {{ if index .Errors "dateDeathCertificateReceived" }} class="govuk-form-group--error"{{ end }}>
                                 <label class="govuk-label" for="date-proof-of-death-received">
@@ -104,7 +104,9 @@
                                 <input class="govuk-radios__input"
                                    id="notified-by-co-deputy"
                                    name="notified-by"
-                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "CO-DEPUTY" }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "CO-DEPUTY" }}
+                                        checked
+                                    {{ end }}
                                    type="radio"
                                    value="CO-DEPUTY"
                                 >
@@ -150,7 +152,7 @@
                                    id="notification-method-email"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if eq .DeputyDeathRecord.NotificationMethod "EMAIL" }} checked {{ end }}
+                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "EMAIL") (eq .DeputyDeathRecord.NotificationMethod "Email") }} checked {{ end }}
                                    value="EMAIL"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-email">
@@ -162,7 +164,7 @@
                                    id="notification-method-phone"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if eq .DeputyDeathRecord.NotificationMethod "PHONE" }} checked {{ end }}
+                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "PHONE") (eq .DeputyDeathRecord.NotificationMethod "Phone")}} checked {{ end }}
                                    value="PHONE"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-phone">
@@ -174,7 +176,7 @@
                                    id="notification-method-letter"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if eq .DeputyDeathRecord.NotificationMethod "LETTER" }} checked {{ end }}
+                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "LETTER") (eq .DeputyDeathRecord.NotificationMethod "Letter")}} checked {{ end }}
                                    value="LETTER"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-letter">

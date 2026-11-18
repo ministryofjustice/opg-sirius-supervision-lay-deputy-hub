@@ -30,7 +30,6 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 			if err != nil {
 				return err
 			}
-
 			vars.DeputyDeathRecord = deathRecord
 			return tmpl.ExecuteTemplate(w, "page", vars)
 
@@ -39,7 +38,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 			proofOfDeathReceivedBool, err := strconv.ParseBool(proofOfDeathReceived)
 			dateDeathCertificateReceieved := r.PostFormValue("date-proof-of-death-received")
 
-			//Manually reset to null when submitted with proof of death false
+			//Manually reset to null when form submitted with proof of death false
 			if proofOfDeathReceivedBool == false {
 				dateDeathCertificateReceieved = ""
 			}
