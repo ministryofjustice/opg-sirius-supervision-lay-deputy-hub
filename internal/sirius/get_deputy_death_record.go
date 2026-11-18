@@ -44,6 +44,11 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRec
 		return DeputyDeathRecord{}, ErrUnauthorized
 	}
 
+	//Api throws a 404 exception if there's no record
+	if resp.StatusCode == http.StatusNotFound {
+		return DeputyDeathRecord{}, nil
+	}
+
 	if resp.StatusCode != http.StatusOK {
 		return DeputyDeathRecord{}, newStatusError(resp)
 	}
@@ -65,8 +70,8 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRec
 		Notes:                         notes,
 		DateOfDeath:                   changeDateFormatForDisplay(r.Person.DateOfDeath),
 	}
-
 	return v, err
+
 }
 
 func changeDateFormatForDisplay(myDate string) string {
