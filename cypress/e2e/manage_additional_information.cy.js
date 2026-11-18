@@ -22,6 +22,14 @@ describe("Manage additional information tab", () => {
         });
 
         it("Redirects to the correct route", () => {
+            cy.get('[name="interpreter-required"]').clear().type("Interpreter is required for deputy");
+            cy.get('[name="audio"]').check();
+            cy.get('[name="large-print"]').check();
+            cy.get('[name="hearing-impaired"]').check();
+            cy.get('[name="spelling-takes-care"]').check();
+
+            cy.get('[name="notes"]').clear().type("Deputy has additional notes");
+
             cy.get('.govuk-button').click();
             cy.url().should("include", "?success=additionalInformation");
         })
