@@ -62,7 +62,7 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRec
 
 	v := DeputyDeathRecord{
 		DeputyId:                      DeputyId,
-		ProofOfDeathReceived:          r.ProofOfDeathReceived,
+		ProofOfDeathReceived:          fmt.Sprintf("%v", r.ProofOfDeathReceived),
 		DateDeathCertificateReceieved: changeDateFormatForDisplay(r.DateDeathCertificateReceived),
 		DateNotified:                  changeDateFormatForDisplay(r.DateNotified),
 		NotifiedBy:                    RefData{r.NotifiedBy.Label, r.NotifiedBy.Handle},
@@ -76,8 +76,5 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRec
 
 func changeDateFormatForDisplay(myDate string) string {
 	date := shared.NewDate(myDate)
-	if date.IsNull() == false {
-		return date.DateFormString()
-	}
-	return ""
+	return date.DateFormString()
 }

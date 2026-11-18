@@ -2,9 +2,7 @@ package server
 
 import (
 	"fmt"
-	"log/slog"
 	"net/http"
-	"strconv"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
@@ -15,7 +13,7 @@ type deputyDeathVars struct {
 	DeputyDeathRecord sirius.DeputyDeathRecord
 }
 
-func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
+func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
@@ -35,18 +33,17 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 
 		case http.MethodPost:
 			proofOfDeathReceived := r.PostFormValue("proof-of-death")
-			proofOfDeathReceivedBool, err := strconv.ParseBool(proofOfDeathReceived)
 			dateDeathCertificateReceieved := r.PostFormValue("date-proof-of-death-received")
 
 			//Manually reset to null when form submitted with proof of death false
-			if proofOfDeathReceivedBool == false {
+			if proofOfDeathReceived == "false" {
 				dateDeathCertificateReceieved = ""
 			}
 
 			deputyDeathRecordForm := sirius.DeputyDeathRecord{
 				DeputyId:                      app.DeputyDetails.ID,
 				DateOfDeath:                   r.PostFormValue("date-of-death"),
-				ProofOfDeathReceived:          proofOfDeathReceivedBool,
+				ProofOfDeathReceived:          proofOfDeathReceived,
 				DateDeathCertificateReceieved: dateDeathCertificateReceieved,
 				DateNotified:                  r.PostFormValue("date-notified"),
 				NotifiedBy: sirius.RefData{
@@ -56,8 +53,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 				Notes:              r.PostFormValue("notes"),
 			}
 
-			logger.Info("deputyDeathForm", deputyDeathRecordForm)
-			err = client.UpdateDeputyDeathRecord(ctx, deputyDeathRecordForm)
+			err := client.UpdateDeputyDeathRecord(ctx, deputyDeathRecordForm)
 
 			if verr, ok := err.(sirius.ValidationError); ok {
 				vars.Errors = util.RenameErrors(verr.Errors)
