@@ -9,7 +9,7 @@ import (
 )
 
 type deputyDeathRecordResponse struct {
-	Id                           int    `json:"id"`
+	ID                           int    `json:"id"`
 	ProofOfDeathReceived         bool   `json:"proofOfDeathReceived"`
 	DateDeathCertificateReceived string `json:"dateDeathCertificateReceived"`
 	DateNotified                 string `json:"dateNotified"`
@@ -25,10 +25,10 @@ type deputyDeathRecordResponse struct {
 	} `json:"person"`
 }
 
-func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRecord, error) {
+func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyID int) (DeputyDeathRecord, error) {
 	var r deputyDeathRecordResponse
 
-	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/death-notification", DeputyId), nil)
+	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/death-notification", DeputyID), nil)
 	if err != nil {
 		return DeputyDeathRecord{}, err
 	}
@@ -61,7 +61,7 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyId int) (DeputyDeathRec
 	}
 
 	v := DeputyDeathRecord{
-		DeputyId:                      DeputyId,
+		DeputyID:                      DeputyID,
 		ProofOfDeathReceived:          fmt.Sprintf("%v", r.ProofOfDeathReceived),
 		DateDeathCertificateReceieved: changeDateFormatForDisplay(r.DateDeathCertificateReceived),
 		DateNotified:                  changeDateFormatForDisplay(r.DateNotified),
