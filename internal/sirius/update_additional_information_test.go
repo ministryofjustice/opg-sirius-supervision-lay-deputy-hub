@@ -40,10 +40,9 @@ func TestUpdateAdditionalInformation(t *testing.T) {
 	formData := AdditionalInformationForm{
 		InterpreterRequired: "They need an interpreter",
 		SpecialCorrespondenceRequirements: SpecialCorrespondenceRequirementsType{
-			AudioTape:                  true,
-			LargePrint:                 true,
-			HearingImpaired:            true,
-			SpellingOfNameRequiresCare: true,
+			AudioTape:       true,
+			LargePrint:      true,
+			HearingImpaired: true,
 		},
 		Notes:                 "This is a test",
 		CorrespondenceByEmail: true,
@@ -68,10 +67,9 @@ func TestUpdateAdditionalInformationReturnsNewStatusError(t *testing.T) {
 	formData := AdditionalInformationForm{
 		InterpreterRequired: "They need an interpreter",
 		SpecialCorrespondenceRequirements: SpecialCorrespondenceRequirementsType{
-			AudioTape:                  true,
-			LargePrint:                 true,
-			HearingImpaired:            true,
-			SpellingOfNameRequiresCare: true,
+			AudioTape:       true,
+			LargePrint:      true,
+			HearingImpaired: true,
 		},
 		Notes:                 "This is a test",
 		CorrespondenceByEmail: true,
@@ -100,10 +98,9 @@ func TestUpdateAdditionalInformationReturnsUnauthorisedClientError(t *testing.T)
 	formData := AdditionalInformationForm{
 		InterpreterRequired: "They need an interpreter",
 		SpecialCorrespondenceRequirements: SpecialCorrespondenceRequirementsType{
-			AudioTape:                  true,
-			LargePrint:                 true,
-			HearingImpaired:            true,
-			SpellingOfNameRequiresCare: true,
+			AudioTape:       true,
+			LargePrint:      true,
+			HearingImpaired: true,
 		},
 		Notes:                 "This is a test",
 		CorrespondenceByEmail: true,

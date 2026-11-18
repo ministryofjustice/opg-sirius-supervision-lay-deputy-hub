@@ -16,7 +16,7 @@ describe("Manage additional information tab", () => {
             cy.get('[name="audio"]').should("have.attr", "checked");
             cy.get('[name="large-print"]').should("have.attr", "checked");
             cy.get('[name="hearing-impaired"]').should("have.attr", "checked");
-            cy.get('[name="spelling-takes-care"]').should("have.attr", "checked");
+            cy.get('[name="welsh"]').should("have.attr", "checked");
 
             cy.get('[name="notes"]').should('contain', 'Deputy has additional notes');
         });
@@ -26,7 +26,7 @@ describe("Manage additional information tab", () => {
             cy.get('[name="audio"]').check();
             cy.get('[name="large-print"]').check();
             cy.get('[name="hearing-impaired"]').check();
-            cy.get('[name="spelling-takes-care"]').check();
+            cy.get('[name="welsh"]').check();
 
             cy.get('[name="notes"]').clear().type("Deputy has additional notes");
 

@@ -18,10 +18,9 @@ type DeputySubType struct {
 }
 
 type SpecialCorrespondenceRequirementsType struct {
-	AudioTape                  bool `json:"audioTape"`
-	LargePrint                 bool `json:"largePrint"`
-	HearingImpaired            bool `json:"hearingImpaired"`
-	SpellingOfNameRequiresCare bool `json:"spellingOfNameRequiresCare"`
+	AudioTape       bool `json:"audioTape"`
+	LargePrint      bool `json:"largePrint"`
+	HearingImpaired bool `json:"hearingImpaired"`
 }
 
 type DeputyDetails struct {
@@ -68,7 +67,7 @@ func (d DeputyDetails) ActiveSpecialCorrespondenceRequirements() []string {
 	if d.SpecialCorrespondenceRequirements.HearingImpaired {
 		requirementsToList = append(requirementsToList, "Hearing impaired")
 	}
-	if d.SpecialCorrespondenceRequirements.SpellingOfNameRequiresCare {
+	if d.CorrespondenceByWelsh {
 		requirementsToList = append(requirementsToList, "Welsh")
 	}
 

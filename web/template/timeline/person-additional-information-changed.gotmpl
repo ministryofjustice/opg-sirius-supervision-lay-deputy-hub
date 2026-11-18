@@ -38,9 +38,6 @@
                     {{if eq .FieldName "largePrint"}}
                         {{ template "yes-no-changeset" . }}
                     {{end}}
-                    {{if eq .FieldName "spellingOfNameRequiresCare"}}
-                        {{ template "yes-no-changeset" . }}
-                    {{end}}
                     {{if eq .FieldName "notes"}}
                         {{ template "changeset" . }}
                     {{end}}

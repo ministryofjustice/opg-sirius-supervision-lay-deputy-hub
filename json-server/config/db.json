@@ -36,8 +36,7 @@
       "specialCorrespondenceRequirements": {
         "audioTape": true,
         "largePrint": true,
-        "hearingImpaired": true,
-        "spellingOfNameRequiresCare": true
+        "hearingImpaired": true
       },
       "interpreterRequired": "Interpreter is required for deputy",
       "additionalInformationNotes": "Deputy has additional notes",
@@ -374,12 +373,6 @@
           },
           {
             "fieldName": "largePrint",
-            "oldValue": "",
-            "newValue": "1",
-            "type": "string"
-          },
-          {
-            "fieldName": "spellingOfNameRequiresCare",
             "oldValue": "",
             "newValue": "1",
             "type": "string"

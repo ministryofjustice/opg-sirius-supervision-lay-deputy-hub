@@ -23,6 +23,7 @@ func renderTemplateForManageAdditionalInformationGet(client AdditionalInformatio
 		form := sirius.AdditionalInformationForm{
 			InterpreterRequired:               app.DeputyDetails.InterpreterRequired,
 			SpecialCorrespondenceRequirements: app.DeputyDetails.SpecialCorrespondenceRequirements,
+			CorrespondenceByWelsh:             app.DeputyDetails.CorrespondenceByWelsh,
 			Notes:                             app.DeputyDetails.Notes,
 		}
 
@@ -40,13 +41,12 @@ func renderTemplateForManageAdditionalInformationPost(client AdditionalInformati
 		form := sirius.AdditionalInformationForm{
 			InterpreterRequired: r.PostFormValue("interpreter-required"),
 			SpecialCorrespondenceRequirements: sirius.SpecialCorrespondenceRequirementsType{
-				AudioTape:                  r.PostFormValue("audio") == "on",
-				LargePrint:                 r.PostFormValue("large-print") == "on",
-				HearingImpaired:            r.PostFormValue("hearing-impaired") == "on",
-				SpellingOfNameRequiresCare: r.PostFormValue("spelling-takes-care") == "on",
+				AudioTape:       r.PostFormValue("audio") == "on",
+				LargePrint:      r.PostFormValue("large-print") == "on",
+				HearingImpaired: r.PostFormValue("hearing-impaired") == "on",
 			},
 			Notes:                 r.PostFormValue("notes"),
-			CorrespondenceByWelsh: app.DeputyDetails.CorrespondenceByWelsh,
+			CorrespondenceByWelsh: r.PostFormValue("welsh") == "on",
 			CorrespondenceByEmail: app.DeputyDetails.CorrespondenceByEmail,
 			CorrespondenceByPhone: app.DeputyDetails.CorrespondenceByPhone,
 			CorrespondenceByPost:  app.DeputyDetails.CorrespondenceByPost,

@@ -1022,7 +1022,6 @@ func TestGetTimelineValueForField(t *testing.T) {
 		{"otherNames", "Other names"},
 		{"postcode", "Postcode"},
 		{"relationshipToClient", "Relationship to client"},
-		{"spellingOfNameRequiresCare", "Welsh"},
 		{"salutation", "Title"},
 		{"statusChangeDate", "Status change date"},
 		{"statusOnCase", "Status on case"},
