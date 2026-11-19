@@ -75,7 +75,7 @@ func renderTemplateForManageDeputyDetailsPost(client DeputyDetailsInformation, t
 
 		vars := ManageDeputyDetailsVars{AppVars: app, Form: form}
 
-		err := client.UpdateDeputyDetails(ctx, app.DeputyId(), form)
+		err := client.UpdateDeputyDetails(ctx, app.DeputyID(), form)
 
 		if verr, ok := err.(sirius.ValidationError); ok {
 			vars.Errors = util.RenameErrors(verr.Errors)
@@ -85,6 +85,6 @@ func renderTemplateForManageDeputyDetailsPost(client DeputyDetailsInformation, t
 			return err
 		}
 
-		return Redirect(fmt.Sprintf("/%d?success=deputyDetails", app.DeputyId()))
+		return Redirect(fmt.Sprintf("/%d?success=deputyDetails", app.DeputyID()))
 	}
 }

@@ -21,7 +21,7 @@ func renderTemplateForDeputyHub(client LayDeputyHubInformation, tmpl Template) H
 		ctx := getContext(r)
 
 		params := sirius.ClientListParams{
-			DeputyId: app.DeputyId(),
+			DeputyID: app.DeputyID(),
 		}
 
 		clientList, err := client.GetDeputyClients(ctx, params)
