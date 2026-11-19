@@ -8,7 +8,7 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 )
 
-type deputyDeathVars struct {
+type deputyDeathRecordVars struct {
 	AppVars
 	DeputyDeathRecord sirius.DeputyDeathRecord
 }
@@ -18,7 +18,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Hand
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
 
-		vars := deputyDeathVars{
+		vars := deputyDeathRecordVars{
 			AppVars: app,
 		}
 
@@ -63,7 +63,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Hand
 				return err
 			}
 
-			return Redirect(fmt.Sprintf("/%d?success=recordDeath", app.DeputyId()))
+			return Redirect(fmt.Sprintf("/%d?success=record-death", app.DeputyId()))
 		default:
 			return StatusError(http.StatusMethodNotAllowed)
 		}

@@ -20,7 +20,7 @@ type DeputyDeathRecord struct {
 	ProofOfDeathReceived          string  `json:"proofOfDeathReceived,omitempty"`
 	DateDeathCertificateReceieved string  `json:"dateDeathCertificateReceived,omitempty"`
 	DateNotified                  string  `json:"dateNotified,omitempty"`
-	NotifiedBy                    RefData `json:"notifiedBy,omitempty"`
+	NotifiedBy                    RefData `json:"notifiedBy"`
 	NotificationMethod            string  `json:"notificationMethod,omitempty"`
 	Notes                         string  `json:"notes,omitempty"`
 }
