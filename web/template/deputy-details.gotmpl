@@ -1,6 +1,9 @@
 {{ template "page" . }}
 
 {{ define "main" }}
+    {{ if .AppVars.SuccessMessage }}
+        {{ template "success-banner" . }}
+    {{ end }}
     {{ template "lay-deputy-details" . }}
     {{ template "navigation" . }}
 

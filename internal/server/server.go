@@ -40,7 +40,6 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 	mux.Handle("GET /{id}/clients", wrap(renderTemplateForClientTab(client, templates["clients.gotmpl"])))
 	mux.Handle("GET /{id}/timeline", wrap(renderTemplateForTimeline(client, templates["timeline.gotmpl"])))
 	mux.Handle("GET /{id}/manage-deputy-details", wrap(renderTemplateForManageDeputyDetailsGet(templates["manage-deputy-details.gotmpl"])))
-
 	mux.Handle("POST /{id}/manage-deputy-details", wrap(renderTemplateForManageDeputyDetailsPost(client, templates["manage-deputy-details.gotmpl"])))
 
 	mux.Handle("GET /health-check", healthCheck())

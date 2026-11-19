@@ -63,7 +63,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Hand
 				return err
 			}
 
-			return Redirect(fmt.Sprintf("/%d?success=record-death", app.DeputyId()))
+			return Redirect(fmt.Sprintf("/%d?success=recordDeath", app.DeputyId()))
 		default:
 			return StatusError(http.StatusMethodNotAllowed)
 		}

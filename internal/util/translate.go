@@ -24,8 +24,15 @@ var validationMappings = map[string]map[string]pair{
 	"country": {
 		"stringLengthTooLong": pair{"country", "The country must be 255 characters or fewer"},
 	},
+	"dateDeathCertificateReceived": {
+		"invalid-lte": pair{"dateDeathCertificateReceived", "Date proof of death cannot be a future date"},
+	},
+	"dateOfDeath": {
+		"invalid-lte": pair{"dateOfDeath", "Date of death cannot be a future date"},
+	},
 	"dateNotified": {
-		"isEmpty": pair{"dateNotified", "Date notified is required and can't be empty"},
+		"invalid-lte": pair{"dateNotified", "Date notified cannot be a future date"},
+		"isEmpty":     pair{"dateNotified", "Date notified is required and can't be empty"},
 	},
 	"email": {
 		"stringLengthTooLong":         pair{"email", "The email must be 255 characters or fewer"},

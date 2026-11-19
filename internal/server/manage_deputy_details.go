@@ -21,6 +21,7 @@ type ManageDeputyDetailsVars struct {
 func renderTemplateForManageDeputyDetailsGet(tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		app.PageName = "Manage deputy contact details"
+
 		form := sirius.DeputyDetailsForm{
 			DeputyFirstName:        app.DeputyDetails.DeputyFirstName,
 			DeputyMiddleName:       app.DeputyDetails.DeputyMiddleName,
