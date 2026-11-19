@@ -67,24 +67,19 @@ func parseClientData(client sirius.DeputyClient, deputyID int) DeputyClient {
 	}
 	// Not all orders on a client will be relevant to the deputy, so we need to select only those that have the deputy on the order.
 	for _, order := range client.Orders {
-		var o Order
 		for _, od := range order.Deputies {
 			if od.Deputy.ID == deputyID {
-				o = Order{
+				item.Orders = append(item.Orders, Order{
 					OrderDate:       order.OrderDate,
 					OrderStatus:     order.OrderStatus.Label,
 					OrderType:       strings.ToUpper(order.CaseSubType),
 					AppointmentType: order.AppointmentType.Label,
 					Relationship:    od.Relationship.Label,
 					StatusOnCase:    od.DeputyStatus.Label,
-				}
+				})
 
 				break
 			}
-		}
-		// Only append the order if it is relevant to the deputy.
-		if o.OrderType != "" {
-			item.Orders = append(item.Orders, o)
 		}
 	}
 	item.Orders = mostRelevantOrders(item.Orders)

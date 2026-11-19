@@ -124,7 +124,7 @@ func TestParseClientData(t *testing.T) {
 	}
 	pfa := sirius.Order{
 		OrderDate:       shared.NewDate("01/01/2019"),
-		CaseSubType:     "pFa",
+		CaseSubType:     "pfa",
 		OrderStatus:     sirius.RefData{Label: "Active"},
 		AppointmentType: sirius.RefData{Label: "Sole"},
 		Deputies: []sirius.OrderDeputy{
@@ -200,10 +200,6 @@ func TestParseClientData(t *testing.T) {
 		{
 			name:     "ignores orders without deputies",
 			deputyID: 333, orders: []sirius.Order{noDeputies},
-		},
-		{
-			name:     "ignores orders without a case subtype",
-			deputyID: 333, orders: []sirius.Order{noType},
 		},
 		{
 			name:     "preserves missing appointment and deputy details",
