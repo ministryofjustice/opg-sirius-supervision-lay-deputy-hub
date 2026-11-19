@@ -195,7 +195,14 @@
                     <textarea class="govuk-textarea govuk-input--width-30"
                           id="notes"
                           name="notes"
+                          rows="6"
                     >{{ if ne .DeputyDeathRecord.Notes "" }}{{.DeputyDeathRecord.Notes}}{{ end }}</textarea>
+                    <div
+                        id="notes-info"
+                        class="govuk-hint govuk-character-count__message"
+                        aria-live="polite">
+                        You have 1000 characters remaining
+                    </div>
                 </div>
                 <div class="govuk-button-group govuk-!-margin-top-7">
                     <button
