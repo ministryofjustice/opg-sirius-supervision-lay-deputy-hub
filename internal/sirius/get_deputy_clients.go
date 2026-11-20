@@ -13,7 +13,8 @@ type Metadata struct {
 }
 
 type RefData struct {
-	Label string `json:"label"`
+	Handle string `json:"handle"`
+	Label  string `json:"label"`
 }
 
 type OrderDeputy struct {

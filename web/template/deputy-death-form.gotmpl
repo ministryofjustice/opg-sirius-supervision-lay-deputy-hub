@@ -1,0 +1,226 @@
+{{ template "page" . }}
+
+{{ define "main" }}
+    {{ template "lay-deputy-details" . }}
+
+    <header class="title-and-buttons-inline">
+        <h1 class="govuk-heading-l  govuk-!-margin-bottom-0  govuk-!-margin-top-0">
+            {{ .PageName }}
+        </h1>
+     </header>
+
+    {{ template "error-summary" .Errors }}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <form id="record-deputy-death-form" method="post" autocomplete="off">
+                <input type="hidden"
+                       name="xsrfToken"
+                       value="{{ .XSRFToken }}" />
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend">Proof of death received?</legend>
+                        <div class="govuk-radios govuk-radios--inline {{ if index .Errors "proofOfDeathReceived" }} govuk-form-group--error{{ end }}">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="proof-of-death-true"
+                                   name="proof-of-death"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "true" }} checked {{ end }}
+                                   value="true"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="proof-of-death-true">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item govuk-radios--inline" >
+                                <input class="govuk-radios__input" id="proof-of-death-false"
+                                   name="proof-of-death"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "false" }} checked {{ end }}
+                                   value="false"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="proof-of-death-false">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <div class="govuk-form-group">
+                        <div {{ if index .Errors "dateOfDeath" }} class="govuk-form-group--error"{{ end }}>
+                            <label class="govuk-label {{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" for="date-of-death" id="date-of-death-required">
+                                Date of death
+                            </label>
+                            <label class="govuk-label {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" for="date-of-death" id="date-of-death-optional">
+                                Date of death (optional)
+                            </label>
+                            <input class="govuk-input govuk-input--width-10"
+                               id="date-of-death"
+                               name="date-of-death"
+                                {{ if ne .DeputyDeathRecord.DateOfDeath "" }} value={{.DeputyDeathRecord.DateOfDeath}} {{ end }}
+                               type="date"
+                            >
+                        </div>
+                        <br>
+                        <div {{ if index .Errors "dateNotified" }} class="govuk-form-group--error"{{ end }}>
+                            <label class="govuk-label" for="date-notified">
+                                Date notified
+                            </label>
+                            <input class="govuk-input govuk-input--width-10"
+                               id="date-notified"
+                               name="date-notified"
+                                {{ if ne .DeputyDeathRecord.DateNotified "" }} value={{.DeputyDeathRecord.DateNotified}} {{ end }}
+                               type="date"
+                            >
+                        </div>
+                        <br>
+                        <div class="{{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" id="date-proof-of-death-received-reveal">
+                            <div {{ if index .Errors "dateDeathCertificateReceived" }} class="govuk-form-group--error"{{ end }}>
+                                <label class="govuk-label" for="date-proof-of-death-received">
+                                    Date proof of death received
+                                </label>
+                                <input class="govuk-input govuk-input--width-10"
+                                   id="date-proof-of-death-received"
+                                   name="date-proof-of-death-received"
+                                    {{ if ne .DeputyDeathRecord.DateDeathCertificateReceieved "" }} value={{.DeputyDeathRecord.DateDeathCertificateReceieved}} {{ end }}
+                                   type="date"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="notified-by">
+                        <legend class="govuk-fieldset__legend ">
+                            <h1 class="govuk-fieldset__heading">
+                                Notified by
+                            </h1>
+                        </legend>
+
+                        <div class="govuk-radios {{ if index .Errors "notifiedBy" }} govuk-form-group--error{{ end }}">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="notified-by-co-deputy"
+                                   name="notified-by"
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "DEPUTY" }}
+                                        checked
+                                    {{ end }}
+                                   type="radio"
+                                   value="DEPUTY"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="notified-by-co-deputy">
+                                    Co-deputy
+                                </label>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="notified-by-executor"
+                                   name="notified-by"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "EXECUTOR" }} checked {{ end }}
+                                    value="EXECUTOR"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="notified-by-executor">
+                                    Executor
+                                </label>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="notified-by-other"
+                                   name="notified-by"
+                                   type="radio"
+                                    {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }} checked {{ end }}
+                                   value="OTHER"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="notified-by-other">
+                                    Other - Explain in notes
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset govuk-form-group">
+                        <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
+                        <div class="govuk-radios {{ if index .Errors "notificationMethod" }} govuk-form-group--error{{ end }}">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="notification-method-email"
+                                   name="notification-method"
+                                   type="radio"
+                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "EMAIL") (eq .DeputyDeathRecord.NotificationMethod "Email") }} checked {{ end }}
+                                   value="EMAIL"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="notification-method-email">
+                                    Email
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="notification-method-phone"
+                                   name="notification-method"
+                                   type="radio"
+                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "PHONE") (eq .DeputyDeathRecord.NotificationMethod "Phone")}} checked {{ end }}
+                                   value="PHONE"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="notification-method-phone">
+                                    Phone
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input"
+                                   id="notification-method-letter"
+                                   name="notification-method"
+                                   type="radio"
+                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "LETTER") (eq .DeputyDeathRecord.NotificationMethod "Letter")}} checked {{ end }}
+                                   value="LETTER"
+                                >
+                                <label class="govuk-label govuk-radios__label" for="notification-method-letter">
+                                    Letter
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div
+                    class="govuk-character-count"
+                    data-module="govuk-character-count"
+                    data-maxlength="255">
+                    <div class="govuk-form-group{{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label {{ if eq .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }}hide{{ end }}" for="notes" id="notes-optional">
+                            Notes (optional)
+                        </label>
+                        <label class="govuk-label {{ if ne .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }}hide{{ end }}" for="notes" id="notes-required">
+                            Notes
+                        </label>
+                        <textarea
+                                class="govuk-textarea govuk-js-character-count"
+                                id="notes"
+                                name="notes"
+                                rows="5"
+                        >{{ if ne .DeputyDeathRecord.Notes "" }}{{.DeputyDeathRecord.Notes}}{{ end }}</textarea>
+                        <div
+                            id="notes-info"
+                            class="govuk-hint govuk-character-count__message"
+                            aria-live="polite"
+                            aria-label="Character count">
+                            You have 255 characters remaining
+                        </div>
+                    </div>
+                </div>
+                <div class="govuk-button-group govuk-!-margin-top-7">
+                    <button
+                        class="govuk-button"
+                        type="submit"
+                        data-module="govuk-button">
+                        Save record a death
+                    </button>
+                    <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{{ end }}
