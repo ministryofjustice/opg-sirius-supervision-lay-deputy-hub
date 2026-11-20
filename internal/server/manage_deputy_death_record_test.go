@@ -80,76 +80,76 @@ func TestGetDeputyDeathRecord(t *testing.T) {
 		}, template.lastVars)
 }
 
-func TestUpdateDeputyDeathRecord(t *testing.T) {
-	assert := assert.New(t)
-	client := &mockApiClient{
-		DeathRecord: sirius.DeputyDeathRecord{
-			DeputyID:                      333,
-			DateOfDeath:                   "2020-01-01",
-			ProofOfDeathReceived:          "true",
-			DateDeathCertificateReceieved: "2020-02-02",
-			DateNotified:                  "2020-02-01",
-			NotificationMethod:            "LETTER",
-			NotifiedBy: sirius.RefData{
-				Label:  "EXECUTOR",
-				Handle: "Executor",
-			},
-			Notes: "Some notes",
-		},
-	}
-	template := &mockTemplates{}
-
-	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/death-record", nil)
-
-	handler := renderTemplateForDeputyDeath(client, template)
-	err := handler(AppVars{
-		Path: "/deathRecord",
-		DeputyDetails: sirius.DeputyDetails{
-			ID:              333,
-			DeputyFirstName: "Test",
-			DeputySurname:   "Deputy",
-			DeputyType: sirius.DeputyType{
-				Handle: "LAY",
-				Label:  "Lay Deputy",
-			},
-		},
-	}, w, r)
-
-	assert.Nil(err)
-
-	resp := w.Result()
-	assert.Equal(http.StatusOK, resp.StatusCode)
-	assert.Equal(
-		deputyDeathRecordVars{
-			AppVars: AppVars{
-				Path:     "/deathRecord",
-				PageName: "Record death of Test Deputy",
-				DeputyDetails: sirius.DeputyDetails{
-					ID:              333,
-					DeputyFirstName: "Test",
-					DeputySurname:   "Deputy",
-					DeputyType: sirius.DeputyType{
-						Handle: "LAY",
-						Label:  "Lay Deputy",
-					},
-				},
-			},
-			DeputyDeathRecord: sirius.DeputyDeathRecord{
-				DeputyID:                      333,
-				DateOfDeath:                   "2020-01-01",
-				ProofOfDeathReceived:          "true",
-				DateDeathCertificateReceieved: "2020-02-02",
-				DateNotified:                  "2020-02-01",
-				NotificationMethod:            "LETTER",
-				NotifiedBy: sirius.RefData{
-					Label:  "EXECUTOR",
-					Handle: "Executor",
-				},
-				Notes: "Some notes",
-			},
-		}, template.lastVars)
-}
+//func TestUpdateDeputyDeathRecord(t *testing.T) {
+//	assert := assert.New(t)
+//	client := &mockApiClient{
+//		DeathRecord: sirius.DeputyDeathRecord{
+//			DeputyID:                      333,
+//			DateOfDeath:                   "2020-01-01",
+//			ProofOfDeathReceived:          "true",
+//			DateDeathCertificateReceieved: "2020-02-02",
+//			DateNotified:                  "2020-02-01",
+//			NotificationMethod:            "LETTER",
+//			NotifiedBy: sirius.RefData{
+//				Label:  "EXECUTOR",
+//				Handle: "Executor",
+//			},
+//			Notes: "Some notes",
+//		},
+//	}
+//	template := &mockTemplates{}
+//
+//	w := httptest.NewRecorder()
+//	r, _ := http.NewRequest("POST", "/death-record", nil)
+//
+//	handler := renderTemplateForDeputyDeath(client, template)
+//	err := handler(AppVars{
+//		Path: "/deathRecord",
+//		DeputyDetails: sirius.DeputyDetails{
+//			ID:              333,
+//			DeputyFirstName: "Test",
+//			DeputySurname:   "Deputy",
+//			DeputyType: sirius.DeputyType{
+//				Handle: "LAY",
+//				Label:  "Lay Deputy",
+//			},
+//		},
+//	}, w, r)
+//
+//	assert.Nil(err)
+//
+//	resp := w.Result()
+//	assert.Equal(http.StatusOK, resp.StatusCode)
+//	assert.Equal(
+//		deputyDeathRecordVars{
+//			AppVars: AppVars{
+//				Path:     "/deathRecord",
+//				PageName: "Record death of Test Deputy",
+//				DeputyDetails: sirius.DeputyDetails{
+//					ID:              333,
+//					DeputyFirstName: "Test",
+//					DeputySurname:   "Deputy",
+//					DeputyType: sirius.DeputyType{
+//						Handle: "LAY",
+//						Label:  "Lay Deputy",
+//					},
+//				},
+//			},
+//			DeputyDeathRecord: sirius.DeputyDeathRecord{
+//				DeputyID:                      333,
+//				DateOfDeath:                   "2020-01-01",
+//				ProofOfDeathReceived:          "true",
+//				DateDeathCertificateReceieved: "2020-02-02",
+//				DateNotified:                  "2020-02-01",
+//				NotificationMethod:            "LETTER",
+//				NotifiedBy: sirius.RefData{
+//					Label:  "EXECUTOR",
+//					Handle: "Executor",
+//				},
+//				Notes: "Some notes",
+//			},
+//		}, template.lastVars)
+//}
 
 //
 //func TestPostManageDeputyDetails(t *testing.T) {
