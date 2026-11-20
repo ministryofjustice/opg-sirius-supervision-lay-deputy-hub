@@ -1,4 +1,7 @@
 {{ define "lay-deputy-details" }}
+    {{ if .SuccessMessage }}
+        {{ template "success-banner" . }}
+    {{ end }}
     {{ template "content-header" . }}
 
 <header> </header>

@@ -9,11 +9,6 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
-type RefData struct {
-	Label  string `json:"label,omitempty"`
-	Handle string `json:"handle,omitempty"`
-}
-
 type DeputyDeathRecord struct {
 	DeputyID                      int     `json:"id"`
 	DateOfDeath                   string  `json:"dateOfDeath,omitempty"`
