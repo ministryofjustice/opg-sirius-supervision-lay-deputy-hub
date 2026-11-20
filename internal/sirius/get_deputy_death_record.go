@@ -65,7 +65,7 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyID int) (DeputyDeathRec
 		ProofOfDeathReceived:          fmt.Sprintf("%v", r.ProofOfDeathReceived),
 		DateDeathCertificateReceieved: changeDateFormatForDisplay(r.DateDeathCertificateReceived),
 		DateNotified:                  changeDateFormatForDisplay(r.DateNotified),
-		NotifiedBy:                    RefData{r.NotifiedBy.Label, r.NotifiedBy.Handle},
+		NotifiedBy:                    RefData{r.NotifiedBy.Handle, r.NotifiedBy.Label},
 		NotificationMethod:            r.NotificationMethod,
 		Notes:                         notes,
 		DateOfDeath:                   changeDateFormatForDisplay(r.Person.DateOfDeath),
