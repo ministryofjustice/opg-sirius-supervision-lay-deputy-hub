@@ -24,7 +24,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Hand
 
 		switch r.Method {
 		case http.MethodGet:
-			deathRecord, err := client.GetDeputyDeathRecord(ctx, app.DeputyDetails.ID)
+			deathRecord, err := client.GetDeputyDeathRecord(ctx, app.DeputyID())
 			if err != nil {
 				return err
 			}
@@ -41,7 +41,7 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Hand
 			}
 
 			deputyDeathRecordForm := sirius.DeputyDeathRecord{
-				DeputyID:                      app.DeputyDetails.ID,
+				DeputyID:                      app.DeputyID(),
 				DateOfDeath:                   r.PostFormValue("date-of-death"),
 				ProofOfDeathReceived:          proofOfDeathReceived,
 				DateDeathCertificateReceieved: dateDeathCertificateReceieved,

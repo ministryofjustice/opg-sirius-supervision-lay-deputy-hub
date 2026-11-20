@@ -2,7 +2,6 @@ import { initAll } from "govuk-frontend";
 import "govuk-frontend/dist/govuk/all.mjs";
 import "opg-sirius-header/sirius-header.js";
 import htmx from "htmx.org/dist/htmx.esm";
-import("htmx-ext-response-targets");
 
 document.body.className +=
     " js-enabled" + ("noModule" in HTMLScriptElement.prototype
