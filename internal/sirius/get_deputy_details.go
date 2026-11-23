@@ -26,7 +26,7 @@ type SpecialCorrespondenceRequirementsType struct {
 
 type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
-	Salutation                        string                                `json:"salutation"`
+	Title                             string                                `json:"salutation"`
 	DeputyFirstName                   string                                `json:"firstName"`
 	DeputyMiddleName                  string                                `json:"middleNames"`
 	DeputySurname                     string                                `json:"surname"`

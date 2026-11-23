@@ -54,7 +54,7 @@ func TestGetDeputyDetailsReturnsDeputy(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, DeputyDetails{
 		ID:               1,
-		Salutation:       "Mr",
+		Title:            "Mr",
 		DeputyFirstName:  "Test",
 		DeputySurname:    "Deputy",
 		DeputyOtherNames: "",

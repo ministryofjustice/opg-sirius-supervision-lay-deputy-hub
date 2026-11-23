@@ -10,6 +10,7 @@ import (
 )
 
 type DeputyDetailsForm struct {
+	Title                  string        `json:"salutation"`
 	DeputyFirstName        string        `json:"firstname"`
 	DeputyMiddleName       string        `json:"middleName"`
 	DeputySurname          string        `json:"surname"`

@@ -2,6 +2,7 @@ package sirius
 
 import (
 	"bytes"
+	stdjson "encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -30,7 +31,14 @@ func TestUpdateDeputyDetails(t *testing.T) {
 
 	r := io.NopCloser(bytes.NewReader([]byte(json)))
 
-	mocks.GetDoFunc = func(*http.Request) (*http.Response, error) {
+	mocks.GetDoFunc = func(req *http.Request) (*http.Response, error) {
+		body, err := io.ReadAll(req.Body)
+		assert.NoError(t, err)
+		var payload map[string]interface{}
+		assert.NoError(t, stdjson.Unmarshal(body, &payload))
+		assert.Equal(t, "Dr", payload["salutation"])
+		assert.NotContains(t, payload, "title")
+
 		return &http.Response{
 			StatusCode: 200,
 			Body:       r,
@@ -38,6 +46,7 @@ func TestUpdateDeputyDetails(t *testing.T) {
 	}
 
 	formData := DeputyDetailsForm{
+		Title:                  "Dr",
 		Email:                  "email",
 		DaytimeTelephoneNumber: "telephone",
 		AddressLine1:           "address-line-1",
