@@ -1,0 +1,13 @@
+{
+  "specName": "e2e/manage_deputy_death_record.cy.js",
+  "title": "has fillable content",
+  "suiteName": "Manage deputy details tab",
+  "testName": "Manage deputy details tab has fillable content",
+  "testError": "Syntax error, unrecognized expression: input[name=\"proof-of-death][value=\"true\"]",
+  "testCommands": [
+    "setCookie Other, other",
+    "setCookie XSRF-TOKEN, abcde",
+    "visit /supervision/deputies/lay/1/record-death",
+    "get input[name=\"proof-of-death][value=\"true\"]"
+  ]
+}

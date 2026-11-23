@@ -3,5 +3,7 @@
     "/deputies/:personId/clients*": "/clients",
     "/deputies/lay/:personId/clients*": "/clients",
     "/timeline/*": "/timeline",
+    "/deputies/:id/death-notification": "/death-notification/:id",
+    "/deputies/lay/%d/death-notification": "/success",
     "/deputies/:id/contact-details": "/deputies/:id"
 }

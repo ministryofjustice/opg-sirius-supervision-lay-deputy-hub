@@ -1,0 +1,12 @@
+{
+  "specName": "e2e/timeline.cy.js",
+  "title": "has header for section",
+  "suiteName": "Timeline tab",
+  "testName": "Timeline tab has header for section",
+  "testError": "`cy.visit()` failed trying to load:\n\nhttp://localhost:1234/supervision/deputies/lay/1\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Timeline tab`",
+  "testCommands": [
+    "setCookie Other, other",
+    "setCookie XSRF-TOKEN, abcde",
+    "visit /supervision/deputies/lay/1"
+  ]
+}

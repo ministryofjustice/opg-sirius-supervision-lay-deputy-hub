@@ -101,8 +101,8 @@
                                 Notified by
                             </h1>
                         </legend>
-                        {{ template "error-message" (index .Errors "notifiedBy") }}
                         <div id="f-notifiedBy" class="govuk-radios {{ if index .Errors "notifiedBy" }} govuk-form-group--error{{ end }}" >
+                        {{ template "error-message" (index .Errors "notifiedBy") }}
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input"
                                    id="notified-by-co-deputy"
@@ -149,8 +149,8 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset govuk-form-group">
                         <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
-                        {{ template "error-message" (index .Errors "notificationMethod") }}
                         <div id="f-notificationMethod" class="govuk-radios {{ if index .Errors "notificationMethod" }} govuk-form-group--error{{ end }}">
+                        {{ template "error-message" (index .Errors "notificationMethod") }}
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input"
                                    id="notification-method-email"
