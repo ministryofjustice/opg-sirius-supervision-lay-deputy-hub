@@ -19,7 +19,8 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend">Proof of death received?</legend>
-                        <div class="govuk-radios govuk-radios--inline {{ if index .Errors "proofOfDeathReceived" }} govuk-form-group--error{{ end }}">
+                        {{ template "error-message" (index .Errors "proofOfDeathReceived") }}
+                        <div id="f-proofOfDeathReceived" class="govuk-radios govuk-radios--inline {{ if index .Errors "proofOfDeathReceived" }} govuk-form-group--error{{ end }}">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input"
                                    id="proof-of-death-true"
@@ -48,13 +49,14 @@
                 </div>
                 <div class="govuk-form-group">
                     <div class="govuk-form-group">
-                        <div {{ if index .Errors "dateOfDeath" }} class="govuk-form-group--error"{{ end }}>
+                        <div id="f-dateOfDeath" {{ if index .Errors "dateOfDeath" }} class="govuk-form-group--error"{{ end }}>
                             <label class="govuk-label {{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" for="date-of-death" id="date-of-death-required">
                                 Date of death
                             </label>
                             <label class="govuk-label {{ if eq .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" for="date-of-death" id="date-of-death-optional">
                                 Date of death (optional)
                             </label>
+                            {{ template "error-message" (index .Errors "dateOfDeath") }}
                             <input class="govuk-input govuk-input--width-10"
                                id="date-of-death"
                                name="date-of-death"
@@ -63,10 +65,11 @@
                             >
                         </div>
                         <br>
-                        <div {{ if index .Errors "dateNotified" }} class="govuk-form-group--error"{{ end }}>
+                        <div id="f-dateNotified" {{ if index .Errors "dateNotified" }} class="govuk-form-group--error"{{ end }}>
                             <label class="govuk-label" for="date-notified">
                                 Date notified
                             </label>
+                            {{ template "error-message" (index .Errors "dateNotified") }}
                             <input class="govuk-input govuk-input--width-10"
                                id="date-notified"
                                name="date-notified"
@@ -75,11 +78,12 @@
                             >
                         </div>
                         <br>
-                        <div class="{{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" id="date-proof-of-death-received-reveal">
+                        <div id="f-dateDeathCertificateReceived" class="{{ if ne .DeputyDeathRecord.ProofOfDeathReceived "true" }}hide{{ end }}" >
                             <div {{ if index .Errors "dateDeathCertificateReceived" }} class="govuk-form-group--error"{{ end }}>
                                 <label class="govuk-label" for="date-proof-of-death-received">
                                     Date proof of death received
                                 </label>
+                                {{ template "error-message" (index .Errors "dateDeathCertificateReceived") }}
                                 <input class="govuk-input govuk-input--width-10"
                                    id="date-proof-of-death-received"
                                    name="date-proof-of-death-received"
@@ -97,8 +101,8 @@
                                 Notified by
                             </h1>
                         </legend>
-
-                        <div class="govuk-radios {{ if index .Errors "notifiedBy" }} govuk-form-group--error{{ end }}">
+                        {{ template "error-message" (index .Errors "notifiedBy") }}
+                        <div id="f-notifiedBy" class="govuk-radios {{ if index .Errors "notifiedBy" }} govuk-form-group--error{{ end }}" >
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input"
                                    id="notified-by-co-deputy"
@@ -145,7 +149,8 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset govuk-form-group">
                         <legend class="govuk-fieldset__legend">How was the OPG notified?</legend>
-                        <div class="govuk-radios {{ if index .Errors "notificationMethod" }} govuk-form-group--error{{ end }}">
+                        {{ template "error-message" (index .Errors "notificationMethod") }}
+                        <div id="f-notificationMethod" class="govuk-radios {{ if index .Errors "notificationMethod" }} govuk-form-group--error{{ end }}">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input"
                                    id="notification-method-email"
@@ -186,6 +191,7 @@
                     </fieldset>
                 </div>
                 <div
+                    id="f-notes"
                     class="govuk-character-count"
                     data-module="govuk-character-count"
                     data-maxlength="255">
@@ -196,6 +202,7 @@
                         <label class="govuk-label {{ if ne .DeputyDeathRecord.NotifiedBy.Handle "OTHER" }}hide{{ end }}" for="notes" id="notes-required">
                             Notes
                         </label>
+                        {{ template "error-message" (index .Errors "notes") }}
                         <textarea
                                 class="govuk-textarea govuk-js-character-count"
                                 id="notes"

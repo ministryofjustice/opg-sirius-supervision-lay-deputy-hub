@@ -18,7 +18,7 @@ htmx.onLoad((content) => {
 
     htmx.findAll("#proof-of-death-true").forEach((element) => {
         element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#date-proof-of-death-received-reveal"), "hide"),
+            htmx.removeClass(htmx.find("#f-dateDeathCertificateReceived"), "hide"),
         );
         element.addEventListener("click", () =>
             htmx.removeClass(htmx.find("#date-of-death-required"), "hide"),
@@ -29,7 +29,7 @@ htmx.onLoad((content) => {
     });
     htmx.findAll("#proof-of-death-false").forEach((element) => {
         element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#date-proof-of-death-received-reveal"), "hide"),
+            htmx.addClass(htmx.find("#f-dateDeathCertificateReceived"), "hide"),
         );
         element.addEventListener("click", () =>
             htmx.addClass(htmx.find("#date-of-death-required"), "hide"),
