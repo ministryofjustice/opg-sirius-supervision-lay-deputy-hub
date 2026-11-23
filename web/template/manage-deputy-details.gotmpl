@@ -12,6 +12,17 @@
     <form method="post"><input type="hidden" name="xsrfToken" value="{{ .XSRFToken}}" />
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="f-title">
+                        Title (optional)
+                    </label>
+                    <input class="govuk-input"
+                        id="f-title"
+                        name="title"
+                        type="text"
+                        value="{{ .Form.Title }}">
+                </div>
+
                 <div class="govuk-form-group {{ if index .Errors "firstname" }} govuk-form-group--error{{ end }}">
                     <label class="govuk-label" for="f-firstname">
                         First name

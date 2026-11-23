@@ -22,6 +22,7 @@ func renderTemplateForManageDeputyDetailsGet(tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		app.PageName = "Manage deputy contact details"
 		form := sirius.DeputyDetailsForm{
+			Title:                  app.DeputyDetails.Title,
 			DeputyFirstName:        app.DeputyDetails.DeputyFirstName,
 			DeputyMiddleName:       app.DeputyDetails.DeputyMiddleName,
 			DeputySurname:          app.DeputyDetails.DeputySurname,
@@ -53,6 +54,7 @@ func renderTemplateForManageDeputyDetailsPost(client DeputyDetailsInformation, t
 		app.PageName = "Manage deputy contact details"
 
 		form := sirius.DeputyDetailsForm{
+			Title:                  r.PostFormValue("title"),
 			DeputyFirstName:        r.PostFormValue("deputy-first-name"),
 			DeputyMiddleName:       r.PostFormValue("deputy-middle-name"),
 			DeputySurname:          r.PostFormValue("deputy-last-name"),

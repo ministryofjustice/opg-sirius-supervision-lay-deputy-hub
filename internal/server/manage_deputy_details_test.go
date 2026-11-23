@@ -14,12 +14,14 @@ import (
 type mockManageDeputyDetails struct {
 	count     int
 	lastCtx   sirius.Context
+	lastForm  sirius.DeputyDetailsForm
 	updateErr error
 }
 
-func (m *mockManageDeputyDetails) UpdateDeputyDetails(ctx sirius.Context, _ int, _ sirius.DeputyDetailsForm) error {
+func (m *mockManageDeputyDetails) UpdateDeputyDetails(ctx sirius.Context, _ int, form sirius.DeputyDetailsForm) error {
 	m.count += 1
 	m.lastCtx = ctx
+	m.lastForm = form
 
 	return m.updateErr
 }
@@ -33,14 +35,17 @@ var manageDeputyAppVars = AppVars{
 func TestGetManageDeputyDetails(t *testing.T) {
 	assert := assert.New(t)
 	template := &mockTemplates{}
+	app := manageDeputyAppVars
+	app.DeputyDetails.Title = "Dr"
 
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("GET", "", nil)
 
 	handler := renderTemplateForManageDeputyDetailsGet(template)
-	err := handler(manageDeputyAppVars, w, r)
+	err := handler(app, w, r)
 
 	assert.Nil(err)
+	assert.Equal("Dr", template.lastVars.(ManageDeputyDetailsVars).Form.Title)
 
 	resp := w.Result()
 	assert.Equal(http.StatusOK, resp.StatusCode)
@@ -53,11 +58,13 @@ func TestPostManageDeputyDetails(t *testing.T) {
 	template := &mockTemplates{}
 
 	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
+	r, _ := http.NewRequest("POST", "/123", strings.NewReader("title=Dr"))
+	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	returnedTemplate := renderTemplateForManageDeputyDetailsPost(client, template)(manageDeputyAppVars, w, r)
 
 	assert.Equal(Redirect("/123?success=deputyDetails"), returnedTemplate)
+	assert.Equal("Dr", client.lastForm.Title)
 }
 
 func TestPostManageDeputyDetailsValidationError(t *testing.T) {
