@@ -11,6 +11,8 @@ describe("Manage deputy details tab", () => {
 
     describe("Deputy contact details form", () => {
         it("fetches deputy details into form", () => {
+            cy.get('[name="title"]').should("have.value", "Master");
+            cy.get("form input:not([type='hidden'])").first().should("have.attr", "name", "title");
             cy.get('[name="deputy-first-name"]').should('have.value', 'Mike');
             cy.get('[name="deputy-middle-name"]').should("have.value", "Jonathon");
             cy.get('[name="deputy-last-name"]').should("have.value", "Deputy");
@@ -35,6 +37,7 @@ describe("Manage deputy details tab", () => {
         });
 
         it("Redirects to the correct route", () => {
+            cy.get('[name="title"]').clear().type("Dr");
             cy.get('[name="deputy-first-name"]').clear().type("Mike");
             cy.get('[name="deputy-last-name"]').clear().type("Deputy");
             cy.get('[name="address-line-1"]').clear().type("Seax House");
@@ -43,6 +46,10 @@ describe("Manage deputy details tab", () => {
 
             cy.get('.govuk-button').click();
             cy.url().should("include", "?success=deputyDetails");
+            cy.get("#deputy-details .govuk-summary-list__row")
+                .first()
+                .find(".govuk-summary-list__value")
+                .should("contain", "Dr Mike Jonathon Deputy");
         })
 
     });
