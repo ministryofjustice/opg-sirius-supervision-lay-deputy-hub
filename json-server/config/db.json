@@ -7,7 +7,7 @@
       "homePhoneNumber": "0115 2767825",
       "email": "testemail@hotmail.co.uk",
       "dob": "01/01/1980",
-      "salutation": "Master",
+      "salutation": "Mr",
       "firstName": "Mike",
       "middleNames": "Jonathon",
       "surname": "Deputy",
@@ -54,6 +54,67 @@
         "label": "Lay Deputy"
       },
       "deputyNumber": 46382901,
+      "firstname": "Mike",
+      "middleName": "Jonathon",
+      "deputySubType": {
+        "handle": "PERSON"
+      },
+      "workPhoneNumber": "0115 876 5574"
+    },
+    {
+      "id": 2,
+      "uId": "7000-0000-2531",
+      "normalizedUid": 700000002531,
+      "homePhoneNumber": "0115 2767825",
+      "email": "testemail@hotmail.co.uk",
+      "dob": "01/01/1980",
+      "salutation": "Mr",
+      "firstName": "Mike",
+      "middleNames": "Jonathon",
+      "surname": "Deputy",
+      "otherNames": "Michael",
+      "addressLine1": "Seax House",
+      "addressLine2": "19 Market Rd",
+      "addressLine3": "",
+      "town": "Chelmsford",
+      "county": "Essex",
+      "postcode": "CM1 1GG",
+      "country": "United Kingdom",
+      "isAirmailRequired": false,
+      "phoneNumber": "0115 876 5574",
+      "executiveCaseManager": {
+        "id": 28,
+        "name": "Lay Deputy Team",
+        "displayName": "Lay Deputy Team"
+      },
+      "correspondenceByPost": false,
+      "correspondenceByPhone": false,
+      "correspondenceByEmail": false,
+      "correspondenceByWelsh": true,
+      "createdDate": "14/09/2026",
+      "updatedDate": "2026-09-15T12:13:38+00:00",
+      "personType": "Deputy",
+      "specialCorrespondenceRequirements": {
+        "audioTape": true,
+        "largePrint": true,
+        "hearingImpaired": false,
+        "spellingOfNameRequiresCare": false
+      },
+      "interpreterRequired": "",
+      "canDelete": false,
+      "deputyStatus": "Active",
+      "orders": [
+        []
+      ],
+      "previousNames": "",
+      "mobileNumber": "0771 2345678",
+      "eveningNumber": "0115 2767825",
+      "newsletter": false,
+      "deputyType": {
+        "handle": "Lay",
+        "label": "Lay Deputy"
+      },
+      "deputyNumber": 46382902,
       "firstname": "Mike",
       "middleName": "Jonathon",
       "deputySubType": {
