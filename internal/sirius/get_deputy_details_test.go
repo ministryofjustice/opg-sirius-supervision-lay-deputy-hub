@@ -19,7 +19,8 @@ func TestGetDeputyDetailsReturnsDeputy(t *testing.T) {
 		_, _ = w.Write([]byte(`{
 			"id": 1,
 			"salutation": "Mr",
-			"firstName": "Test",
+			"firstname": "Test",
+			"middleNames": "Example",
 			"surname": "Deputy",
 			"otherNames": null,
 			"deputyNumber": 46382901,
@@ -56,6 +57,7 @@ func TestGetDeputyDetailsReturnsDeputy(t *testing.T) {
 		ID:               1,
 		Title:            "Mr",
 		DeputyFirstName:  "Test",
+		DeputyMiddleName: "Example",
 		DeputySurname:    "Deputy",
 		DeputyOtherNames: "",
 		DeputyNumber:     46382901,

@@ -3,9 +3,11 @@ package server
 import (
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 	"github.com/stretchr/testify/assert"
@@ -37,6 +39,11 @@ func TestGetManageDeputyDetails(t *testing.T) {
 	template := &mockTemplates{}
 	app := manageDeputyAppVars
 	app.DeputyDetails.Title = "Dr"
+	app.DeputyDetails.DeputyFirstName = "Alex"
+	app.DeputyDetails.DeputyMiddleName = "Jordan"
+	app.DeputyDetails.DeputySurname = "Smith"
+	app.DeputyDetails.DeputyOtherNames = "Alexander"
+	app.DeputyDetails.DeputyDateOfBirth = shared.NewDate("03/02/1985")
 
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("GET", "", nil)
@@ -45,7 +52,10 @@ func TestGetManageDeputyDetails(t *testing.T) {
 	err := handler(app, w, r)
 
 	assert.Nil(err)
-	assert.Equal("Dr", template.lastVars.(ManageDeputyDetailsVars).Form.Title)
+	assert.Equal(sirius.DeputyDetailsForm{
+		Title: "Dr", FirstName: "Alex", MiddleName: "Jordan", Surname: "Smith",
+		OtherNames: "Alexander", DateOfBirth: shared.NewDate("03/02/1985"),
+	}, template.lastVars.(ManageDeputyDetailsVars).Form)
 
 	resp := w.Result()
 	assert.Equal(http.StatusOK, resp.StatusCode)
@@ -58,13 +68,23 @@ func TestPostManageDeputyDetails(t *testing.T) {
 	template := &mockTemplates{}
 
 	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/123", strings.NewReader("title=Dr"))
+	values := url.Values{
+		"title": {"Dr"}, "deputy-first-name": {"Alex"}, "deputy-middle-name": {"Jordan"},
+		"deputy-last-name": {"Smith"}, "deputy-other-names": {"Alexander"},
+		"deputy-date-of-birth": {"1985-02-03"}, "deputy-phone-number": {"020 7946 0123"},
+		"deputy-evening-number": {"020 7946 0456"},
+	}
+	r, _ := http.NewRequest("POST", "/123", strings.NewReader(values.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
 	returnedTemplate := renderTemplateForManageDeputyDetailsPost(client, template)(manageDeputyAppVars, w, r)
 
 	assert.Equal(Redirect("/123?success=deputyDetails"), returnedTemplate)
-	assert.Equal("Dr", client.lastForm.Title)
+	assert.Equal(sirius.DeputyDetailsForm{
+		Title: "Dr", FirstName: "Alex", MiddleName: "Jordan", Surname: "Smith",
+		OtherNames: "Alexander", DateOfBirth: shared.NewDate("03/02/1985"),
+		DaytimeTelephoneNumber: "020 7946 0123", EveningTelephoneNumber: "020 7946 0456",
+	}, client.lastForm)
 }
 
 func TestPostManageDeputyDetailsValidationError(t *testing.T) {
@@ -85,7 +105,8 @@ func TestPostManageDeputyDetailsValidationError(t *testing.T) {
 	template := &mockTemplates{}
 
 	w := httptest.NewRecorder()
-	r, _ := http.NewRequest("POST", "/123", strings.NewReader(""))
+	r, _ := http.NewRequest("POST", "/123", strings.NewReader("deputy-first-name=Alex&deputy-middle-name=Jordan&deputy-date-of-birth=1985-02-03"))
+	r.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	returnedTemplate := renderTemplateForManageDeputyDetailsPost(client, template)(manageDeputyAppVars, w, r)
 	assert.Nil(returnedTemplate)
@@ -99,7 +120,7 @@ func TestPostManageDeputyDetailsValidationError(t *testing.T) {
 			PageName:      "Manage deputy contact details",
 		},
 		Form: sirius.DeputyDetailsForm{
-			DeputySubType: sirius.DeputySubType{SubType: "PERSON"},
+			FirstName: "Alex", MiddleName: "Jordan", DateOfBirth: shared.NewDate("03/02/1985"),
 		},
 	}, template.lastVars)
 }

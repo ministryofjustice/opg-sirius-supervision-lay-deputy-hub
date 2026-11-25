@@ -13,10 +13,6 @@ type DeputyType struct {
 	Label  string `json:"label"`
 }
 
-type DeputySubType struct {
-	SubType string `json:"handle"`
-}
-
 type SpecialCorrespondenceRequirementsType struct {
 	AudioTape                  bool `json:"audioTape"`
 	LargePrint                 bool `json:"largePrint"`
@@ -27,7 +23,7 @@ type SpecialCorrespondenceRequirementsType struct {
 type DeputyDetails struct {
 	ID                                int                                   `json:"id"`
 	Title                             string                                `json:"salutation"`
-	DeputyFirstName                   string                                `json:"firstName"`
+	DeputyFirstName                   string                                `json:"firstname"`
 	DeputyMiddleName                  string                                `json:"middleNames"`
 	DeputySurname                     string                                `json:"surname"`
 	DeputyOtherNames                  string                                `json:"otherNames"`

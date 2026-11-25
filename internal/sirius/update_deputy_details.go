@@ -10,25 +10,24 @@ import (
 )
 
 type DeputyDetailsForm struct {
-	Title                  string        `json:"salutation"`
-	DeputyFirstName        string        `json:"firstname"`
-	DeputyMiddleName       string        `json:"middleName"`
-	DeputySurname          string        `json:"surname"`
-	DeputyOtherNames       string        `json:"otherNames"`
-	DeputySubType          DeputySubType `json:"deputySubType"`
-	DeputyDateOfBirth      shared.Date   `json:"dob"`
-	Email                  string        `json:"email"`
-	MobileTelephoneNumber  string        `json:"mobileNumber"`
-	DaytimeTelephoneNumber string        `json:"workPhoneNumber"`
-	EveningTelephoneNumber string        `json:"homePhoneNumber"`
-	AddressLine1           string        `json:"addressLine1"`
-	AddressLine2           string        `json:"addressLine2"`
-	AddressLine3           string        `json:"addressLine3"`
-	Town                   string        `json:"town"`
-	County                 string        `json:"county"`
-	Country                string        `json:"country"`
-	Postcode               string        `json:"postcode"`
-	IsAirmailRequired      bool          `json:"isAirmailRequired"`
+	Title                  string      `json:"salutation"`
+	FirstName              string      `json:"firstname"`
+	MiddleName             string      `json:"middleNames"`
+	Surname                string      `json:"surname"`
+	OtherNames             string      `json:"otherNames"`
+	DateOfBirth            shared.Date `json:"dob"`
+	Email                  string      `json:"email"`
+	MobileTelephoneNumber  string      `json:"mobileNumber"`
+	DaytimeTelephoneNumber string      `json:"phoneNumber"`
+	EveningTelephoneNumber string      `json:"eveningNumber"`
+	AddressLine1           string      `json:"addressLine1"`
+	AddressLine2           string      `json:"addressLine2"`
+	AddressLine3           string      `json:"addressLine3"`
+	Town                   string      `json:"town"`
+	County                 string      `json:"county"`
+	Country                string      `json:"country"`
+	Postcode               string      `json:"postcode"`
+	IsAirmailRequired      bool        `json:"isAirmailRequired"`
 }
 
 func (c *Client) UpdateDeputyDetails(ctx Context, deputyID int, deputyDetails DeputyDetailsForm) error {
