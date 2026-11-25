@@ -156,7 +156,7 @@
                                    id="notification-method-email"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "EMAIL") (eq .DeputyDeathRecord.NotificationMethod "Email") }} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotificationMethod "EMAIL" }} checked {{ end }}
                                    value="EMAIL"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-email">
@@ -168,7 +168,7 @@
                                    id="notification-method-phone"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "PHONE") (eq .DeputyDeathRecord.NotificationMethod "Phone")}} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotificationMethod "PHONE" }} checked {{ end }}
                                    value="PHONE"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-phone">
@@ -180,7 +180,7 @@
                                    id="notification-method-letter"
                                    name="notification-method"
                                    type="radio"
-                                    {{ if or (eq .DeputyDeathRecord.NotificationMethod "LETTER") (eq .DeputyDeathRecord.NotificationMethod "Letter")}} checked {{ end }}
+                                    {{ if eq .DeputyDeathRecord.NotificationMethod "LETTER" }} checked {{ end }}
                                    value="LETTER"
                                 >
                                 <label class="govuk-label govuk-radios__label" for="notification-method-letter">

@@ -17,53 +17,41 @@ htmx.onLoad((content) => {
     initAll();
 
     htmx.findAll("#proof-of-death-true").forEach((element) => {
-        element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#f-dateDeathCertificateReceived"), "hide"),
-        );
-        element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#date-of-death-required"), "hide"),
-        );
-        element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#date-of-death-optional"), "hide"),
+        element.addEventListener("click", () => {
+                htmx.removeClass(htmx.find("#f-dateDeathCertificateReceived"), "hide")
+                htmx.removeClass(htmx.find("#date-of-death-required"), "hide")
+                htmx.addClass(htmx.find("#date-of-death-optional"), "hide")
+            }
         );
     });
     htmx.findAll("#proof-of-death-false").forEach((element) => {
-        element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#f-dateDeathCertificateReceived"), "hide"),
-        );
-        element.addEventListener("click", () =>
-            htmx.addClass(htmx.find("#date-of-death-required"), "hide"),
-        );
-        element.addEventListener("click", () =>
-            htmx.removeClass(htmx.find("#date-of-death-optional"), "hide"),
+        element.addEventListener("click", () => {
+                htmx.addClass(htmx.find("#f-dateDeathCertificateReceived"), "hide")
+                htmx.addClass(htmx.find("#date-of-death-required"), "hide")
+                htmx.removeClass(htmx.find("#date-of-death-optional"), "hide")
+            }
         );
     });
 
     htmx.findAll(content, "#notified-by-other").forEach((element) => {
-        htmx.on(`#${element.id}`, "click", () =>
-            htmx.addClass(htmx.find("#notes-optional"), "hide"),
-        );
-        htmx.on(`#${element.id}`, "click", () =>
-            htmx.removeClass(htmx.find("#notes-required"), "hide"),
-        );
+        element.addEventListener("click", () => {
+            htmx.addClass(htmx.find("#notes-optional"), "hide")
+            htmx.removeClass(htmx.find("#notes-required"), "hide")
+        })
     });
 
     htmx.findAll(content, "#notified-by-co-deputy").forEach((element) => {
-        htmx.on(`#${element.id}`, "click", () =>
-            htmx.addClass(htmx.find("#notes-required"), "hide"),
-        );
-        htmx.on(`#${element.id}`, "click", () =>
-            htmx.removeClass(htmx.find("#notes-optional"), "hide"),
-        );
+        element.addEventListener("click", () => {
+            htmx.addClass(htmx.find("#notes-required"), "hide")
+            htmx.removeClass(htmx.find("#notes-optional"), "hide")
+        })
     });
 
     htmx.findAll(content, "#notified-by-executor").forEach((element) => {
-        htmx.on(`#${element.id}`, "click", () =>
-            htmx.addClass(htmx.find("#notes-required"), "hide"),
-        );
-        htmx.on(`#${element.id}`, "click", () =>
-            htmx.removeClass(htmx.find("#notes-optional"), "hide"),
-        );
+        element.addEventListener("click", () => {
+            htmx.addClass(htmx.find("#notes-required"), "hide")
+            htmx.removeClass(htmx.find("#notes-optional"), "hide")
+        })
     });
 });
 

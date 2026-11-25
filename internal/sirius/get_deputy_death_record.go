@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
@@ -63,7 +64,7 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyID int) (DeputyDeathRec
 		DateDeathCertificateReceieved: changeDateFormatForDisplay(r.DateDeathCertificateReceived),
 		DateNotified:                  changeDateFormatForDisplay(r.DateNotified),
 		NotifiedBy:                    RefData{r.NotifiedBy.Handle, r.NotifiedBy.Label},
-		NotificationMethod:            r.NotificationMethod,
+		NotificationMethod:            strings.ToUpper(r.NotificationMethod),
 		Notes:                         notes,
 		DateOfDeath:                   changeDateFormatForDisplay(r.Person.DateOfDeath),
 	}
