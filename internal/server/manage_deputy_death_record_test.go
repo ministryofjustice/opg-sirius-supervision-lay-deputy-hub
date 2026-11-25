@@ -33,7 +33,7 @@ func TestGetDeputyDeathRecord(t *testing.T) {
 	w := httptest.NewRecorder()
 	r, _ := http.NewRequest("GET", "/death-record", nil)
 
-	handler := renderTemplateForDeputyDeath(client, template)
+	handler := renderTemplateForDeputyDeathGet(client, template)
 	err := handler(AppVars{
 		Path: "/deathRecord",
 		DeputyDetails: sirius.DeputyDetails{
@@ -93,7 +93,7 @@ func TestUpdateDeputyDeathRecord(t *testing.T) {
 		"/death-record",
 		strings.NewReader("{date-of-death:'2020-01-01', proof-of-death:'true', date-proof-of-death-received:'2020-02-02', date-notified:'2020-02-01', notified-by:'DEPUTY', notification-method:'PHONE', notes:'some thoughts here'}"))
 
-	handler := renderTemplateForDeputyDeath(client, template)
+	handler := renderTemplateForDeputyDeathPost(client, template)
 	err := handler(AppVars{
 		Path: "/deathRecord",
 		DeputyDetails: sirius.DeputyDetails{
@@ -135,7 +135,7 @@ func TestUpdateDeputyDeathRecordValidationError(t *testing.T) {
 		"/death-record",
 		strings.NewReader("{date-of-death:'2020-01-01', proof-of-death:'true', date-proof-of-death-received:'2020-02-02', date-notified:'2020-02-01', notified-by:'DEPUTY', notification-method:'PHONE', notes:'some thoughts here'}"))
 
-	handler := renderTemplateForDeputyDeath(client, template)
+	handler := renderTemplateForDeputyDeathPost(client, template)
 	err := handler(AppVars{
 		Path: "/deathRecord",
 		DeputyDetails: sirius.DeputyDetails{
@@ -186,7 +186,7 @@ func TestUpdateDeputyDeathRecordHandlesError(t *testing.T) {
 		"/death-record",
 		strings.NewReader("{date-of-death:'2020-01-01', proof-of-death:'true', date-proof-of-death-received:'2020-02-02', date-notified:'2020-02-01', notified-by:'DEPUTY', notification-method:'PHONE', notes:'some thoughts here'}"))
 
-	handler := renderTemplateForDeputyDeath(client, template)
+	handler := renderTemplateForDeputyDeathPost(client, template)
 	err := handler(AppVars{
 		Path: "/deathRecord",
 		DeputyDetails: sirius.DeputyDetails{

@@ -34,8 +34,6 @@ describe("Manage deputy details tab", () => {
             cy.get('.govuk-button-group > .govuk-link').click();
             cy.get('.govuk-heading-l').should("contain.text", "Deputy details");
 
-
-            cy.setCookie("success-route", "/death-notification/2");
             cy.visit("/supervision/deputies/lay/3/record-death");
             cy.get('#proof-of-death-false').should('be.checked');
             cy.get('[name="date-of-death"]').should('have.value', '');

@@ -9,18 +9,15 @@ import (
 )
 
 type deputyDeathRecordResponse struct {
-	ID                           int    `json:"id"`
-	ProofOfDeathReceived         bool   `json:"proofOfDeathReceived"`
-	DateDeathCertificateReceived string `json:"dateDeathCertificateReceived"`
-	DateNotified                 string `json:"dateNotified"`
-	NotifiedBy                   struct {
-		Handle string `json:"handle"`
-		Label  string `json:"label"`
-	} `json:"notifiedBy"`
-	NotifiedByOther    string `json:"notifiedByOther"`
-	NotificationMethod string `json:"notificationMethod"`
-	Notes              string `json:"notes"`
-	Person             struct {
+	ID                           int     `json:"id"`
+	ProofOfDeathReceived         bool    `json:"proofOfDeathReceived"`
+	DateDeathCertificateReceived string  `json:"dateDeathCertificateReceived"`
+	DateNotified                 string  `json:"dateNotified"`
+	NotifiedBy                   RefData `json:"notifiedBy"`
+	NotifiedByOther              string  `json:"notifiedByOther"`
+	NotificationMethod           string  `json:"notificationMethod"`
+	Notes                        string  `json:"notes"`
+	Person                       struct {
 		DateOfDeath string `json:"dateOfDeath"`
 	} `json:"person"`
 }
