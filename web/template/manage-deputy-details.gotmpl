@@ -12,6 +12,17 @@
     <form method="post"><input type="hidden" name="xsrfToken" value="{{ .XSRFToken}}" />
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
+                <div class="govuk-form-group">
+                    <label class="govuk-label" for="f-title">
+                        Title (optional)
+                    </label>
+                    <input class="govuk-input"
+                        id="f-title"
+                        name="title"
+                        type="text"
+                        value="{{ .Form.Title }}">
+                </div>
+
                 <div class="govuk-form-group {{ if index .Errors "firstname" }} govuk-form-group--error{{ end }}">
                     <label class="govuk-label" for="f-firstname">
                         First name
@@ -21,7 +32,7 @@
                         id="f-firstname"
                         name="deputy-first-name"
                         type="text"
-                        value="{{ .Form.DeputyFirstName }}">
+                        value="{{ .Form.FirstName }}">
                 </div>
 
                 <div class="govuk-form-group {{ if index .Errors "middleName" }} govuk-form-group--error{{ end }}">
@@ -29,7 +40,7 @@
                         Middle names (optional)
                     </label>
                     {{ template "error-message" (index .Errors "middleName") }}
-                    <input class="govuk-input {{ if index .Errors "middleName" }} govuk-input--error{{ end }}" id="f-middleName" name="deputy-middle-name" type="text" value="{{ .Form.DeputyMiddleName }}">
+                    <input class="govuk-input {{ if index .Errors "middleName" }} govuk-input--error{{ end }}" id="f-middleName" name="deputy-middle-name" type="text" value="{{ .Form.MiddleName }}">
                 </div>
 
                 <div class="govuk-form-group {{ if index .Errors "surname" }} govuk-form-group--error{{ end }}">
@@ -41,7 +52,7 @@
                         id="f-surname"
                         name="deputy-last-name"
                         type="text"
-                        value="{{ .Form.DeputySurname }}">
+                        value="{{ .Form.Surname }}">
                 </div>
 
                 <div class="govuk-form-group {{ if index .Errors "otherNames" }} govuk-form-group--error{{ end }}">
@@ -49,7 +60,7 @@
                         Other names (optional)
                     </label>
                     {{ template "error-message" (index .Errors "otherNames") }}
-                    <input class="govuk-input {{ if index .Errors "otherNames" }} govuk-input--error{{ end }}" id="f-otherNames" name="deputy-other-names" type="text" value="{{ .Form.DeputyOtherNames }}">
+                    <input class="govuk-input {{ if index .Errors "otherNames" }} govuk-input--error{{ end }}" id="f-otherNames" name="deputy-other-names" type="text" value="{{ .Form.OtherNames }}">
                 </div>
 
                 <div class="govuk-form-group {{ if index .Errors "dob" }} govuk-form-group--error{{ end }}">
@@ -57,7 +68,7 @@
                         Date of birth (optional)
                     </label>
                     {{ template "error-message" (index .Errors "dob") }}
-                    <input class="govuk-input govuk-input--width-10 {{ if index .Errors "dob" }} govuk-input--error{{ end }}" id="f-dob" name="deputy-date-of-birth" type="date" value="{{ .Form.DeputyDateOfBirth.DateFormString }}">
+                    <input class="govuk-input govuk-input--width-10 {{ if index .Errors "dob" }} govuk-input--error{{ end }}" id="f-dob" name="deputy-date-of-birth" type="date" value="{{ .Form.DateOfBirth.DateFormString }}">
                 </div>
 
                 <div class="govuk-form-group {{ if index .Errors "mobileNumber" }} govuk-form-group--error{{ end }}">

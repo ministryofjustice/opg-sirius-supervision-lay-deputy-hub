@@ -22,12 +22,12 @@ func renderTemplateForManageDeputyDetailsGet(tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		app.PageName = "Manage deputy contact details"
 		form := sirius.DeputyDetailsForm{
-			DeputyFirstName:        app.DeputyDetails.DeputyFirstName,
-			DeputyMiddleName:       app.DeputyDetails.DeputyMiddleName,
-			DeputySurname:          app.DeputyDetails.DeputySurname,
-			DeputyOtherNames:       app.DeputyDetails.DeputyOtherNames,
-			DeputySubType:          sirius.DeputySubType{SubType: "PERSON"},
-			DeputyDateOfBirth:      app.DeputyDetails.DeputyDateOfBirth,
+			Title:                  app.DeputyDetails.Title,
+			FirstName:              app.DeputyDetails.DeputyFirstName,
+			MiddleName:             app.DeputyDetails.DeputyMiddleName,
+			Surname:                app.DeputyDetails.DeputySurname,
+			OtherNames:             app.DeputyDetails.DeputyOtherNames,
+			DateOfBirth:            app.DeputyDetails.DeputyDateOfBirth,
 			Email:                  app.DeputyDetails.Email,
 			MobileTelephoneNumber:  app.DeputyDetails.MobileTelephoneNumber,
 			DaytimeTelephoneNumber: app.DeputyDetails.DaytimeTelephoneNumber,
@@ -53,12 +53,12 @@ func renderTemplateForManageDeputyDetailsPost(client DeputyDetailsInformation, t
 		app.PageName = "Manage deputy contact details"
 
 		form := sirius.DeputyDetailsForm{
-			DeputyFirstName:        r.PostFormValue("deputy-first-name"),
-			DeputyMiddleName:       r.PostFormValue("deputy-middle-name"),
-			DeputySurname:          r.PostFormValue("deputy-last-name"),
-			DeputyOtherNames:       r.PostFormValue("deputy-other-names"),
-			DeputySubType:          sirius.DeputySubType{SubType: "PERSON"},
-			DeputyDateOfBirth:      shared.NewDate(r.PostFormValue("deputy-date-of-birth")),
+			Title:                  r.PostFormValue("title"),
+			FirstName:              r.PostFormValue("deputy-first-name"),
+			MiddleName:             r.PostFormValue("deputy-middle-name"),
+			Surname:                r.PostFormValue("deputy-last-name"),
+			OtherNames:             r.PostFormValue("deputy-other-names"),
+			DateOfBirth:            shared.NewDate(r.PostFormValue("deputy-date-of-birth")),
 			MobileTelephoneNumber:  r.PostFormValue("deputy-mobile-number"),
 			DaytimeTelephoneNumber: r.PostFormValue("deputy-phone-number"),
 			EveningTelephoneNumber: r.PostFormValue("deputy-evening-number"),

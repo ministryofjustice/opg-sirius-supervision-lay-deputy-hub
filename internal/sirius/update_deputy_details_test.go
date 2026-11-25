@@ -2,6 +2,7 @@ package sirius
 
 import (
 	"bytes"
+	stdjson "encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -17,20 +18,25 @@ func TestUpdateDeputyDetails(t *testing.T) {
 	mockClient := &mocks.MockClient{}
 
 	client, _ := NewClient(mockClient, "http://localhost:3000")
-	json := `{
-    "Email":                            "email",
-    "PhoneNumber":                      "telephone",
-    "AddressLine1":                     "address-line-1",
-    "AddressLine2":                     "address-line-2",
-    "AddressLine3":                     "address-line-3",
-    "Town":                             "town",
-    "County":                           "county",
-    "Postcode":                         "postcode",
-	}`
+	r := io.NopCloser(bytes.NewReader([]byte(`{}`)))
 
-	r := io.NopCloser(bytes.NewReader([]byte(json)))
+	mocks.GetDoFunc = func(req *http.Request) (*http.Response, error) {
+		body, err := io.ReadAll(req.Body)
+		assert.NoError(t, err)
+		var payload map[string]interface{}
+		assert.NoError(t, stdjson.Unmarshal(body, &payload))
+		assert.Equal(t, map[string]interface{}{
+			"salutation": "Dr", "firstname": "Alex", "middleNames": "Jordan",
+			"surname": "Smith", "otherNames": "Alexander", "dob": "03/02/1985",
+			"email": "email", "mobileNumber": "mobile", "phoneNumber": "telephone",
+			"eveningNumber": "evening", "addressLine1": "address-line-1",
+			"addressLine2": "address-line-2", "addressLine3": "address-line-3",
+			"town": "town", "county": "county", "country": "country",
+			"postcode": "postcode", "isAirmailRequired": true,
+		}, payload)
+		assert.Equal(t, http.MethodPut, req.Method)
+		assert.Equal(t, "/supervision-api/v1/deputies/1/contact-details", req.URL.Path)
 
-	mocks.GetDoFunc = func(*http.Request) (*http.Response, error) {
 		return &http.Response{
 			StatusCode: 200,
 			Body:       r,
@@ -38,14 +44,24 @@ func TestUpdateDeputyDetails(t *testing.T) {
 	}
 
 	formData := DeputyDetailsForm{
+		Title:                  "Dr",
+		FirstName:              "Alex",
+		MiddleName:             "Jordan",
+		Surname:                "Smith",
+		OtherNames:             "Alexander",
+		DateOfBirth:            shared.NewDate("03/02/1985"),
 		Email:                  "email",
+		MobileTelephoneNumber:  "mobile",
 		DaytimeTelephoneNumber: "telephone",
+		EveningTelephoneNumber: "evening",
 		AddressLine1:           "address-line-1",
 		AddressLine2:           "address-line-2",
 		AddressLine3:           "address-line-3",
 		Town:                   "town",
 		County:                 "county",
+		Country:                "country",
 		Postcode:               "postcode",
+		IsAirmailRequired:      true,
 	}
 
 	err := client.UpdateDeputyDetails(getContext(nil), 1, formData)
