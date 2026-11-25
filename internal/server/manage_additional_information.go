@@ -54,7 +54,7 @@ func renderTemplateForManageAdditionalInformationPost(client AdditionalInformati
 
 		vars := ManageAdditionalInformationVars{AppVars: app, Form: form}
 
-		err := client.UpdateAdditionalInformation(ctx, app.DeputyId(), form)
+		err := client.UpdateAdditionalInformation(ctx, app.DeputyID(), form)
 
 		if verr, ok := err.(sirius.ValidationError); ok {
 			vars.Errors = util.RenameErrors(verr.Errors)
@@ -64,6 +64,6 @@ func renderTemplateForManageAdditionalInformationPost(client AdditionalInformati
 			return err
 		}
 
-		return Redirect(fmt.Sprintf("/%d?success=additionalInformation", app.DeputyId()))
+		return Redirect(fmt.Sprintf("/%d?success=additionalInformation", app.DeputyID()))
 	}
 }
