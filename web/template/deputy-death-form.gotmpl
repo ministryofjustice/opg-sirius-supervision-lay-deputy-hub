@@ -228,19 +228,24 @@
                     <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
                 </div>
             </form>
-            {{ if or (eq .DeputyDeathRecord.NotificationMethod "Email") (eq .DeputyDeathRecord.NotificationMethod "Letter") (eq .DeputyDeathRecord.NotificationMethod "Phone") }}
-                <form id="delete-deputy-death-record-form" method="post" autocomplete="off" name="delete-deputy-death-record">
-                    <button
-                            class="govuk-button govuk-button govuk-button--warning"
-                            type="submit"
-                            name="submit-button"
-                            value="delete-deputy-death-record-button"
-                            id="delete-deputy-death-record-button"
-                            data-module="govuk-button">
-                        Delete deputy death record
-                    </button>
-                </form>
-            {{ end }}
+            {{ if eq .User.IsManager true }}
+                {{ if or (eq .DeputyDetails.DeputyStatus "Death Notified") (eq .DeputyDetails.DeputyStatus "Deceased")}}
+                    <form id="delete-deputy-death-record-form" method="post" autocomplete="off" name="delete-deputy-death-record">
+                        <input type="hidden"
+                               name="xsrfToken"
+                               value="{{ .XSRFToken }}" />
+                        <button
+                                class="govuk-button govuk-button govuk-button--warning"
+                                type="submit"
+                                name="submit-button"
+                                value="delete-deputy-death-record-button"
+                                id="delete-deputy-death-record-button"
+                                data-module="govuk-button">
+                            Delete deputy death record
+                        </button>
+                    </form>
+                {{ end }}
+            {{end }}
         </div>
     </div>
 {{ end }}

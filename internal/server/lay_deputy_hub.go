@@ -36,6 +36,8 @@ func renderTemplateForDeputyHub(client LayDeputyHubInformation, tmpl Template) H
 		switch r.URL.Query().Get("success") {
 		case "deputyDetails":
 			successMessage = "Deputy details updated"
+		case "deleteDeathRecord":
+			successMessage = "Deputy death record deleted"
 		case "recordDeath":
 			successMessage = "Deputy death record updated"
 		default:

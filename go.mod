@@ -6,6 +6,7 @@ require (
 	github.com/ministryofjustice/opg-go-common v1.166.0
 	github.com/stretchr/testify v1.12.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.72.0
+	golang.org/x/sync v0.25.0
 	golang.org/x/text v0.44.0
 )
 
