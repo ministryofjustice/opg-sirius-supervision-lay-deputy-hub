@@ -39,10 +39,11 @@ type ErrorVars struct {
 }
 
 type LayDeputyHubClient interface {
+	DeleteDeputyDeathRecord(sirius.Context, int) error
 	GetDeputyDeathRecord(sirius.Context, int) (sirius.DeputyDeathRecord, error)
-	UpdateDeputyDeathRecord(sirius.Context, sirius.DeputyDeathRecord) error
 	GetDeputyDetails(sirius.Context, int) (sirius.DeputyDetails, error)
 	GetDeputyTimeline(sirius.Context, int) ([]sirius.TimelineEvent, error)
+	UpdateDeputyDeathRecord(sirius.Context, sirius.DeputyDeathRecord) error
 }
 
 type ExpandedError interface {

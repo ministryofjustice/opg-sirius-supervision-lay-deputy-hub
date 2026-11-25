@@ -12,7 +12,7 @@
     {{ template "error-summary" .Errors }}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
-            <form id="record-deputy-death-form" method="post" autocomplete="off">
+            <form id="record-deputy-death-form" method="post" autocomplete="off" name="record-deputy-death">
                 <input type="hidden"
                        name="xsrfToken"
                        value="{{ .XSRFToken }}" />
@@ -228,6 +228,19 @@
                     <a class="govuk-link" href="{{ prefix (printf "/%d" .DeputyDetails.ID) }}">Cancel</a>
                 </div>
             </form>
+            {{ if or (eq .DeputyDeathRecord.NotificationMethod "Email") (eq .DeputyDeathRecord.NotificationMethod "Letter") (eq .DeputyDeathRecord.NotificationMethod "Phone") }}
+                <form id="delete-deputy-death-record-form" method="post" autocomplete="off" name="delete-deputy-death-record">
+                    <button
+                            class="govuk-button govuk-button govuk-button--warning"
+                            type="submit"
+                            name="submit-button"
+                            value="delete-deputy-death-record-button"
+                            id="delete-deputy-death-record-button"
+                            data-module="govuk-button">
+                        Delete deputy death record
+                    </button>
+                </form>
+            {{ end }}
         </div>
     </div>
 {{ end }}
