@@ -64,9 +64,297 @@
     }
   ],
   "clients": {
+    "limit": 25,
+    "pages": {
+      "current": 1,
+      "total": 1
+    },
+    "total": 6,
     "metadata": {
       "totalActiveClients": 3
-    }
+    },
+    "clients": [
+      {
+        "id": 71,
+        "firstname": "Agnes",
+        "surname": "Burgundy",
+        "caseRecNumber": "93404674",
+        "orders": [
+          {
+            "orderDate": "01/01/2016",
+            "howDeputyAppointed": {
+              "handle": "JOINTANDSEVERALLY",
+              "label": "Joint and Severally"
+            },
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          },
+          {
+            "orderDate": "02/02/2016",
+            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "deputies": [
+              {
+                "deputy": {"id": 2},
+                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
+                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+              },
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/01/2014",
+            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          },
+          {
+            "orderDate": "01/01/2015",
+            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/01/2020",
+            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "pfa"
+          },
+          {
+            "caseSubtype": "pfa",
+            "orderDate": "01/01/2025",
+            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "orderStatus": {"handle": "ACTIVE", "label": "Active"},
+            "deputies": [
+              {
+                "deputy": {"id": 2},
+                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 74,
+        "firstname": "Louis",
+        "surname": "Dauphin",
+        "caseRecNumber": "18227939",
+        "orders": [
+          {
+            "orderDate": "01/01/2020",
+            "howDeputyAppointed": null,
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
+                "statusOnCase": {"handle": "SUSPENDED", "label": "Suspended"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/01/2015",
+            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
+                "statusOnCase": {"handle": "SUSPENDED", "label": "Suspended"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 75,
+        "firstname": "Something",
+        "surname": "Here",
+        "caseRecNumber": "93404699",
+        "orders": [
+          {
+            "orderDate": "01/01/2016",
+            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "PARENT", "label": "Parent"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 76,
+        "firstname": "Robert",
+        "surname": "Robson",
+        "caseRecNumber": "12323984",
+        "orders": [
+          {
+            "orderDate": "15/03/2024",
+            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "20/12/2019",
+            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
+                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "CLOSED",
+              "label": "Closed"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 77,
+        "firstname": "Jane",
+        "surname": "Smith",
+        "caseRecNumber": "12323985",
+        "orders": [
+          {
+            "orderDate": "10/06/2024",
+            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "CHILD", "label": "Child"},
+                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "OPEN",
+              "label": "Open"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      },
+      {
+        "id": 78,
+        "firstname": "Alex",
+        "surname": "Taylor",
+        "caseRecNumber": "12323986",
+        "orders": [
+          {
+            "orderDate": "01/09/2023",
+            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
+                "statusOnCase": {"handle": "ERROR", "label": "Error"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "DUPLICATE",
+              "label": "Duplicate"
+            },
+            "caseSubtype": "hw"
+          },
+          {
+            "orderDate": "01/09/2023",
+            "howDeputyAppointed": {
+              "handle": "JOINTANDSEVERALLY",
+              "label": "Joint and Severally"
+            },
+            "deputies": [
+              {
+                "deputy": {"id": 1},
+                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
+                "statusOnCase": {"handle": "ERROR", "label": "Error"}
+              }
+            ],
+            "orderStatus": {
+              "handle": "DUPLICATE",
+              "label": "Duplicate"
+            },
+            "caseSubtype": "pfa"
+          }
+        ]
+      }
+    ]
   },
   "timeline": [
     {

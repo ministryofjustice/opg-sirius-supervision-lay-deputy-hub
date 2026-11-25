@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
@@ -13,22 +12,48 @@ type Metadata struct {
 	TotalActiveClients int `json:"totalActiveClients"`
 }
 
+type RefData struct {
+	Label string `json:"label"`
+}
+
+type OrderDeputy struct {
+	Deputy struct {
+		ID int `json:"id"`
+	} `json:"deputy"`
+	Relationship RefData `json:"relationshipToClient"`
+	DeputyStatus RefData `json:"statusOnCase"`
+}
+
+type Order struct {
+	OrderDate       shared.Date   `json:"orderDate"`
+	OrderStatus     RefData       `json:"orderStatus"`
+	CaseSubType     string        `json:"casesubtype"`
+	AppointmentType RefData       `json:"howDeputyAppointed"`
+	Deputies        []OrderDeputy `json:"deputies"`
+}
+
+type DeputyClient struct {
+	ClientId  int     `json:"id"`
+	Firstname string  `json:"firstname"`
+	Surname   string  `json:"surname"`
+	CourtRef  string  `json:"caseRecNumber"`
+	Orders    []Order `json:"orders"`
+}
+
 type ClientList struct {
-	TotalClients int
-	Metadata     Metadata
+	Clients      []DeputyClient `json:"clients"`
+	TotalClients int            `json:"total"`
+	Metadata     Metadata       `json:"metadata"`
 }
 
 type ClientListParams struct {
-	DeputyId int
+	DeputyID int
 }
 
 func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientList, error) {
 	var clientList ClientList
 
-	query := url.Values{}
-	filter := "order-status:ACTIVE"
-	query.Set("filter", filter)
-	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/clients?%s", params.DeputyId, query.Encode())
+	requestURL := fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/clients", params.DeputyID)
 
 	req, err := c.newRequest(ctx, http.MethodGet, requestURL, nil)
 
@@ -54,8 +79,6 @@ func (c *Client) GetDeputyClients(ctx Context, params ClientListParams) (ClientL
 	if err = json.NewDecoder(resp.Body).Decode(&clientList); err != nil {
 		return clientList, err
 	}
-
-	clientList.TotalClients = clientList.Metadata.TotalActiveClients
 
 	return clientList, err
 }

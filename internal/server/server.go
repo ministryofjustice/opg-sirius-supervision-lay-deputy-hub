@@ -35,7 +35,7 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 	mux.Handle("/static/stylesheets/", static)
 
 	mux.Handle("GET /{id}", wrap(renderTemplateForDeputyHub(client, templates["deputy-details.gotmpl"])))
-	mux.Handle("GET /{id}/clients", wrap(renderTemplateForClientTab(templates["clients.gotmpl"])))
+	mux.Handle("GET /{id}/clients", wrap(renderTemplateForClientTab(client, templates["clients.gotmpl"])))
 	mux.Handle("GET /{id}/timeline", wrap(renderTemplateForTimeline(client, templates["timeline.gotmpl"])))
 	mux.Handle("GET /{id}/manage-deputy-details", wrap(renderTemplateForManageDeputyDetailsGet(templates["manage-deputy-details.gotmpl"])))
 	mux.Handle("GET /{id}/manage-additional-information", wrap(renderTemplateForManageAdditionalInformationGet(client, templates["manage-additional-information.gotmpl"])))
