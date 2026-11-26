@@ -35,6 +35,11 @@ type mockApiClient struct {
 	DeathRecord    sirius.DeputyDeathRecord
 	DeputyDetails  sirius.DeputyDetails
 	TimelineEvents []sirius.TimelineEvent
+	User           sirius.User
+}
+
+func (m mockApiClient) DeleteDeputyDeathRecord(_ sirius.Context, deputyID int) error {
+	return m.error
 }
 
 func (m mockApiClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams) (sirius.ClientList, error) {
@@ -43,10 +48,6 @@ func (m mockApiClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListPar
 
 func (m mockApiClient) GetDeputyDeathRecord(_ sirius.Context, deputyID int) (sirius.DeputyDeathRecord, error) {
 	return m.DeathRecord, m.error
-}
-
-func (m mockApiClient) UpdateDeputyDeathRecord(_ sirius.Context, deathRecord sirius.DeputyDeathRecord) error {
-	return m.error
 }
 
 func (m mockApiClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.DeputyDetails, error) {
@@ -63,6 +64,14 @@ func (m mockApiClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.
 
 func (m mockApiClient) GetDeputyTimeline(_ sirius.Context, deputyID int) ([]sirius.TimelineEvent, error) {
 	return m.TimelineEvents, m.error
+}
+
+func (m mockApiClient) GetUserDetails(_ sirius.Context) (sirius.User, error) {
+	return m.User, m.error
+}
+
+func (m mockApiClient) UpdateDeputyDeathRecord(_ sirius.Context, deathRecord sirius.DeputyDeathRecord) error {
+	return m.error
 }
 
 func (m mockApiClient) UpdateDeputyDetails(sirius.Context, int, sirius.DeputyDetailsForm) error {

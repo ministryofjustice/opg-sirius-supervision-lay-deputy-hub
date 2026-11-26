@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"log/slog"
 	"net/http"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
@@ -14,7 +13,7 @@ type deputyDeathRecordVars struct {
 	DeputyDeathRecord sirius.DeputyDeathRecord
 }
 
-func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
+func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
@@ -33,9 +32,6 @@ func renderTemplateForDeputyDeath(client LayDeputyHubClient, tmpl Template, logg
 			return tmpl.ExecuteTemplate(w, "page", vars)
 
 		case http.MethodPost:
-			logger.Info("submit-button")
-			logger.Info(r.PostFormValue("submit-button"))
-
 			switch r.PostFormValue("submit-button") {
 			case "delete-deputy-death-record-button":
 				err := client.DeleteDeputyDeathRecord(ctx, app.DeputyID())
