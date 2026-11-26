@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 	"github.com/stretchr/testify/assert"
@@ -16,10 +17,10 @@ func TestGetDeputyDeathRecord(t *testing.T) {
 	client := &mockApiClient{
 		DeathRecord: sirius.DeputyDeathRecord{
 			DeputyID:                      333,
-			DateOfDeath:                   "2020-01-01",
+			DateOfDeath:                   shared.NewDate("2020-01-01"),
 			ProofOfDeathReceived:          "true",
-			DateDeathCertificateReceieved: "2020-02-02",
-			DateNotified:                  "2020-02-01",
+			DateDeathCertificateReceieved: shared.NewDate("2020-02-02"),
+			DateNotified:                  shared.NewDate("2020-02-01"),
 			NotificationMethod:            "LETTER",
 			NotifiedBy: sirius.RefData{
 				Label:  "EXECUTOR",
@@ -66,10 +67,10 @@ func TestGetDeputyDeathRecord(t *testing.T) {
 			},
 			DeputyDeathRecord: sirius.DeputyDeathRecord{
 				DeputyID:                      333,
-				DateOfDeath:                   "2020-01-01",
+				DateOfDeath:                   shared.NewDate("2020-01-01"),
 				ProofOfDeathReceived:          "true",
-				DateDeathCertificateReceieved: "2020-02-02",
-				DateNotified:                  "2020-02-01",
+				DateDeathCertificateReceieved: shared.NewDate("2020-02-02"),
+				DateNotified:                  shared.NewDate("2020-02-01"),
 				NotificationMethod:            "LETTER",
 				NotifiedBy: sirius.RefData{
 					Label:  "EXECUTOR",

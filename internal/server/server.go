@@ -35,7 +35,7 @@ func New(logger *slog.Logger, client Client, templates map[string]*template.Temp
 
 	mux.Handle("GET /{id}", wrap(renderTemplateForDeputyHub(client, templates["deputy-details.gotmpl"])))
 	mux.Handle("GET /{id}/clients", wrap(renderTemplateForClientTab(client, templates["clients.gotmpl"])))
-	mux.Handle("GET /{id}/record-death", wrap(renderTemplateForDeputyDeathGet(client, templates["deputy-death-form.gotmpl"], logger)))
+	mux.Handle("GET /{id}/record-death", wrap(renderTemplateForDeputyDeathGet(client, templates["deputy-death-form.gotmpl"])))
 	mux.Handle("POST /{id}/record-death", wrap(renderTemplateForDeputyDeathPost(client, templates["deputy-death-form.gotmpl"], logger)))
 	mux.Handle("GET /{id}/timeline", wrap(renderTemplateForTimeline(client, templates["timeline.gotmpl"])))
 	mux.Handle("GET /{id}/manage-deputy-details", wrap(renderTemplateForManageDeputyDetailsGet(templates["manage-deputy-details.gotmpl"])))

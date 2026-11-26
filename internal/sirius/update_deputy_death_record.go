@@ -9,30 +9,21 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
-type DeathRecordForm struct {
-	DeputyID                      int     `json:"id"`
-	DateOfDeath                   string  `json:"dateOfDeath,omitempty"`
-	ProofOfDeathReceived          string  `json:"proofOfDeathReceived,omitempty"`
-	DateDeathCertificateReceieved string  `json:"dateDeathCertificateReceived,omitempty"`
-	DateNotified                  string  `json:"dateNotified,omitempty"`
-	NotifiedBy                    RefData `json:"notifiedBy"`
-	NotificationMethod            string  `json:"notificationMethod,omitempty"`
-	Notes                         string  `json:"notes,omitempty"`
+type DeputyDeathRecord struct {
+	DeputyID                      int         `json:"id"`
+	DateOfDeath                   shared.Date `json:"dateOfDeath,omitempty"`
+	ProofOfDeathReceived          string      `json:"proofOfDeathReceived,omitempty"`
+	DateDeathCertificateReceieved shared.Date `json:"dateDeathCertificateReceived,omitempty"`
+	DateNotified                  shared.Date `json:"dateNotified,omitempty"`
+	NotifiedBy                    RefData     `json:"notifiedBy"`
+	NotificationMethod            string      `json:"notificationMethod,omitempty"`
+	Notes                         string      `json:"notes,omitempty"`
 }
 
 func (c *Client) UpdateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord) error {
 	var body bytes.Buffer
 
-	err := json.NewEncoder(&body).Encode(DeathRecordForm{
-		DeputyID:                      deathRecord.DeputyID,
-		DateOfDeath:                   deathRecord.DateOfDeath.DateFormString(),
-		ProofOfDeathReceived:          deathRecord.ProofOfDeathReceived,
-		DateDeathCertificateReceieved: deathRecord.DateDeathCertificateReceieved.DateFormString(),
-		DateNotified:                  deathRecord.DateNotified.DateFormString(),
-		NotifiedBy:                    deathRecord.NotifiedBy,
-		NotificationMethod:            deathRecord.NotificationMethod,
-		Notes:                         deathRecord.Notes,
-	})
+	err := json.NewEncoder(&body).Encode(deathRecord)
 
 	if err != nil {
 		return err

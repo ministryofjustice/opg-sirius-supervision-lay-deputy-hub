@@ -15,7 +15,7 @@ type deputyDeathRecordVars struct {
 	DeputyDeathRecord sirius.DeputyDeathRecord
 }
 
-func renderTemplateForDeputyDeathGet(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
+func renderTemplateForDeputyDeathGet(client LayDeputyHubClient, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
@@ -50,6 +50,13 @@ func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template, 
 		if proofOfDeathReceived == "false" {
 			dateDeathCertificateReceieved = ""
 		}
+
+		logger.Info("form field")
+		logger.Info(r.PostFormValue("date-proof-of-death-received"))
+		logger.Info(dateDeathCertificateReceieved)
+		logger.Info(shared.NewDate(dateDeathCertificateReceieved).DateString())
+		logger.Info(shared.NewDate(dateDeathCertificateReceieved).DateFormString())
+		logger.Info(shared.NewDate(dateDeathCertificateReceieved).DateFormString())
 
 		deputyDeathRecordForm := sirius.DeputyDeathRecord{
 			DeputyID:                      app.DeputyID(),
