@@ -1697,6 +1697,24 @@
       }
     }
   ],
+  "users": {
+    "id": 51,
+    "name": "case",
+    "phoneNumber": "12345678",
+    "teams": [],
+    "displayName": "case manager",
+    "deleted": false,
+    "email": "case.manager@opgtest.com",
+    "firstname": "case",
+    "surname": "manager",
+    "roles": [
+      "OPG User",
+      "Case Manager",
+      "System Admin"
+    ],
+    "locked": false,
+    "suspended": false
+  },
   "errors": [
     {
       "id": "contact-details",
