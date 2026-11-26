@@ -12,10 +12,11 @@ import (
 )
 
 type User struct {
-	Id          int    `json:"id"`
-	PhoneNumber string `json:"phoneNumber"`
-	DisplayName string `json:"displayName"`
-	Email       string `json:"email"`
+	Id          int      `json:"id"`
+	PhoneNumber string   `json:"phoneNumber"`
+	DisplayName string   `json:"displayName"`
+	Email       string   `json:"email"`
+	Roles       []string `json:"roles"`
 }
 
 type Changeset struct {

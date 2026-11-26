@@ -31,6 +31,20 @@ func renderTemplateForDeputyHub(client LayDeputyHubInformation, tmpl Template) H
 
 		app.PageName = "Deputy details"
 
+		var successMessage string
+
+		switch r.URL.Query().Get("success") {
+		case "deputyDetails":
+			successMessage = "Deputy details updated"
+		case "deleteDeathRecord":
+			successMessage = "Deputy death record deleted"
+		case "recordDeath":
+			successMessage = "Deputy death record updated"
+		default:
+			successMessage = ""
+		}
+		app.SuccessMessage = successMessage
+
 		vars := deputyHubVars{
 			AppVars:           app,
 			ActiveClientCount: clientList.Metadata.TotalActiveClients,

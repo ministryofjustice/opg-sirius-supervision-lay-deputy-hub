@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
+	"golang.org/x/sync/errgroup"
 )
 
 type AppVars struct {
@@ -15,6 +16,7 @@ type AppVars struct {
 	PageName       string
 	Error          string
 	Errors         sirius.ValidationErrors
+	User           sirius.User
 	EnvironmentVars
 }
 
@@ -28,11 +30,13 @@ func (a AppVars) DeputyType() string {
 
 type AppVarsClient interface {
 	GetDeputyDetails(sirius.Context, int) (sirius.DeputyDetails, error)
+	GetUserDetails(sirius.Context) (sirius.User, error)
 }
 
 func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) (*AppVars, error) {
 	ctx := getContext(r)
 	deputyId, err := strconv.Atoi(r.PathValue("id"))
+	group, groupCtx := errgroup.WithContext(ctx.Context)
 	if err != nil {
 		return nil, StatusError(http.StatusBadRequest)
 	}
@@ -43,11 +47,27 @@ func NewAppVars(client AppVarsClient, r *http.Request, envVars EnvironmentVars) 
 		EnvironmentVars: envVars,
 	}
 
-	deputy, err := client.GetDeputyDetails(ctx, deputyId)
-	if err != nil {
-		return nil, StatusError(http.StatusBadRequest)
+	group.Go(func() error {
+		user, err := client.GetUserDetails(ctx.With(groupCtx))
+		if err != nil {
+			return err
+		}
+		vars.User = user
+		return nil
+	})
+
+	group.Go(func() error {
+		deputy, err := client.GetDeputyDetails(ctx.With(groupCtx), deputyId)
+		if err != nil {
+			return err
+		}
+		vars.DeputyDetails = deputy
+		return nil
+	})
+
+	if err := group.Wait(); err != nil {
+		return nil, err
 	}
-	vars.DeputyDetails = deputy
 
 	return &vars, nil
 }

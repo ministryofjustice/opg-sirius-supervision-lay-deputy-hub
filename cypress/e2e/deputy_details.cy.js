@@ -77,4 +77,21 @@ describe("Deputy details tab", () => {
             );
         });
     });
+
+    describe ("Success banner", () => {
+        it("shows success banner messages which can be dismissed", () => {
+            cy.visit("/supervision/deputies/lay/1?success=recordDeath");
+            cy.get('.moj-banner').should("be.visible");
+            cy.get('.moj-banner').should("contain.text", "Deputy death record updated");
+            cy.get('.moj-banner__message > .govuk-link').should("be.visible");
+            cy.get('.moj-banner__message > .govuk-link').click();
+            cy.get('.moj-banner').should("not.exist");
+        });
+
+        it("shows different messages", () => {
+            cy.visit("/supervision/deputies/lay/1?success=deputyDetails");
+            cy.get('.moj-banner').should("be.visible");
+            cy.get('.moj-banner').should("contain.text", "Deputy details updated");
+        });
+    })
 });
