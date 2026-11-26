@@ -40,6 +40,8 @@ type ErrorVars struct {
 }
 
 type LayDeputyHubClient interface {
+	GetDeputyDeathRecord(sirius.Context, int) (sirius.DeputyDeathRecord, error)
+	UpdateDeputyDeathRecord(sirius.Context, sirius.DeputyDeathRecord) error
 	GetDeputyDetails(sirius.Context, int) (sirius.DeputyDetails, error)
 	GetDeputyTimeline(sirius.Context, int) ([]sirius.TimelineEvent, error)
 }

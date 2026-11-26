@@ -18,26 +18,21 @@ var validationMappings = map[string]map[string]pair{
 	"addressLine3": {
 		"stringLengthTooLong": pair{"addressLine3", "Address line 3 must be 255 characters or fewer"},
 	},
-	"town": {
-		"stringLengthTooLong": pair{"town", "The town or city must be 255 characters or fewer"},
-		"isEmpty":             pair{"town", "The town or city is required and can't be empty"},
-	},
 	"county": {
 		"stringLengthTooLong": pair{"county", "The county must be 255 characters or fewer"},
 	},
 	"country": {
 		"stringLengthTooLong": pair{"country", "The country must be 255 characters or fewer"},
 	},
-	"postcode": {
-		"stringLengthTooLong": pair{"postcode", "The postcode must be 255 characters or fewer"},
-		"isEmpty":             pair{"postcode", "The postcode is required and can't be empty"},
+	"dateDeathCertificateReceived": {
+		"invalid-lte": pair{"dateDeathCertificateReceived", "Date proof of death received cannot be a future date"},
 	},
-	"phoneNumber": {
-		"stringLengthTooLong": pair{"phoneNumber", "The telephone number must be 255 characters or fewer"},
-		"isEmpty":             pair{"phoneNumber", "Enter a telephone number"},
+	"dateOfDeath": {
+		"invalid-lte": pair{"dateOfDeath", "Date of death cannot be a future date"},
 	},
-	"workPhoneNumber": {
-		"stringLengthTooLong": pair{"workPhoneNumber", "The telephone number must be 255 characters or fewer"},
+	"dateNotified": {
+		"invalid-lte": pair{"dateNotified", "Date notified cannot be a future date"},
+		"isEmpty":     pair{"dateNotified", "Date notified is required and can't be empty"},
 	},
 	"email": {
 		"stringLengthTooLong":         pair{"email", "The email must be 255 characters or fewer"},
@@ -51,21 +46,48 @@ var validationMappings = map[string]map[string]pair{
 		"stringLengthTooLong": pair{"firstname", "The deputy first name must be 255 characters or fewer"},
 		"isEmpty":             pair{"firstname", "The deputy first name is required and can't be empty"},
 	},
+	"homePhoneNumber": {
+		"stringLengthTooLong": pair{"homePhoneNumber", "The evening telephone number must be 255 characters or fewer"},
+	},
 	"middleName": {
 		"stringLengthTooLong": pair{"middleName", "The deputy middle name must be 255 characters or fewer"},
+	},
+	"mobileNumber": {
+		"stringLengthTooLong": pair{"mobileNumber", "The mobile number must be 255 characters or fewer"},
+	},
+	"notes": {
+		"stringLengthTooLong": pair{"notes", "The note must be 255 characters or fewer"},
+	},
+	"notifiedBy": {
+		"isEmpty": pair{"notifiedBy", "Notified by is required and can't be empty"},
+	},
+	"notificationMethod": {
+		"isEmpty": pair{"notificationMethod", "Notification method is required and can't be empty"},
+	},
+	"otherNames": {
+		"stringLengthTooLong": pair{"otherNames", "The deputy other name must be 255 characters or fewer"},
+	},
+	"proofOfDeathReceived": {
+		"isEmpty": pair{"proofOfDeathReceived", "Proof of death received is required and can't be empty"},
+	},
+	"postcode": {
+		"stringLengthTooLong": pair{"postcode", "The postcode must be 255 characters or fewer"},
+		"isEmpty":             pair{"postcode", "The postcode is required and can't be empty"},
+	},
+	"phoneNumber": {
+		"stringLengthTooLong": pair{"phoneNumber", "The telephone number must be 255 characters or fewer"},
+		"isEmpty":             pair{"phoneNumber", "Enter a telephone number"},
 	},
 	"surname": {
 		"stringLengthTooLong": pair{"surname", "The deputy surname must be 255 characters or fewer"},
 		"isEmpty":             pair{"surname", "The deputy surname is required and can't be empty"},
 	},
-	"otherNames": {
-		"stringLengthTooLong": pair{"otherNames", "The deputy other name must be 255 characters or fewer"},
+	"town": {
+		"stringLengthTooLong": pair{"town", "The town or city must be 255 characters or fewer"},
+		"isEmpty":             pair{"town", "The town or city is required and can't be empty"},
 	},
-	"homePhoneNumber": {
-		"stringLengthTooLong": pair{"homePhoneNumber", "The evening telephone number must be 255 characters or fewer"},
-	},
-	"mobileNumber": {
-		"stringLengthTooLong": pair{"mobileNumber", "The mobile number must be 255 characters or fewer"},
+	"workPhoneNumber": {
+		"stringLengthTooLong": pair{"workPhoneNumber", "The telephone number must be 255 characters or fewer"},
 	},
 }
 

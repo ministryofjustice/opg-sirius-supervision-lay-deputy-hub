@@ -11,13 +11,19 @@
 
         <div class="moj-button-menu">
             <a
-               href="{{ prefix (printf "/%d/recordDeath" .DeputyDetails.ID) }}"
+               href="{{ prefix (printf "/%d/record-death" .DeputyDetails.ID) }}"
                 role="button"
                 draggable="false"
                 class="govuk-button moj-button-menu__item govuk-button--secondary"
                 id="record-death"
                 data-module="govuk-button">
-                Record death of deputy
+                {{ if eq .DeputyDetails.DeputyStatus "Death Notified"}}
+                    Confirm death of deputy
+                {{ else if eq .DeputyDetails.DeputyStatus "Deceased" }}
+                    Death record
+                {{ else }}
+                    Record death of deputy
+                {{ end }}
             </a>
         </div>
     </header>

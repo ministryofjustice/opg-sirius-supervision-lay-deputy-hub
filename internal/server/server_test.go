@@ -32,12 +32,21 @@ func (m *mockTemplates) ExecuteTemplate(i io.Writer, name string, vars interface
 type mockApiClient struct {
 	error          error
 	Clients        sirius.ClientList
+	DeathRecord    sirius.DeputyDeathRecord
 	DeputyDetails  sirius.DeputyDetails
 	TimelineEvents []sirius.TimelineEvent
 }
 
 func (m mockApiClient) GetDeputyClients(_ sirius.Context, _ sirius.ClientListParams) (sirius.ClientList, error) {
 	return m.Clients, m.error
+}
+
+func (m mockApiClient) GetDeputyDeathRecord(_ sirius.Context, deputyID int) (sirius.DeputyDeathRecord, error) {
+	return m.DeathRecord, m.error
+}
+
+func (m mockApiClient) UpdateDeputyDeathRecord(_ sirius.Context, deathRecord sirius.DeputyDeathRecord) error {
+	return m.error
 }
 
 func (m mockApiClient) GetDeputyDetails(_ sirius.Context, deputyID int) (sirius.DeputyDetails, error) {

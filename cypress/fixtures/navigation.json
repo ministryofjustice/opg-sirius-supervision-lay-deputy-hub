@@ -1,5 +1,7 @@
 [
     ["Deputy details", "/supervision/deputies/lay/1"],
     ["Clients", "/supervision/deputies/lay/1/clients"],
-    ["Timeline", "/supervision/deputies/lay/1/timeline"]
+    ["Timeline", "/supervision/deputies/lay/1/timeline"],
+    ["Manage deputy details", "/supervision/deputies/lay/1/manage-deputy-details"],
+    ["Manage deputy death record", "/supervision/deputies/lay/1/record-death"]
 ]
