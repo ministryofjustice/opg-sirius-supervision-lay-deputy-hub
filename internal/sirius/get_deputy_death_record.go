@@ -9,22 +9,31 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
-type deputyDeathRecordResponse struct {
-	ID                           int     `json:"id"`
-	ProofOfDeathReceived         bool    `json:"proofOfDeathReceived"`
-	DateDeathCertificateReceived string  `json:"dateDeathCertificateReceived"`
-	DateNotified                 string  `json:"dateNotified"`
-	NotifiedBy                   RefData `json:"notifiedBy"`
-	NotifiedByOther              string  `json:"notifiedByOther"`
-	NotificationMethod           string  `json:"notificationMethod"`
-	Notes                        string  `json:"notes"`
-	Person                       struct {
-		DateOfDeath string `json:"dateOfDeath"`
-	} `json:"person"`
+type DeputyDeathRecord struct {
+	DeputyID                      int         `json:"id"`
+	DateOfDeath                   shared.Date `json:"dateOfDeath,omitempty"`
+	ProofOfDeathReceived          string      `json:"proofOfDeathReceived,omitempty"`
+	DateDeathCertificateReceieved shared.Date `json:"dateDeathCertificateReceived,omitempty"`
+	DateNotified                  shared.Date `json:"dateNotified,omitempty"`
+	NotifiedBy                    RefData     `json:"notifiedBy"`
+	NotificationMethod            string      `json:"notificationMethod,omitempty"`
+	Notes                         string      `json:"notes,omitempty"`
 }
 
 func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyID int) (DeputyDeathRecord, error) {
-	var r deputyDeathRecordResponse
+	var r struct {
+		ID                           int         `json:"id"`
+		ProofOfDeathReceived         bool        `json:"proofOfDeathReceived"`
+		DateDeathCertificateReceived shared.Date `json:"dateDeathCertificateReceived"`
+		DateNotified                 shared.Date `json:"dateNotified"`
+		NotifiedBy                   RefData     `json:"notifiedBy"`
+		NotifiedByOther              string      `json:"notifiedByOther"`
+		NotificationMethod           string      `json:"notificationMethod"`
+		Notes                        string      `json:"notes"`
+		Person                       struct {
+			DateOfDeath shared.Date `json:"dateOfDeath"`
+		} `json:"person"`
+	}
 
 	req, err := c.newRequest(ctx, http.MethodGet, fmt.Sprintf(shared.SupervisionAPIPath+"/v1/deputies/%d/death-notification", DeputyID), nil)
 	if err != nil {
@@ -61,18 +70,12 @@ func (c *Client) GetDeputyDeathRecord(ctx Context, DeputyID int) (DeputyDeathRec
 	v := DeputyDeathRecord{
 		DeputyID:                      DeputyID,
 		ProofOfDeathReceived:          fmt.Sprintf("%v", r.ProofOfDeathReceived),
-		DateDeathCertificateReceieved: changeDateFormatForDisplay(r.DateDeathCertificateReceived),
-		DateNotified:                  changeDateFormatForDisplay(r.DateNotified),
-		NotifiedBy:                    RefData{r.NotifiedBy.Handle, r.NotifiedBy.Label},
+		DateDeathCertificateReceieved: r.DateDeathCertificateReceived,
+		DateNotified:                  r.DateNotified,
+		NotifiedBy:                    r.NotifiedBy,
 		NotificationMethod:            strings.ToUpper(r.NotificationMethod),
 		Notes:                         notes,
-		DateOfDeath:                   changeDateFormatForDisplay(r.Person.DateOfDeath),
+		DateOfDeath:                   r.Person.DateOfDeath,
 	}
 	return v, err
-
-}
-
-func changeDateFormatForDisplay(myDate string) string {
-	date := shared.NewDate(myDate)
-	return date.DateFormString()
 }

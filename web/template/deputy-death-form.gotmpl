@@ -60,7 +60,7 @@
                             <input class="govuk-input govuk-input--width-10"
                                id="date-of-death"
                                name="date-of-death"
-                                {{ if ne .DeputyDeathRecord.DateOfDeath "" }} value={{.DeputyDeathRecord.DateOfDeath}} {{ end }}
+                                {{ if ne true .DeputyDeathRecord.DateOfDeath.IsNull }} value={{.DeputyDeathRecord.DateOfDeath.DateFormString}} {{ end }}
                                type="date"
                             >
                         </div>
@@ -73,7 +73,7 @@
                             <input class="govuk-input govuk-input--width-10"
                                id="date-notified"
                                name="date-notified"
-                                {{ if ne .DeputyDeathRecord.DateNotified "" }} value={{.DeputyDeathRecord.DateNotified}} {{ end }}
+                                {{ if ne true .DeputyDeathRecord.DateNotified.IsNull }} value={{.DeputyDeathRecord.DateNotified.DateFormString}} {{ end }}
                                type="date"
                             >
                         </div>
@@ -87,7 +87,7 @@
                                 <input class="govuk-input govuk-input--width-10"
                                    id="date-proof-of-death-received"
                                    name="date-proof-of-death-received"
-                                    {{ if ne .DeputyDeathRecord.DateDeathCertificateReceieved "" }} value={{.DeputyDeathRecord.DateDeathCertificateReceieved}} {{ end }}
+                                    {{ if ne true .DeputyDeathRecord.DateDeathCertificateReceieved.IsNull }} value={{.DeputyDeathRecord.DateDeathCertificateReceieved.DateFormString}} {{ end }}
                                    type="date"
                                 >
                             </div>

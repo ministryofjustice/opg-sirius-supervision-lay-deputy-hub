@@ -9,7 +9,7 @@ import (
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 )
 
-type DeputyDeathRecord struct {
+type DeathRecordForm struct {
 	DeputyID                      int     `json:"id"`
 	DateOfDeath                   string  `json:"dateOfDeath,omitempty"`
 	ProofOfDeathReceived          string  `json:"proofOfDeathReceived,omitempty"`
@@ -23,7 +23,16 @@ type DeputyDeathRecord struct {
 func (c *Client) UpdateDeputyDeathRecord(ctx Context, deathRecord DeputyDeathRecord) error {
 	var body bytes.Buffer
 
-	err := json.NewEncoder(&body).Encode(deathRecord)
+	err := json.NewEncoder(&body).Encode(DeathRecordForm{
+		DeputyID:                      deathRecord.DeputyID,
+		DateOfDeath:                   deathRecord.DateOfDeath.DateFormString(),
+		ProofOfDeathReceived:          deathRecord.ProofOfDeathReceived,
+		DateDeathCertificateReceieved: deathRecord.DateDeathCertificateReceieved.DateFormString(),
+		DateNotified:                  deathRecord.DateNotified.DateFormString(),
+		NotifiedBy:                    deathRecord.NotifiedBy,
+		NotificationMethod:            deathRecord.NotificationMethod,
+		Notes:                         deathRecord.Notes,
+	})
 
 	if err != nil {
 		return err

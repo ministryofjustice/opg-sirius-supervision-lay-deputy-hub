@@ -2,8 +2,10 @@ package server
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/sirius"
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/util"
 )
@@ -13,7 +15,7 @@ type deputyDeathRecordVars struct {
 	DeputyDeathRecord sirius.DeputyDeathRecord
 }
 
-func renderTemplateForDeputyDeathGet(client LayDeputyHubClient, tmpl Template) Handler {
+func renderTemplateForDeputyDeathGet(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
@@ -27,11 +29,12 @@ func renderTemplateForDeputyDeathGet(client LayDeputyHubClient, tmpl Template) H
 			return err
 		}
 		vars.DeputyDeathRecord = deathRecord
+
 		return tmpl.ExecuteTemplate(w, "page", vars)
 	}
 }
 
-func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template) Handler {
+func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
@@ -50,10 +53,10 @@ func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template) 
 
 		deputyDeathRecordForm := sirius.DeputyDeathRecord{
 			DeputyID:                      app.DeputyID(),
-			DateOfDeath:                   r.PostFormValue("date-of-death"),
+			DateOfDeath:                   shared.NewDate(r.PostFormValue("date-of-death")),
 			ProofOfDeathReceived:          proofOfDeathReceived,
-			DateDeathCertificateReceieved: dateDeathCertificateReceieved,
-			DateNotified:                  r.PostFormValue("date-notified"),
+			DateDeathCertificateReceieved: shared.NewDate(dateDeathCertificateReceieved),
+			DateNotified:                  shared.NewDate(r.PostFormValue("date-notified")),
 			NotifiedBy: sirius.RefData{
 				Handle: r.PostFormValue("notified-by"),
 			},
