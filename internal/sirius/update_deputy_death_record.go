@@ -11,10 +11,10 @@ import (
 
 type DeputyDeathRecord struct {
 	DeputyID                      int         `json:"id"`
-	DateOfDeath                   shared.Date `json:"dateOfDeath,omitempty"`
+	DateOfDeath                   shared.Date `json:"dateOfDeath,omitzero"`
 	ProofOfDeathReceived          string      `json:"proofOfDeathReceived,omitempty"`
-	DateDeathCertificateReceieved shared.Date `json:"dateDeathCertificateReceived,omitempty"`
-	DateNotified                  shared.Date `json:"dateNotified,omitempty"`
+	DateDeathCertificateReceieved shared.Date `json:"dateDeathCertificateReceived,omitzero"`
+	DateNotified                  shared.Date `json:"dateNotified,omitzero"`
 	NotifiedBy                    RefData     `json:"notifiedBy"`
 	NotificationMethod            string      `json:"notificationMethod,omitempty"`
 	Notes                         string      `json:"notes,omitempty"`

@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -41,12 +42,12 @@ func TestGetDeputyDeathRecord(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, DeputyDeathRecord{
 		DeputyID:                      2,
-		DateOfDeath:                   "2020-01-01",
+		DateOfDeath:                   shared.NewDate("2020-01-01"),
 		ProofOfDeathReceived:          "true",
-		DateDeathCertificateReceieved: "2025-06-01",
-		DateNotified:                  "2025-02-01",
+		DateDeathCertificateReceieved: shared.NewDate("2025-06-01"),
+		DateNotified:                  shared.NewDate("2025-02-01"),
 		NotifiedBy:                    RefData{Handle: "DEPUTY", Label: "Deputy"},
-		NotificationMethod:            "Phone",
+		NotificationMethod:            "PHONE",
 		Notes:                         "Some notes",
 	}, deathRecord)
 }

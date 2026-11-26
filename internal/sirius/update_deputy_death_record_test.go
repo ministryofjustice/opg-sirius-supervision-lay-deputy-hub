@@ -39,10 +39,10 @@ func TestUpdateDeputyDeathRecord(t *testing.T) {
 
 	formData := DeputyDeathRecord{
 		DeputyID:                      1,
-		DateOfDeath:                   "2020-02-01",
+		DateOfDeath:                   shared.NewDate("2020-02-01"),
 		ProofOfDeathReceived:          "true",
-		DateDeathCertificateReceieved: "2020-02-03",
-		DateNotified:                  "2020-02-02",
+		DateDeathCertificateReceieved: shared.NewDate("2020-02-03"),
+		DateNotified:                  shared.NewDate("2020-02-02"),
 		NotifiedBy:                    RefData{Handle: "EXECUTOR"},
 		NotificationMethod:            "LETTER",
 		Notes:                         "notes",
@@ -63,10 +63,10 @@ func TestUpdateDeputyDeathRecordReturnsNewStatusError(t *testing.T) {
 
 	formData := DeputyDeathRecord{
 		DeputyID:                      1,
-		DateOfDeath:                   "2020-02-01",
+		DateOfDeath:                   shared.NewDate("2020-02-01"),
 		ProofOfDeathReceived:          "true",
-		DateDeathCertificateReceieved: "2020-02-03",
-		DateNotified:                  "2020-02-02",
+		DateDeathCertificateReceieved: shared.NewDate("2020-02-03"),
+		DateNotified:                  shared.NewDate("2020-02-02"),
 		NotifiedBy:                    RefData{Handle: "EXECUTOR"},
 		NotificationMethod:            "LETTER",
 		Notes:                         "notes",
@@ -91,10 +91,10 @@ func TestUpdateDeputyDeathRecordReturnsUnauthorisedClientError(t *testing.T) {
 
 	formData := DeputyDeathRecord{
 		DeputyID:                      1,
-		DateOfDeath:                   "2020-02-01",
+		DateOfDeath:                   shared.NewDate("2020-02-01"),
 		ProofOfDeathReceived:          "true",
-		DateDeathCertificateReceieved: "2020-02-03",
-		DateNotified:                  "2020-02-02",
+		DateDeathCertificateReceieved: shared.NewDate("2020-02-03"),
+		DateNotified:                  shared.NewDate("2020-02-02"),
 		NotifiedBy:                    RefData{Handle: "EXECUTOR"},
 		NotificationMethod:            "LETTER",
 		Notes:                         "notes",

@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"log/slog"
 	"net/http"
 
 	"github.com/ministryofjustice/opg-sirius-lay-deputy-hub/internal/shared"
@@ -34,7 +33,7 @@ func renderTemplateForDeputyDeathGet(client LayDeputyHubClient, tmpl Template) H
 	}
 }
 
-func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template, logger *slog.Logger) Handler {
+func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template) Handler {
 	return func(app AppVars, w http.ResponseWriter, r *http.Request) error {
 		ctx := getContext(r)
 		app.PageName = fmt.Sprintf("Record death of %s %s", app.DeputyDetails.DeputyFirstName, app.DeputyDetails.DeputySurname)
@@ -44,31 +43,22 @@ func renderTemplateForDeputyDeathPost(client LayDeputyHubClient, tmpl Template, 
 		}
 
 		proofOfDeathReceived := r.PostFormValue("proof-of-death")
-		dateDeathCertificateReceieved := r.PostFormValue("date-proof-of-death-received")
-
-		//Manually reset to null when form submitted with proof of death false
-		if proofOfDeathReceived == "false" {
-			dateDeathCertificateReceieved = ""
-		}
-
-		logger.Info("form field")
-		logger.Info(r.PostFormValue("date-proof-of-death-received"))
-		logger.Info(dateDeathCertificateReceieved)
-		logger.Info(shared.NewDate(dateDeathCertificateReceieved).DateString())
-		logger.Info(shared.NewDate(dateDeathCertificateReceieved).DateFormString())
-		logger.Info(shared.NewDate(dateDeathCertificateReceieved).DateFormString())
 
 		deputyDeathRecordForm := sirius.DeputyDeathRecord{
-			DeputyID:                      app.DeputyID(),
-			DateOfDeath:                   shared.NewDate(r.PostFormValue("date-of-death")),
-			ProofOfDeathReceived:          proofOfDeathReceived,
-			DateDeathCertificateReceieved: shared.NewDate(dateDeathCertificateReceieved),
-			DateNotified:                  shared.NewDate(r.PostFormValue("date-notified")),
+			DeputyID:             app.DeputyID(),
+			DateOfDeath:          shared.NewDate(r.PostFormValue("date-of-death")),
+			ProofOfDeathReceived: proofOfDeathReceived,
+			DateNotified:         shared.NewDate(r.PostFormValue("date-notified")),
 			NotifiedBy: sirius.RefData{
 				Handle: r.PostFormValue("notified-by"),
 			},
 			NotificationMethod: r.PostFormValue("notification-method"),
 			Notes:              r.PostFormValue("notes"),
+		}
+
+		//Only add element when form submitted with proof of death true
+		if proofOfDeathReceived == "true" {
+			deputyDeathRecordForm.DateDeathCertificateReceieved = shared.NewDate(r.PostFormValue("date-proof-of-death-received"))
 		}
 
 		err := client.UpdateDeputyDeathRecord(ctx, deputyDeathRecordForm)
