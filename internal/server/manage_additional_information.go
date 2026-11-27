@@ -24,7 +24,7 @@ func renderTemplateForManageAdditionalInformationGet(client AdditionalInformatio
 			InterpreterRequired:               app.DeputyDetails.InterpreterRequired,
 			SpecialCorrespondenceRequirements: app.DeputyDetails.SpecialCorrespondenceRequirements,
 			CorrespondenceByWelsh:             app.DeputyDetails.CorrespondenceByWelsh,
-			Notes:                             app.DeputyDetails.Notes,
+			AdditionalNotes:                   app.DeputyDetails.AdditionalNotes,
 		}
 
 		vars := ManageAdditionalInformationVars{AppVars: app, Form: form}
@@ -45,7 +45,7 @@ func renderTemplateForManageAdditionalInformationPost(client AdditionalInformati
 				LargePrint:      r.PostFormValue("large-print") == "on",
 				HearingImpaired: r.PostFormValue("hearing-impaired") == "on",
 			},
-			Notes:                 r.PostFormValue("notes"),
+			AdditionalNotes:       r.PostFormValue("additional-notes"),
 			CorrespondenceByWelsh: r.PostFormValue("welsh") == "on",
 			CorrespondenceByEmail: app.DeputyDetails.CorrespondenceByEmail,
 			CorrespondenceByPhone: app.DeputyDetails.CorrespondenceByPhone,

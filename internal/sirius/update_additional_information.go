@@ -12,7 +12,7 @@ import (
 type AdditionalInformationForm struct {
 	InterpreterRequired               string                                `json:"interpreterRequired"`
 	SpecialCorrespondenceRequirements SpecialCorrespondenceRequirementsType `json:"specialCorrespondenceRequirements"`
-	Notes                             string                                `json:"notes"`
+	AdditionalNotes                   string                                `json:"additionalNotes"`
 	CorrespondenceByWelsh             bool                                  `json:"correspondenceByWelsh"`
 	CorrespondenceByEmail             bool                                  `json:"correspondenceByEmail"`
 	CorrespondenceByPhone             bool                                  `json:"correspondenceByPhone"`

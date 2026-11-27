@@ -39,7 +39,7 @@
         "hearingImpaired": true
       },
       "interpreterRequired": "Interpreter is required for deputy",
-      "additionalInformationNotes": "Deputy has additional notes",
+      "additionalNotes": "Deputy has additional notes",
       "canDelete": false,
       "deputyStatus": "Active",
       "orders": [
@@ -75,7 +75,7 @@
         "hearingImpaired": false
       },
       "correspondenceByWelsh": false,
-      "additionalInformationNotes": "Initial additional information",
+      "additionalNotes": "",
       "notes": "Updated additional information",
       "correspondenceByEmail": false,
       "correspondenceByPhone": false,
