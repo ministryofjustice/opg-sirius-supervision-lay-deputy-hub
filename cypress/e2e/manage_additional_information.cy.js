@@ -2,7 +2,9 @@ describe("Manage additional information tab", () => {
     beforeEach(() => {
         cy.setCookie("Other", "other");
         cy.setCookie("XSRF-TOKEN", "abcde");
-        cy.visit("/supervision/deputies/lay/1/manage-additional-information");
+
+        cy.visit("/supervision/deputies/lay/1");
+        cy.contains("Manage additional information").click();
     });
 
     it("has header for section", () => {
@@ -21,17 +23,28 @@ describe("Manage additional information tab", () => {
             cy.get('[name="notes"]').should('contain', 'Deputy has additional notes');
         });
 
-        it("Redirects to the correct route", () => {
-            cy.get('[name="interpreter-required"]').clear().type("Interpreter is required for deputy");
+        it("saves the changes and redirects to the deputy details page", () => {
+            cy.visit("/supervision/deputies/lay/2");
+            cy.contains("Manage additional information").click();
+            cy.get('[name="interpreter-required"]').clear().type("Updated interpreter requirements");
             cy.get('[name="audio"]').check();
-            cy.get('[name="large-print"]').check();
-            cy.get('[name="hearing-impaired"]').check();
-            cy.get('[name="welsh"]').check();
-
-            cy.get('[name="notes"]').clear().type("Deputy has additional notes");
+            cy.get('[name="large-print"]').uncheck();
+            cy.get('[name="hearing-impaired"]').uncheck();
+            cy.get('[name="welsh"]').uncheck();
+            cy.get('[name="notes"]').clear().type("Updated additional information");
 
             cy.get('.govuk-button').click();
             cy.url().should("include", "?success=additionalInformation");
+
+            cy.contains(".govuk-summary-list__key", "Interpreter requirements")
+                .next(".govuk-summary-list__value")
+                .should("contain.text", "Updated interpreter requirements");
+            cy.contains(".govuk-summary-list__key", "Special correspondence requirements")
+                .next(".govuk-summary-list__value")
+                .should("contain.text", "Audio")
+                .and("not.contain.text", "Large Print")
+                .and("not.contain.text", "Hearing impaired")
+                .and("not.contain.text", "Welsh");
         })
 
     });

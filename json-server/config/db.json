@@ -61,6 +61,25 @@
       },
       "workPhoneNumber": "0115 876 5574",
       "notes": "Deputy has additional notes"
+    },
+    {
+      "id": 2,
+      "firstName": "Test",
+      "surname": "Deputy",
+      "deputyStatus": "Active",
+      "deputyNumber": 99999999,
+      "interpreterRequired": "Updated interpreter requirements",
+      "specialCorrespondenceRequirements": {
+        "audioTape": true,
+        "largePrint": false,
+        "hearingImpaired": false
+      },
+      "correspondenceByWelsh": false,
+      "additionalInformationNotes": "Initial additional information",
+      "notes": "Updated additional information",
+      "correspondenceByEmail": false,
+      "correspondenceByPhone": false,
+      "correspondenceByPost": false
     }
   ],
   "clients": {
@@ -88,9 +107,17 @@
             },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ],
             "orderStatus": {
@@ -101,17 +128,36 @@
           },
           {
             "orderDate": "02/02/2016",
-            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "howDeputyAppointed": {
+              "handle": "SOLE",
+              "label": "Sole"
+            },
             "deputies": [
               {
-                "deputy": {"id": 2},
-                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
-                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+                "deputy": {
+                  "id": 2
+                },
+                "relationshipToClient": {
+                  "handle": "SPOUSE",
+                  "label": "Spouse"
+                },
+                "statusOnCase": {
+                  "handle": "DISCHARGED",
+                  "label": "Discharged"
+                }
               },
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ],
             "orderStatus": {
@@ -122,12 +168,23 @@
           },
           {
             "orderDate": "01/01/2014",
-            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "howDeputyAppointed": {
+              "handle": "SOLE",
+              "label": "Sole"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ],
             "orderStatus": {
@@ -138,12 +195,23 @@
           },
           {
             "orderDate": "01/01/2015",
-            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "howDeputyAppointed": {
+              "handle": "JOINT",
+              "label": "Joint"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ],
             "orderStatus": {
@@ -154,12 +222,23 @@
           },
           {
             "orderDate": "01/01/2020",
-            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "howDeputyAppointed": {
+              "handle": "SOLE",
+              "label": "Sole"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "DISCHARGED",
+                  "label": "Discharged"
+                }
               }
             ],
             "orderStatus": {
@@ -171,13 +250,27 @@
           {
             "caseSubtype": "pfa",
             "orderDate": "01/01/2025",
-            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
-            "orderStatus": {"handle": "ACTIVE", "label": "Active"},
+            "howDeputyAppointed": {
+              "handle": "SOLE",
+              "label": "Sole"
+            },
+            "orderStatus": {
+              "handle": "ACTIVE",
+              "label": "Active"
+            },
             "deputies": [
               {
-                "deputy": {"id": 2},
-                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 2
+                },
+                "relationshipToClient": {
+                  "handle": "SPOUSE",
+                  "label": "Spouse"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ]
           }
@@ -194,9 +287,17 @@
             "howDeputyAppointed": null,
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
-                "statusOnCase": {"handle": "SUSPENDED", "label": "Suspended"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SPOUSE",
+                  "label": "Spouse"
+                },
+                "statusOnCase": {
+                  "handle": "SUSPENDED",
+                  "label": "Suspended"
+                }
               }
             ],
             "orderStatus": {
@@ -207,12 +308,23 @@
           },
           {
             "orderDate": "01/01/2015",
-            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "howDeputyAppointed": {
+              "handle": "SOLE",
+              "label": "Sole"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
-                "statusOnCase": {"handle": "SUSPENDED", "label": "Suspended"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SPOUSE",
+                  "label": "Spouse"
+                },
+                "statusOnCase": {
+                  "handle": "SUSPENDED",
+                  "label": "Suspended"
+                }
               }
             ],
             "orderStatus": {
@@ -231,12 +343,23 @@
         "orders": [
           {
             "orderDate": "01/01/2016",
-            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "howDeputyAppointed": {
+              "handle": "JOINT",
+              "label": "Joint"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "PARENT", "label": "Parent"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "PARENT",
+                  "label": "Parent"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ],
             "orderStatus": {
@@ -255,12 +378,23 @@
         "orders": [
           {
             "orderDate": "15/03/2024",
-            "howDeputyAppointed": {"handle": "SOLE", "label": "Sole"},
+            "howDeputyAppointed": {
+              "handle": "SOLE",
+              "label": "Sole"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "DISCHARGED",
+                  "label": "Discharged"
+                }
               }
             ],
             "orderStatus": {
@@ -271,12 +405,23 @@
           },
           {
             "orderDate": "20/12/2019",
-            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "howDeputyAppointed": {
+              "handle": "JOINT",
+              "label": "Joint"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SIBLING", "label": "Sibling"},
-                "statusOnCase": {"handle": "DISCHARGED", "label": "Discharged"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SIBLING",
+                  "label": "Sibling"
+                },
+                "statusOnCase": {
+                  "handle": "DISCHARGED",
+                  "label": "Discharged"
+                }
               }
             ],
             "orderStatus": {
@@ -295,12 +440,23 @@
         "orders": [
           {
             "orderDate": "10/06/2024",
-            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "howDeputyAppointed": {
+              "handle": "JOINT",
+              "label": "Joint"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "CHILD", "label": "Child"},
-                "statusOnCase": {"handle": "ACTIVE", "label": "Active"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "CHILD",
+                  "label": "Child"
+                },
+                "statusOnCase": {
+                  "handle": "ACTIVE",
+                  "label": "Active"
+                }
               }
             ],
             "orderStatus": {
@@ -319,12 +475,23 @@
         "orders": [
           {
             "orderDate": "01/09/2023",
-            "howDeputyAppointed": {"handle": "JOINT", "label": "Joint"},
+            "howDeputyAppointed": {
+              "handle": "JOINT",
+              "label": "Joint"
+            },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
-                "statusOnCase": {"handle": "ERROR", "label": "Error"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SPOUSE",
+                  "label": "Spouse"
+                },
+                "statusOnCase": {
+                  "handle": "ERROR",
+                  "label": "Error"
+                }
               }
             ],
             "orderStatus": {
@@ -341,9 +508,17 @@
             },
             "deputies": [
               {
-                "deputy": {"id": 1},
-                "relationshipToClient": {"handle": "SPOUSE", "label": "Spouse"},
-                "statusOnCase": {"handle": "ERROR", "label": "Error"}
+                "deputy": {
+                  "id": 1
+                },
+                "relationshipToClient": {
+                  "handle": "SPOUSE",
+                  "label": "Spouse"
+                },
+                "statusOnCase": {
+                  "handle": "ERROR",
+                  "label": "Error"
+                }
               }
             ],
             "orderStatus": {
