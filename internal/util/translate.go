@@ -67,6 +67,12 @@ var validationMappings = map[string]map[string]pair{
 	"mobileNumber": {
 		"stringLengthTooLong": pair{"mobileNumber", "The mobile number must be 255 characters or fewer"},
 	},
+	"interpreterRequired": {
+		"stringLengthTooLong": pair{"interpreterRequired", "The interpreter requirements must be 255 characters or fewer"},
+	},
+	"notes": {
+		"stringLengthTooLong": pair{"notes", "The additional information must be 1000 characters or fewer"},
+	},
 }
 
 func RenameErrors(siriusError sirius.ValidationErrors) sirius.ValidationErrors {

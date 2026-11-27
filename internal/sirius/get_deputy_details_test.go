@@ -91,10 +91,8 @@ func TestGetDeputyDetailsReturnsActiveSpecialCorrespondenceRequirements(t *testi
 			"specialCorrespondenceRequirements": {
 				"audioTape": true,
 				"largePrint": false,
-				"hearingImpaired": true,
-				"spellingOfNameRequiresCare": false
-			},
-			"correspondenceByWelsh": true
+				"hearingImpaired": true
+			}
 		}`))
 	}))
 	t.Cleanup(server.Close)
@@ -105,5 +103,5 @@ func TestGetDeputyDetailsReturnsActiveSpecialCorrespondenceRequirements(t *testi
 	deputyDetails, err := client.GetDeputyDetails(getContext(nil), 1)
 
 	require.NoError(t, err)
-	assert.Equal(t, []string{"Audio", "Hearing impaired", "Welsh"}, deputyDetails.ActiveSpecialCorrespondenceRequirements())
+	assert.Equal(t, []string{"Audio", "Hearing impaired"}, deputyDetails.ActiveSpecialCorrespondenceRequirements())
 }

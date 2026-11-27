@@ -220,8 +220,6 @@ func GetTimelineValueForField(myFieldName string) string {
 		return "Other names"
 	case "relationshipToClient":
 		return "Relationship to client"
-	case "spellingOfNameRequiresCare":
-		return "Spelling of name requires care"
 	case "salutation":
 		return "Title"
 	case "statusChangeDate":
