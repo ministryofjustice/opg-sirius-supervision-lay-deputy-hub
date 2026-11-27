@@ -59,8 +59,7 @@
       "deputySubType": {
         "handle": "PERSON"
       },
-      "workPhoneNumber": "0115 876 5574",
-      "notes": "Deputy has additional notes"
+      "workPhoneNumber": "0115 876 5574"
     },
     {
       "id": 2,
@@ -75,8 +74,7 @@
         "hearingImpaired": false
       },
       "correspondenceByWelsh": false,
-      "additionalNotes": "",
-      "notes": "Updated additional information",
+      "additionalNotes": "Updated additional information",
       "correspondenceByEmail": false,
       "correspondenceByPhone": false,
       "correspondenceByPost": false
@@ -1612,7 +1610,7 @@
         "interpreterRequired": {
           "stringLengthTooLong": ""
         },
-        "notes": {
+        "additionalNotes": {
           "stringLengthTooLong": ""
         }
       }

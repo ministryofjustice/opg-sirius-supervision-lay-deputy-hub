@@ -64,19 +64,19 @@
                 </div>
 
                 <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="1000">
-                    <div class="govuk-form-group{{ if index .Errors "notes" }} govuk-form-group--error{{ end }}">
-                        <label class="govuk-label" for="notes">
+                    <div class="govuk-form-group{{ if index .Errors "additional-notes" }} govuk-form-group--error{{ end }}">
+                        <label class="govuk-label" for="additional-notes">
                             Additional information
                         </label>
-                        {{ template "error-message" (index .Errors "notes") }}
-                        <textarea class="govuk-textarea govuk-js-character-count{{ if index .Errors "notes" }} govuk-input--error{{ end }}"
-                              id="f-notes"
-                              name="notes"
+                        {{ template "error-message" (index .Errors "additional-notes") }}
+                        <textarea class="govuk-textarea govuk-js-character-count{{ if index .Errors "additional-notes" }} govuk-input--error{{ end }}"
+                              id="f-additional-notes"
+                              name="additional-notes"
                               rows="5"
-                              aria-describedby="f-notes-info notes-hint"
+                              aria-describedby="f-additional-notes-info additional-notes-hint"
                             >{{ .Form.AdditionalNotes }}</textarea>
                     </div>
-                    <div id="f-notes-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                    <div id="f-additional-notes-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
                         You have 1,000 characters remaining
                     </div>
                 </div>

@@ -20,7 +20,7 @@ describe("Manage additional information tab", () => {
             cy.get('[name="hearing-impaired"]').should("have.attr", "checked");
             cy.get('[name="welsh"]').should("have.attr", "checked");
 
-            cy.get('[name="notes"]').should('contain', 'Deputy has additional notes');
+            cy.get('[name="additional-notes"]').should('contain', 'Deputy has additional notes');
         });
 
         it("saves the changes and redirects to the deputy details page", () => {
@@ -31,7 +31,7 @@ describe("Manage additional information tab", () => {
             cy.get('[name="large-print"]').uncheck();
             cy.get('[name="hearing-impaired"]').uncheck();
             cy.get('[name="welsh"]').uncheck();
-            cy.get('[name="notes"]').clear().type("Updated additional information");
+            cy.get('[name="additional-notes"]').clear().type("Updated additional information");
 
             cy.get('.govuk-button').click();
             cy.url().should("include", "?success=additionalInformation");
